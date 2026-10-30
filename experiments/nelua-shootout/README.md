@@ -46,6 +46,8 @@ accelerated diagnostics: those virtual users are not equivalent to official user
 For prepared local binaries, `--cases cases.tsv` accepts actual tab-separated columns
 `name`, `launcher` (or `binary`), and optional `cwd`/`sourcepin`. A supplied comparator
 source pin must match its frozen commit or directory tree. Exactly the six names are required.
+An optional Nelua pin must match the clean current commit/tree; omit it for a dirty
+candidate experiment, whose actual tracked source hash and dirty flag are still recorded.
 Launchers may be original start scripts or prebuilt executables. Their paths and the
 running executable hash are captured. Missing binaries, denied `io_uring_setup`, and
 build/start/conformance failures stay visible as blocked or failed cases. This is useful

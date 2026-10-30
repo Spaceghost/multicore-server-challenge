@@ -50,6 +50,22 @@ class ShootoutTests(unittest.TestCase):
             self.assertEqual(shootout.app_cpu([{"time": 10, "cpu_jiffies": 100},
                                                {"time": 12, "cpu_jiffies": 400}]), 1.5)
 
+    def test_native_sourcepin_rejects_dirty_or_unrelated_sources(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            file = Path(temporary) / "cases.tsv"
+            rows = [{"name": name, "binary": "/bin/true", "sourcepin": ""}
+                    for name in shootout.ALL_NAMES]
+            rows[0]["sourcepin"] = "current-head"
+            shootout.write_tsv(file, rows, ("name", "binary", "sourcepin"))
+            with patch.object(shootout, "git", side_effect=["current-head", "current-tree"]), \
+                    patch.object(shootout.subprocess, "run", return_value=SimpleNamespace(returncode=1)):
+                with self.assertRaisesRegex(ValueError, "unchanged current"):
+                    shootout.read_cases(file)
+            with patch.object(shootout, "git", side_effect=["different-head", "different-tree"]), \
+                    patch.object(shootout.subprocess, "run", return_value=SimpleNamespace(returncode=0)):
+                with self.assertRaisesRegex(ValueError, "unchanged current"):
+                    shootout.read_cases(file)
+
     def test_williams_positions_and_all_directed_carryovers(self):
         names = shootout.ALL_NAMES
         orders = shootout.balanced_orders(names, 6, 2309)

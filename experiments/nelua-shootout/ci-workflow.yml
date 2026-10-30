@@ -78,8 +78,19 @@ jobs:
       - name: Base benchmark tools
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq postgresql-client curl python3
+          sudo apt-get install -y -qq ca-certificates curl python3
           mkdir -p "$RUNNER_TEMP/shootout-artifact/build"
+          # Use the PostgreSQL 18 client with the PostgreSQL 18 service, rather
+          # than Ubuntu's unversioned client metapackage (which can select 16).
+          sudo install -d /usr/share/postgresql-common/pgdg
+          sudo curl -fsSLo /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc \
+            https://www.postgresql.org/media/keys/ACCC4CF8.asc
+          echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt noble-pgdg main' \
+            | sudo tee /etc/apt/sources.list.d/nelua-shootout-pgdg.list > /dev/null
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-client-18
+          echo '/usr/lib/postgresql/18/bin' >> "$GITHUB_PATH"
+          /usr/lib/postgresql/18/bin/psql --version | tee "$RUNNER_TEMP/shootout-artifact/psql-version.log"
           python3 -m unittest discover -s experiments/nelua-shootout/tests -v
           (cd bench && go build -o "$RUNNER_TEMP/conformance" ./cmd/conformance && go build -o "$RUNNER_TEMP/loadgen" ./cmd/loadgen)
       - name: Build all six original entries without source substitutions

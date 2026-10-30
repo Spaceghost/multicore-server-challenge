@@ -142,6 +142,14 @@ def read_cases(path=None):
             expected = pins[row["name"]]
             if row["sourcepin"] not in (expected["source_commit"], expected["source_tree"]):
                 raise ValueError("case sourcepin differs from frozen comparator manifest")
+        elif row.get("sourcepin"):
+            head = git("rev-parse", "HEAD")
+            directory = f"submissions/{OUR_NAME}"
+            tree = git("rev-parse", f"{head}:{directory}")
+            dirty = subprocess.run(["git", "-C", str(REPO), "diff", "--quiet", head,
+                                    "--", directory]).returncode != 0
+            if row["sourcepin"] not in (head, tree) or dirty:
+                raise ValueError("supplied Nelua sourcepin requires an unchanged current commit/tree")
         row["launcher"] = str(Path(launcher).expanduser().resolve())
         row["cwd"] = str(Path(row.get("cwd") or Path(row["launcher"]).parent).expanduser().resolve())
     return {row["name"]: row for row in rows}
