@@ -1,0 +1,53 @@
+-- Ethernet/VLAN/IPv4/TCP classification shared by native tests and eBPF.
+-- No VM, GC, allocator, unchecked input read, or runtime initialization.
+## pragmas.nogc = true
+## pragmas.noentrypoint = true
+## pragmas.nochecks = true
+
+local function nc_has(data: *[0]byte, data_end: *[0]byte, amount: csize): boolean <cimport, nodecl, cinclude '"native.h"'> end
+local function nc_advance(data: *[0]byte, amount: csize): *[0]byte <cimport, nodecl> end
+
+local function be16(data: *[0]byte, offset: csize): uint16 <inline>
+  return (uint16(data[offset]) << 8) | uint16(data[offset + 1])
+end
+
+local function vlan(protocol: uint16): boolean <inline>
+  return protocol == 0x8100 or protocol == 0x88a8
+end
+
+local function nc_packet_selected(data: *[0]byte, data_end: *[0]byte, port: uint16): boolean <inline, codename 'nc_packet_selected'>
+  if port == 0 or not nc_has(data, data_end, 14) then return false end
+  local protocol: uint16 = be16(data, 12)
+  local offset: csize = 14
+
+  -- Two explicitly bounded branches keep VLAN parsing finite and verifier-simple.
+  if vlan(protocol) then
+    if not nc_has(data, data_end, 18) then return false end
+    protocol = be16(data, 16)
+    offset = 18
+  end
+  if vlan(protocol) then
+    if not nc_has(data, data_end, 22) then return false end
+    protocol = be16(data, 20)
+    offset = 22
+  end
+  if protocol ~= 0x0800 then return false end
+
+  local ip: *[0]byte = nc_advance(data, offset)
+  if not nc_has(ip, data_end, 20) then return false end
+  if ip[0] >> 4 ~= 4 or ip[9] ~= 6 then return false end
+  local ihl: csize = csize(ip[0] & 15) * 4
+  if ihl < 20 or not nc_has(ip, data_end, ihl) then return false end
+
+  -- Either MF or a nonzero fragment offset requires the normal stack.
+  if be16(ip, 6) & 0x3fff ~= 0 then return false end
+  local total: csize = csize(be16(ip, 2))
+  if total < ihl + 20 or not nc_has(ip, data_end, total) then return false end
+
+  local tcp: *[0]byte = nc_advance(ip, ihl)
+  if not nc_has(tcp, data_end, 20) then return false end
+  local tcp_header: csize = csize(tcp[12] >> 4) * 4
+  if tcp_header < 20 or tcp_header > total - ihl then return false end
+  if not nc_has(tcp, data_end, tcp_header) then return false end
+  return be16(tcp, 2) == port
+end

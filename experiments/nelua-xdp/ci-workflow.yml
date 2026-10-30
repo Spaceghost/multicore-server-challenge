@@ -1,0 +1,40 @@
+# Publish this template at .github/workflows/nelua-xdp.yml.
+# Tests compile/inspect offline only; no BPF load, attachment, or NIC setup.
+name: experimental Nelua XDP compilation
+on:
+  push:
+    paths:
+      - experiments/nelua-xdp/**
+      - .github/workflows/nelua-xdp.yml
+  pull_request:
+    paths:
+      - experiments/nelua-xdp/**
+      - .github/workflows/nelua-xdp.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+
+jobs:
+  offline-bpf:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: install compiler and offline test tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq build-essential git clang-18 llvm-18 python3 binutils
+          clang-18 --version
+          clang-18 -print-targets | grep -qE '^[[:space:]]+bpfel[[:space:]]'
+      - name: build and test default disabled program
+        working-directory: experiments/nelua-xdp
+        env:
+          CLANG: clang-18
+          NC_PORT: '0'
+        run: bash build.sh
+      - name: build selected-port program and run packet sanitizers
+        working-directory: experiments/nelua-xdp
+        env:
+          CLANG: clang-18
+          NC_PORT: '3000'
+        run: bash tests/run.sh
