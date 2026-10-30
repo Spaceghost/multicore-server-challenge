@@ -1,0 +1,4 @@
+comment = 'Native Nelua Conduit query and JSON kernels (experimental, outside challenge rules)'
+default_version = '0.1.0'
+module_pathname = '$libdir/nelua_conduit'
+relocatable = true

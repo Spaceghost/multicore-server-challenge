@@ -1,0 +1,50 @@
+name: experimental Nelua PostgreSQL module
+on:
+  push:
+    paths:
+      - experiments/nelua-postgres/**
+      - .github/workflows/nelua-postgres.yml
+  pull_request:
+    paths:
+      - experiments/nelua-postgres/**
+      - .github/workflows/nelua-postgres.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+
+jobs:
+  native-module:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: build stock PostgreSQL 18.0 from pinned official source
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq build-essential bison flex pkg-config python3
+          cd "$RUNNER_TEMP"
+          curl -fsSLO https://ftp.postgresql.org/pub/source/v18.0/postgresql-18.0.tar.bz2
+          echo '0d5b903b1e5fe361bca7aa9507519933773eb34266b1357c4e7780fdee6d6078  postgresql-18.0.tar.bz2' | sha256sum -c -
+          tar -xjf postgresql-18.0.tar.bz2
+          cd postgresql-18.0
+          ./configure --prefix="$RUNNER_TEMP/pg18" --without-icu --without-readline --without-zlib
+          make -j2
+          make install
+          echo "$RUNNER_TEMP/pg18/bin" >> "$GITHUB_PATH"
+      - name: compile pinned Nelua fork, audit module, and test kernels
+        working-directory: experiments/nelua-postgres
+        run: |
+          bash build.sh
+          make kernel-test
+          make install-strip
+      - name: test PostgreSQL integration on a disposable database
+        working-directory: experiments/nelua-postgres
+        env:
+          PGHOST: 127.0.0.1
+          PGPORT: 55432
+          PGDATABASE: postgres
+        run: |
+          initdb -D "$RUNNER_TEMP/nc-pgdata" --encoding=UTF8 --locale=C --auth=trust
+          pg_ctl -D "$RUNNER_TEMP/nc-pgdata" -l "$RUNNER_TEMP/nc-pg.log" -o "-h 127.0.0.1 -p 55432" start
+          trap 'pg_ctl -D "$RUNNER_TEMP/nc-pgdata" -m fast stop' EXIT
+          bash tests/run.sh

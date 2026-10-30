@@ -1,0 +1,152 @@
+-- The PostgreSQL host owns all memory. No Nelua runtime initialization is needed.
+## pragmas.nogc = true
+## pragmas.noentrypoint = true
+## pragmas.nochecks = true
+
+local nc_writer: type <cimport, cinclude '"bridge.h"', cincomplete> = @record{}
+local function nc_write(writer: *nc_writer, data: cstring, size: csize) <cimport, nodecl> end
+local function nc_putc(writer: *nc_writer, value: cchar) <cimport, nodecl> end
+
+-- Copy ordinary spans in one append, escaping only JSON structural/control bytes.
+-- PostgreSQL text guarantees valid server-encoding input; the extension requires UTF8.
+local function nc_json_string(writer: *nc_writer, data: *[0]byte, length: csize) <cexport, codename 'nc_json_string'>
+  nc_putc(writer, cchar(34))
+  local first: csize = 0
+  local i: csize = 0
+  while i < length do
+    local value: byte = data[i]
+    if value < 32 or value == 34 or value == 92 then
+      if i > first then
+        nc_write(writer, cstring(&data[first]), i - first)
+      end
+      if value == 34 or value == 92 then
+        nc_putc(writer, cchar(92))
+        nc_putc(writer, cchar(value))
+      else
+        local escape: [6]cchar <noinit>
+        escape[0] = cchar(92)
+        escape[1] = cchar(117)
+        escape[2] = cchar(48)
+        escape[3] = cchar(48)
+        local high: byte = value >> 4
+        local low: byte = value & 15
+        escape[4] = cchar(high + 48)
+        if low < 10 then
+          escape[5] = cchar(low + 48)
+        else
+          escape[5] = cchar(low + 87)
+        end
+        nc_write(writer, cstring(&escape[0]), 6)
+      end
+      first = i + 1
+    end
+    i = i + 1
+  end
+  if length > first then
+    nc_write(writer, cstring(&data[first]), length - first)
+  end
+  nc_putc(writer, cchar(34))
+end
+
+local function nc_json_int64(writer: *nc_writer, value: int64) <cexport, codename 'nc_json_int64'>
+  local digits: [20]cchar <noinit>
+  local magnitude: uint64
+  if value < 0 then
+    nc_putc(writer, cchar(45))
+    -- Add before negating so INT64_MIN never overflows signed arithmetic.
+    magnitude = uint64(-(value + 1)) + 1
+  else
+    magnitude = uint64(value)
+  end
+  local first: csize = 20
+  repeat
+    first = first - 1
+    digits[first] = cchar(magnitude % 10 + 48)
+    magnitude = magnitude // 10
+  until magnitude == 0
+  nc_write(writer, cstring(&digits[first]), 20 - first)
+end
+
+local function nc_json_bool(writer: *nc_writer, value: boolean) <cexport, codename 'nc_json_bool'>
+  if value then
+    nc_write(writer, 'true', 4)
+  else
+    nc_write(writer, 'false', 5)
+  end
+end
+
+local function nc_json_null(writer: *nc_writer) <cexport, codename 'nc_json_null'>
+  nc_write(writer, 'null', 4)
+end
+
+-- PostgreSQL-specific representation stays opaque across this boundary.
+local nc_row: type <cimport, cinclude '"bridge.h"', cincomplete> = @record{}
+local function nc_isnull(row: *nc_row, column: cint): boolean <cimport, nodecl> end
+local function nc_text_data(row: *nc_row, column: cint): *[0]byte <cimport, nodecl> end
+local function nc_text_length(row: *nc_row, column: cint): csize <cimport, nodecl> end
+local function nc_int64(row: *nc_row, column: cint): int64 <cimport, nodecl> end
+local function nc_bool(row: *nc_row, column: cint): boolean <cimport, nodecl> end
+local function nc_timestamp(writer: *nc_writer, row: *nc_row, column: cint) <cimport, nodecl> end
+local function nc_text_array(writer: *nc_writer, row: *nc_row, column: cint) <cimport, nodecl> end
+
+local function json_text(writer: *nc_writer, row: *nc_row, column: cint) <inline>
+  if nc_isnull(row, column) then
+    nc_json_null(writer)
+  else
+    nc_json_string(writer, nc_text_data(row, column), nc_text_length(row, column))
+  end
+end
+
+local function nc_json_profile(writer: *nc_writer, row: *nc_row, base: cint) <cexport, codename 'nc_json_profile'>
+  nc_write(writer, '{"username":', 12)
+  json_text(writer, row, base)
+  nc_write(writer, ',"bio":', 7)
+  json_text(writer, row, base + 1)
+  nc_write(writer, ',"image":', 9)
+  json_text(writer, row, base + 2)
+  nc_write(writer, ',"following":', 13)
+  nc_json_bool(writer, nc_bool(row, base + 3))
+  nc_write(writer, '}', 1)
+end
+
+local function nc_json_article(writer: *nc_writer, row: *nc_row, full: boolean) <cexport, codename 'nc_json_article'>
+  nc_write(writer, '{"slug":', 8)
+  json_text(writer, row, 0)
+  nc_write(writer, ',"title":', 9)
+  json_text(writer, row, 1)
+  nc_write(writer, ',"description":', 15)
+  json_text(writer, row, 2)
+  local base: cint = 3
+  if full then
+  nc_write(writer, ',"body":', 8)
+    json_text(writer, row, 3)
+    base = 4
+  end
+  nc_write(writer, ',"createdAt":', 13)
+  nc_timestamp(writer, row, base)
+  nc_write(writer, ',"updatedAt":', 13)
+  nc_timestamp(writer, row, base + 1)
+  nc_write(writer, ',"tagList":', 11)
+  nc_text_array(writer, row, base + 2)
+  nc_write(writer, ',"favoritesCount":', 18)
+  nc_json_int64(writer, nc_int64(row, base + 3))
+  nc_write(writer, ',"favorited":', 13)
+  nc_json_bool(writer, nc_bool(row, base + 4))
+  nc_write(writer, ',"author":', 10)
+  nc_json_profile(writer, row, base + 5)
+  nc_write(writer, '}', 1)
+end
+
+local function nc_json_comment(writer: *nc_writer, row: *nc_row) <cexport, codename 'nc_json_comment'>
+  nc_write(writer, '{"id":', 6)
+  nc_json_int64(writer, nc_int64(row, 0))
+  nc_write(writer, ',"body":', 8)
+  json_text(writer, row, 1)
+  nc_write(writer, ',"createdAt":', 13)
+  nc_timestamp(writer, row, 2)
+  nc_write(writer, ',"updatedAt":', 13)
+  nc_timestamp(writer, row, 3)
+  nc_write(writer, ',"author":', 10)
+  nc_json_profile(writer, row, 4)
+  nc_write(writer, '}', 1)
+end

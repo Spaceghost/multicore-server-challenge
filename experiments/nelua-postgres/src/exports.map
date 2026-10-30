@@ -1,0 +1,14 @@
+{
+  global:
+    Pg_magic_func;
+    pg_finfo_nc_*;
+    nc_tags;
+    nc_profile;
+    nc_article;
+    nc_articles;
+    nc_feed;
+    nc_comments;
+    nc_favorite;
+    nc_follow;
+  local: *;
+};
