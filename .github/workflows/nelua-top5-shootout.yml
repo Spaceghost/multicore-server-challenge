@@ -1,0 +1,111 @@
+name: Nelua versus the frozen top five
+on:
+  push:
+    paths:
+      - experiments/nelua-shootout/**
+      - .github/workflows/nelua-top5-shootout.yml
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Short diagnostic or longer full-seed hold (neither is an official score)
+        type: choice
+        options: [diagnostic, hold]
+        default: diagnostic
+      users:
+        description: Equal virtual-user load points, comma-separated
+        default: '1000'
+      measure_seconds:
+        description: Seconds per measured case, 1..300 (hold mode uses 300)
+        default: '20'
+      repetitions:
+        description: Repetitions 1..6; six complete a balanced order block
+        default: '1'
+      think_scale:
+        description: 1 is the real workload; accelerated diagnostics must stay labeled
+        default: '1'
+permissions:
+  contents: read
+jobs:
+  shootout:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 2s --health-timeout 5s --health-retries 30
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      JWT_SECRET: multicore-server-challenge
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: bench/go.mod
+          cache-dependency-path: bench/go.sum
+      - name: Validate bounded diagnostic configuration
+        env:
+          INPUT_MODE: ${{ inputs.mode || 'diagnostic' }}
+          INPUT_USERS: ${{ inputs.users || '1000' }}
+          INPUT_MEASURE: ${{ inputs.measure_seconds || '20' }}
+          INPUT_ROUNDS: ${{ inputs.repetitions || '1' }}
+          INPUT_THINK: ${{ inputs.think_scale || '0.1' }}
+        run: |
+          python3 - <<'PY'
+          import math,os,re
+          mode=os.environ['INPUT_MODE']; users=os.environ['INPUT_USERS']
+          measure=300 if mode=='hold' else int(os.environ['INPUT_MEASURE'])
+          rounds=int(os.environ['INPUT_ROUNDS']); think=float(os.environ['INPUT_THINK'])
+          assert mode in ('diagnostic','hold')
+          assert re.fullmatch(r'[0-9]+(?:,[0-9]+)*',users)
+          points=[int(n) for n in users.split(',')]
+          assert points and len(points)<=4 and min(points)>0 and max(points)<=20000
+          assert 1<=measure<=300 and 1<=rounds<=6 and 0<think<=10 and math.isfinite(think)
+          # Leave room in the 60-minute job for toolchains, seed and conformance.
+          estimated=len(points)*rounds*6*(measure+25)
+          assert estimated<=2400, 'Requested matrix exceeds bounded CI budget; split it into separate jobs/runs.'
+          if mode=='hold': assert think==1, 'A hold uses the real, unscaled workload.'
+          with open(os.environ['GITHUB_ENV'],'a') as f:
+              f.write(f'SHOOTOUT_USERS={users}\nSHOOTOUT_MEASURE={measure}\nSHOOTOUT_ROUNDS={rounds}\nSHOOTOUT_THINK={think}\n')
+          PY
+      - name: Base benchmark tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-client curl python3
+          mkdir -p "$RUNNER_TEMP/shootout-artifact/build"
+          python3 -m unittest discover -s experiments/nelua-shootout/tests -v
+          (cd bench && go build -o "$RUNNER_TEMP/conformance" ./cmd/conformance && go build -o "$RUNNER_TEMP/loadgen" ./cmd/loadgen)
+      - name: Build all six original entries without source substitutions
+        run: bash experiments/nelua-shootout/build-all.sh "$RUNNER_TEMP/shootout-artifact/build"
+      - name: Load and verify full reference seed
+        run: bash seed/make-seed.sh 2>&1 | tee "$RUNNER_TEMP/shootout-artifact/seed.log"
+      - name: Conformance then identical full-seed diagnostic runs
+        run: |
+          python3 experiments/nelua-shootout/shootout.py \
+            --template conduit_seed --articles 500000 \
+            --users "$SHOOTOUT_USERS" --measure "$SHOOTOUT_MEASURE" \
+            --rounds "$SHOOTOUT_ROUNDS" --think-scale "$SHOOTOUT_THINK" \
+            --warmup 10 --ramp 5 --tail 3 \
+            --conformance "$RUNNER_TEMP/conformance" --loadgen "$RUNNER_TEMP/loadgen" \
+            --output "$RUNNER_TEMP/shootout-artifact/results"
+      - name: Publish honest diagnostic summary
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/shootout-artifact/results/SUMMARY.md" ]; then
+            cat "$RUNNER_TEMP/shootout-artifact/results/SUMMARY.md" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Shootout did not complete; see build/seed logs. No winner or complete matrix is claimed.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nelua-top5-diagnostic-${{ github.run_id }}
+          path: ${{ runner.temp }}/shootout-artifact
+          retention-days: 30

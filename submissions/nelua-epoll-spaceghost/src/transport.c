@@ -59,6 +59,8 @@ typedef struct nc_connection {
 
 typedef struct nc_pool {
     pthread_mutex_t lock;
+    /* Only the read pool uses this: collecting a batch does not own execution. */
+    pthread_mutex_t gather_lock;
     pthread_cond_t available;
     nc_connection *head, *tail;
     int threads;
@@ -79,6 +81,11 @@ typedef struct nc_server {
     nc_connection *connections, *garbage;
     size_t input_bytes, pending_bytes, pending_count;
     const char *database_url;
+    bool serial_read_gather, read_batch_stats;
+    /* Updated under the read pool lock; inspected after all workers join. */
+    uint64_t read_batches, read_requests, read_solo_batches, read_oldest_ms;
+    unsigned read_max_batch;
+    uint64_t read_max_oldest_ms;
 } nc_server;
 
 static nc_server server;
@@ -114,6 +121,16 @@ nc_thread_count(const char *name, int fallback)
         return -1;
     }
     return (int) parsed;
+}
+
+static int
+nc_switch(const char *name)
+{
+    const char *value = getenv(name);
+    if (!value || !*value || strcmp(value, "0") == 0) return 0;
+    if (strcmp(value, "1") == 0) return 1;
+    fprintf(stderr, "%s must be 0 or 1\n", name);
+    return -1;
 }
 
 static void
@@ -342,11 +359,17 @@ nc_worker(void *argument)
         nc_connection *connection;
         int count = 0, i;
         uint64_t notification = 1;
+        bool read_pool = pool == &server.pools[0];
+        bool gather = read_pool && server.serial_read_gather;
+        /* A single collector keeps arrivals together. Other workers may execute
+         * earlier batches, and this mutex is never held during a DB call. */
+        if (gather) pthread_mutex_lock(&pool->gather_lock);
         pthread_mutex_lock(&pool->lock);
         while (!pool->head && !pool->stopping)
             pthread_cond_wait(&pool->available, &pool->lock);
         if (pool->stopping) {
             pthread_mutex_unlock(&pool->lock);
+            if (gather) pthread_mutex_unlock(&pool->gather_lock);
             break;
         }
         connection = pool->head;
@@ -354,7 +377,7 @@ nc_worker(void *argument)
         if (!pool->head) pool->tail = NULL;
         connections[count] = connection;
         requests[count++] = connection->request;
-        if (pool == &server.pools[0]) {
+        if (read_pool) {
             uint64_t deadline = connection->queued_at + NC_READ_WINDOW_MS;
             while (count < NC_READ_BATCH_MAX && !pool->stopping) {
                 if (pool->head) {
@@ -376,9 +399,20 @@ nc_worker(void *argument)
                 }
             }
         }
+        if (read_pool && server.read_batch_stats) {
+            uint64_t oldest = nc_now() - connections[0]->queued_at;
+            ++server.read_batches;
+            server.read_requests += (unsigned) count;
+            if (count == 1) ++server.read_solo_batches;
+            if ((unsigned) count > server.read_max_batch)
+                server.read_max_batch = (unsigned) count;
+            server.read_oldest_ms += oldest;
+            if (oldest > server.read_max_oldest_ms) server.read_max_oldest_ms = oldest;
+        }
         pthread_mutex_unlock(&pool->lock);
+        if (gather) pthread_mutex_unlock(&pool->gather_lock);
 
-        if (pool == &server.pools[0]) conduit_batch(requests, count, database);
+        if (read_pool) conduit_batch(requests, count, database);
         else conduit_handle(requests[0], database);
 
         pthread_mutex_lock(&server.done_lock);
@@ -657,7 +691,7 @@ main(void)
     pthread_attr_t attributes;
     uint64_t sweep, resume = 0;
     bool accepting = true;
-    int i, j, expected = 0, exit_code = 0;
+    int i, j, expected = 0, exit_code = 0, serial_gather, batch_stats;
     memset(&server, 0, sizeof(server));
     server.epoll_fd = server.listener_fd = server.completion_fd = server.reserve_fd = -1;
     server.database_url = getenv("DATABASE_URL");
@@ -668,6 +702,11 @@ main(void)
     server.pools[0].threads = nc_thread_count("DB_READ_THREADS", 4);
     server.pools[1].threads = nc_thread_count("DB_WRITE_THREADS", 8);
     server.pools[2].threads = nc_thread_count("DB_AUTH_THREADS", 8);
+    serial_gather = nc_switch("READ_GATHER_SERIAL");
+    batch_stats = nc_switch("READ_BATCH_STATS");
+    if (serial_gather < 0 || batch_stats < 0) return 1;
+    server.serial_read_gather = serial_gather != 0;
+    server.read_batch_stats = batch_stats != 0;
     for (i = 0; i < 3; ++i) {
         if (server.pools[i].threads < 0) return 1;
         expected += server.pools[i].threads;
@@ -681,6 +720,7 @@ main(void)
     pthread_mutex_init(&server.done_lock, NULL);
     for (i = 0; i < 3; ++i) {
         pthread_mutex_init(&server.pools[i].lock, NULL);
+        pthread_mutex_init(&server.pools[i].gather_lock, NULL);
         pthread_cond_init(&server.pools[i].available, NULL);
     }
     server.epoll_fd = epoll_create1(EPOLL_CLOEXEC);
@@ -783,6 +823,18 @@ shutdown:
         server.listener_fd = -1;
     }
     nc_stop_workers();
+    if (server.read_batch_stats) {
+        fprintf(stderr,
+            "read batches: serial=%d batches=%llu requests=%llu mean=%.2f max=%u "
+            "solo=%llu mean_oldest_ms=%.2f max_oldest_ms=%llu\n",
+            server.serial_read_gather ? 1 : 0,
+            (unsigned long long) server.read_batches,
+            (unsigned long long) server.read_requests,
+            server.read_batches ? (double) server.read_requests / server.read_batches : 0.0,
+            server.read_max_batch, (unsigned long long) server.read_solo_batches,
+            server.read_batches ? (double) server.read_oldest_ms / server.read_batches : 0.0,
+            (unsigned long long) server.read_max_oldest_ms);
+    }
     while (server.connections) {
         nc_connection *connection = server.connections;
         if (connection->fd >= 0) close(connection->fd);
