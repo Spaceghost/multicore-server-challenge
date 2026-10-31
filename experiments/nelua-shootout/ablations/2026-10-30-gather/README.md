@@ -10,3 +10,5 @@ This is a development ablation, not an official score or a top-five ranking. All
 | Single collector, concurrent execution |12,211.5 |44.335 |44.90% |123.96 /123.88 |
 
 At this load, median p95 fell 14.0%, throughput rose 0.87%, and hostCPU fell 2.4 percentage points. p99 varies between repeats; no p99 improvement is claimed. Results are evidence to investigate larger batches, not a capacity result. JSON files retain complete official loadgen aggregates; server logs retain density and queue-wait statistics.
+
+The recorded timing runs used different run IDs, hence independently sampled random trajectories. They are order-paired samples of the same workload distribution, not identical request traces. The newer harness uses a shared deterministic RNG ID per round/load/phase for future measurements.

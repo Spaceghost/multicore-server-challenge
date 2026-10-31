@@ -1,0 +1,8 @@
+key	value
+nelua-epoll-spaceghost:baseline	pass
+nelua-epoll-spaceghost:tuned	pass
+rust-epoll-theCatWisel:default	pass
+zig-iouring-nick-potts:default	blocked: io_uring unavailable
+rust-epoll-WorriedArrow:default	pass
+asm-epoll-nickita-khylkouski:default	pass
+csharp-epoll-aot-gichamba:default	blocked/failed: RuntimeError

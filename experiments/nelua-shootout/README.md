@@ -31,6 +31,13 @@ asynchronous response close path. Those reports correctly show incomplete covera
 their five measured cases remain diagnostics. The harness now matches the official
 persistent HTTP client behavior for every entry. No comparator source was changed.
 
+Research runs through `1a97e10` used unique time-based load-generator IDs. The official
+generator hashes those IDs into its random seed, so those runs sampled different
+random trajectories across cases despite equal offered-load settings. They remain
+sampled-workload diagnostics. The current harness uses the same deterministic ID for
+all cases/variants at a given round, load point, and phase. Warm-up and measurement
+IDs differ to avoid signup collisions within a case; fresh databases separate cases.
+
 For an existing PostgreSQL 18 instance, first build `bench/cmd/conformance` and
 `bench/cmd/loadgen`, and run the repository's `seed/make-seed.sh` normally. Supply the
 usual `PGHOST`, `PGPORT`, `PGUSER`, and `PGPASSWORD` variables for a role allowed to clone

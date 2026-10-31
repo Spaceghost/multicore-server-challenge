@@ -1,0 +1,7 @@
+name	launcher	cwd	sourcepin
+nelua-epoll-spaceghost	/workspace/scratch/7de47ba8b27a/multicore-server-challenge/submissions/nelua-epoll-spaceghost/bin/conduit	/workspace/scratch/7de47ba8b27a/multicore-server-challenge/submissions/nelua-epoll-spaceghost/bin	
+rust-epoll-theCatWisel	/workspace/scratch/7de47ba8b27a/shootout-build/rust-cat/release/conduit	/workspace/scratch/7de47ba8b27a/shootout-build/rust-cat/release	
+zig-iouring-nick-potts	/workspace/scratch/7de47ba8b27a/shootout-build/zig-iouring-nick-potts/bin/conduit	/workspace/scratch/7de47ba8b27a/shootout-build/zig-iouring-nick-potts/bin	
+rust-epoll-WorriedArrow	/workspace/scratch/7de47ba8b27a/shootout-build/rust-worried/release/conduit	/workspace/scratch/7de47ba8b27a/shootout-build/rust-worried/release	
+asm-epoll-nickita-khylkouski	/workspace/scratch/7de47ba8b27a/shootout-build/asm-epoll-nickita-khylkouski/conduit	/workspace/scratch/7de47ba8b27a/shootout-build/asm-epoll-nickita-khylkouski	
+csharp-epoll-aot-gichamba	/workspace/scratch/7de47ba8b27a/shootout-builds/no-native-aot-binary	/workspace/scratch/7de47ba8b27a/shootout-builds	

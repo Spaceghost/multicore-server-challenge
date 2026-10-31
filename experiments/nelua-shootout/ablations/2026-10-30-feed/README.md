@@ -12,3 +12,5 @@ Six exact binary-row parity cases passed against the full 500,000-article seed i
 These short SQL microbenchmarks are development evidence, not an application score. The PostgreSQL/local-machine limitations are the same as the adjacent gather and pipeline ablations. `results.log` contains each sample and parity result.
 
 To repeat on an immutable Conduit seed, set `DATABASE_URL` and run `python3 compare.py --benchmark --seconds 1`. Use `--seconds 1` with a separating space; optional `LIBPQ` selects the libpq shared library. The script uses only session settings and SELECTs.
+
+The SQL baseline and candidate use identical parameter vectors; no load-generator RNG is involved.

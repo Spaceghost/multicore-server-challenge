@@ -168,6 +168,30 @@ class ShootoutTests(unittest.TestCase):
             self.assertEqual(shootout.health_request(3110), (503, b"not ready"))
             client.return_value.close.assert_called_once()
 
+    def test_loadgen_commands_pair_seeds_across_cases_and_variants(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            args = SimpleNamespace(loadgen=Path("loadgen"), warmup=10, measure=20, ramp=5,
+                                   tail=3, secret="test", articles=500000, think_scale=1, seed=2309)
+            server = SimpleNamespace(url="http://fake")
+            commands = []
+            def command(argv, **_):
+                commands.append(argv)
+                if argv[1] == "merge":
+                    Path(argv[3]).write_text("{}")
+                return SimpleNamespace(returncode=0)
+            with patch.object(shootout, "command", side_effect=command):
+                for case in ("nelua/baseline", "nelua/candidate", "rust/default"):
+                    directory = Path(temporary) / case
+                    directory.mkdir(parents=True)
+                    shootout.load_run(args, server, 1000, directory, "warmup", warmup=True, round_number=2)
+                    shootout.load_run(args, server, 1000, directory, "measured", round_number=2)
+                shootout.load_run(args, server, 2000, directory, "measured", round_number=3)
+            ids = [argv[argv.index("-run-id") + 1] for argv in commands if argv[1] == "run"]
+            self.assertEqual(ids[:6:2], ["shoot-s2309-r2-u1000-warmup"] * 3)
+            self.assertEqual(ids[1:6:2], ["shoot-s2309-r2-u1000-measured"] * 3)
+            self.assertEqual(ids[6], "shoot-s2309-r3-u2000-measured")
+            self.assertEqual(len(set(ids)), 3)
+
     def test_fake_host_continues_after_blocked_comparators(self):
         """Exercise orchestration/reporting without PostgreSQL, sockets or real load."""
         with tempfile.TemporaryDirectory() as temporary:
@@ -197,7 +221,7 @@ class ShootoutTests(unittest.TestCase):
                     return self
                 def __exit__(self, *_):
                     return None
-            def load(args, server, users, directory, label, warmup=False):
+            def load(args, server, users, directory, label, warmup=False, round_number=1):
                 if warmup:
                     return None
                 return {"overall": {"rps": 100, "p50_ms": 1, "p95_ms": 2,

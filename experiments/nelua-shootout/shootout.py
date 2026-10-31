@@ -373,7 +373,7 @@ class Monitor:
                   ("time", "rss_mb", "cpu_jiffies", "connections"))
 
 
-def load_run(args, server, users, directory, label, *, warmup=False):
+def load_run(args, server, users, directory, label, *, warmup=False, round_number=1):
     raw = directory / (label + "-box.json")
     seconds = args.warmup if warmup else args.measure
     ramp = min(args.ramp, 3) if warmup else args.ramp
@@ -381,7 +381,10 @@ def load_run(args, server, users, directory, label, *, warmup=False):
             "-ramp", f"{ramp}s", "-measure", f"{seconds}s", "-tail", f"{0 if warmup else args.tail}s",
             "-secret", args.secret, "-articles", str(args.articles),
             "-think-scale", str(args.think_scale),
-            "-run-id", f"shoot-{directory.name}-{label}-{time.time_ns()}", "-out", str(raw)]
+            # The official generator hashes run-id into its random seed. Fresh
+            # case databases let all competitors/variants share the same seed;
+            # phases differ to keep warm-up signups separate from measurement.
+            "-run-id", f"shoot-s{args.seed}-r{round_number}-u{users}-{label}", "-out", str(raw)]
     command(argv, timeout=ramp + seconds + args.tail + 90, log=directory / (label + ".log"))
     if warmup:
         return None
@@ -572,9 +575,11 @@ def run(args):
                         create_database(db, args.template)
                         with Server(cases[name], db, port, directory, args.secret, settings) as server:
                             if args.warmup:
-                                load_run(args, server, users, directory, "warmup", warmup=True)
+                                load_run(args, server, users, directory, "warmup", warmup=True,
+                                         round_number=round_number)
                             with Monitor(server, directory) as monitor:
-                                merged = load_run(args, server, users, directory, "measured")
+                                merged = load_run(args, server, users, directory, "measured",
+                                                  round_number=round_number)
                             if server.process.poll() is not None:
                                 raise RuntimeError("server exited during the measured run; no restart is attempted")
                             total, verdict = merged["overall"], merged["verdict"]

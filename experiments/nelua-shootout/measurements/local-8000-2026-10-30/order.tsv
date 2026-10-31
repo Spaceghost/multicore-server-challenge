@@ -1,0 +1,13 @@
+round	position	name
+1	1	nelua-epoll-spaceghost
+1	2	rust-epoll-WorriedArrow
+1	3	csharp-epoll-aot-gichamba
+1	4	rust-epoll-theCatWisel
+1	5	asm-epoll-nickita-khylkouski
+1	6	zig-iouring-nick-potts
+2	1	rust-epoll-WorriedArrow
+2	2	rust-epoll-theCatWisel
+2	3	nelua-epoll-spaceghost
+2	4	zig-iouring-nick-potts
+2	5	csharp-epoll-aot-gichamba
+2	6	asm-epoll-nickita-khylkouski
