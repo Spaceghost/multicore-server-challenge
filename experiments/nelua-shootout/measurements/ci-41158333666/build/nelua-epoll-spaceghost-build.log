@@ -1,0 +1,16 @@
+Cloning into '/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/nelua-epoll-spaceghost/.deps/nelua'...
+HEAD is now at 4b5dfd4a Invalidate cached binaries when imported C sources change
+make: Entering directory '/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/nelua-epoll-spaceghost/.deps/nelua'
+gcc \
+	-DMAXRECLEVEL=400 -DLUA_USE_RPMALLOC -DNDEBUG -std=gnu99 -DLUA_USE_LINUX  \
+	-Isrc/lua  \
+	-O2   \
+	src/hasher.c src/lfs.c src/luainit.c src/onelua.c src/sys.c src/lpeglabel/lplcap.c src/lpeglabel/lplcode.c src/lpeglabel/lplprint.c src/lpeglabel/lpltree.c src/lpeglabel/lplvm.c src/srpmalloc/srpmalloc.c  \
+	-o nelua-lua \
+	 -lm -ldl -Wl,-E   
+make: Leaving directory '/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/nelua-epoll-spaceghost/.deps/nelua'
+lto-wrapper: warning: using serial compilation of 2 LTRANS jobs
+lto-wrapper: note: see the ‘-flto’ option documentation for more information
+   text	   data	    bss	    dec	    hex	filename
+ 353873	  29053	   1704	 384630	  5de76	bin/conduit
+audit passed: no Nelua VM, GC, allocator, panic, or initialization entrypoint

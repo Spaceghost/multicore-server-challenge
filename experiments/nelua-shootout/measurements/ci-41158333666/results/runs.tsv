@@ -1,0 +1,25 @@
+round	position	users	name	variant	status	rps	p50_ms	p95_ms	p99_ms	error_rate	errors	host_cpu_pct	loadgen_cpu_pct	app_cpu_core_eq	app_rss_peak_mb	app_db_connections_peak	lg_limited	reason	directory
+1	1	1000	nelua-epoll-spaceghost	default	pass	2598.7	9.375	14.855	18.015	0	0	30.76819411229987	5.2036711064606385	0.2594	13.37890625	20	False		round-1/users-1000/nelua-epoll-spaceghost/default
+1	2	1000	rust-epoll-WorriedArrow	default	pass	2584.6	10.959	18.751	21.439	0	0	20.14381855820957	4.742851027736668	0.1731	54.56640625	5	False		round-1/users-1000/rust-epoll-WorriedArrow/default
+1	3	1000	csharp-epoll-aot-gichamba	default	pass	2557.55	17.695	25.247	27.247	0	0	20.82051458582064	5.33977838522308	0.2221	30.890625	10	False		round-1/users-1000/csharp-epoll-aot-gichamba/default
+1	4	1000	rust-epoll-theCatWisel	default	pass	2566.85	15.815	19.951	21.631	0	0	18.794663486517177	4.52814037211945	0.1905	6.6015625	5	False		round-1/users-1000/rust-epoll-theCatWisel/default
+1	5	1000	asm-epoll-nickita-khylkouski	default	pass	2649.35	0.577	1.978	2.925	0	0	45.70744863764019	7.3268799475097355	0.2524	8.1484375	4	False		round-1/users-1000/asm-epoll-nickita-khylkouski/default
+1	6	1000	zig-iouring-nick-potts	default	pass	2343.55	52.063	91.007	95.295	0	0	18.093974592217304	5.221854742371763	0.1889	124.16796875	6	False		round-1/users-1000/zig-iouring-nick-potts/default
+1	1	5000	nelua-epoll-spaceghost	default	pass	8608.05	208.511	272.895	320.511	0	0	99.38319053579679	14.27015937254952	0.871	24.72265625	20	True	box 0 CPU 99% > 75%	round-1/users-5000/nelua-epoll-spaceghost/default
+1	2	5000	rust-epoll-WorriedArrow	default	pass	12159.75	33.151	52.767	71.551	0	0	76.8958201054715	17.782924870488923	0.7118	79.62109375	5	True	box 0 CPU 77% > 75%	round-1/users-5000/rust-epoll-WorriedArrow/default
+1	3	5000	csharp-epoll-aot-gichamba	default	pass	12051.15	40.703	70.463	93.951	0	0	85.68408359152502	19.338398787977454	0.8521	74.4921875	10	True	box 0 CPU 86% > 75%	round-1/users-5000/csharp-epoll-aot-gichamba/default
+1	4	5000	rust-epoll-theCatWisel	default	pass	11916.3	44.063	66.239	77.631	0	0	67.36731765556756	17.999343697418407	0.638	16.9609375	5	False		round-1/users-5000/rust-epoll-theCatWisel/default
+1	5	5000	asm-epoll-nickita-khylkouski	default	pass	12849.95	10.431	26.703	38.719	0	0	93.59371373947047	19.630425003333123	0.6489	13.7734375	4	True	box 0 CPU 94% > 75%	round-1/users-5000/asm-epoll-nickita-khylkouski/default
+1	6	5000	zig-iouring-nick-potts	default	pass	11115.35	71.679	122.303	135.679	0	0	69.3088772268994	21.810564422115537	0.6158	156.0234375	6	False		round-1/users-5000/zig-iouring-nick-potts/default
+2	1	1000	rust-epoll-WorriedArrow	default	pass	2549.55	11.167	18.847	21.631	0	0	19.775012134558054	4.665440382022171	0.1665	49.1796875	5	False		round-2/users-1000/rust-epoll-WorriedArrow/default
+2	2	1000	rust-epoll-theCatWisel	default	pass	2531.7	15.871	19.983	21.503	0	0	18.752832962476944	4.541402888457304	0.1815	6.53125	5	False		round-2/users-1000/rust-epoll-theCatWisel/default
+2	3	1000	nelua-epoll-spaceghost	default	pass	2563.3	9.351	14.703	17.711	0	0	30.782123094992926	5.227215846385795	0.2681	13.734375	20	False		round-2/users-1000/nelua-epoll-spaceghost/default
+2	4	1000	zig-iouring-nick-potts	default	pass	2312.95	53.055	91.135	97.535	0	0	17.04626700165192	5.232885889930838	0.1633	124.2421875	6	False		round-2/users-1000/zig-iouring-nick-potts/default
+2	5	1000	csharp-epoll-aot-gichamba	default	pass	2524.65	17.279	25.151	26.847	0	0	19.932613016805366	5.186116755983479	0.2136	31.54296875	10	False		round-2/users-1000/csharp-epoll-aot-gichamba/default
+2	6	1000	asm-epoll-nickita-khylkouski	default	pass	2620.95	0.568	1.99	3.107	0	0	44.95833737830872	7.253137203767935	0.2533	8.1484375	4	False		round-2/users-1000/asm-epoll-nickita-khylkouski/default
+2	1	5000	rust-epoll-WorriedArrow	default	pass	12125.2	32.639	48.575	62.751	0	0	74.64029254775245	17.503813235683342	0.657	89.41015625	5	False		round-2/users-5000/rust-epoll-WorriedArrow/default
+2	2	5000	rust-epoll-theCatWisel	default	pass	11928	41.279	59.775	68.671	0	0	65.82731991726473	17.66767602326573	0.6071	16.1640625	5	False		round-2/users-5000/rust-epoll-theCatWisel/default
+2	3	5000	nelua-epoll-spaceghost	default	pass	8792.85	191.615	261.759	300.543	0	0	99.40111371711222	14.262439819672418	0.8441	24.92578125	20	True	box 0 CPU 99% > 75%	round-2/users-5000/nelua-epoll-spaceghost/default
+2	4	5000	zig-iouring-nick-potts	default	pass	11088	71.487	121.791	133.631	0	0	68.01700599050955	21.714206595028514	0.5723	156.0546875	6	False		round-2/users-5000/zig-iouring-nick-potts/default
+2	5	5000	csharp-epoll-aot-gichamba	default	pass	12038.15	39.039	65.535	89.407	0	0	84.13181161946903	19.2383445181806	0.8098	67.25390625	10	True	box 0 CPU 84% > 75%	round-2/users-5000/csharp-epoll-aot-gichamba/default
+2	6	5000	asm-epoll-nickita-khylkouski	default	pass	12790.2	9.567	24.863	39.231	0	0	92.95783700786885	19.45396428081519	0.6285	11.5234375	4	True	box 0 CPU 93% > 75%	round-2/users-5000/asm-epoll-nickita-khylkouski/default
