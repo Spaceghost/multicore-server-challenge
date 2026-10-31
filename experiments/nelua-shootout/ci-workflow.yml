@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - experiments/nelua-shootout/**
+      - submissions/nelua-epoll-spaceghost/**
       - .github/workflows/nelua-top5-shootout.yml
   workflow_dispatch:
     inputs:
@@ -13,13 +14,13 @@ on:
         default: diagnostic
       users:
         description: Equal virtual-user load points, comma-separated
-        default: '1000'
+        default: '1000,5000'
       measure_seconds:
         description: Seconds per measured case, 1..300 (hold mode uses 300)
         default: '20'
       repetitions:
         description: Repetitions 1..6; six complete a balanced order block
-        default: '1'
+        default: '2'
       think_scale:
         description: 1 is the real workload; accelerated diagnostics must stay labeled
         default: '1'
@@ -53,9 +54,9 @@ jobs:
       - name: Validate bounded diagnostic configuration
         env:
           INPUT_MODE: ${{ inputs.mode || 'diagnostic' }}
-          INPUT_USERS: ${{ inputs.users || '1000' }}
+          INPUT_USERS: ${{ inputs.users || '1000,5000' }}
           INPUT_MEASURE: ${{ inputs.measure_seconds || '20' }}
-          INPUT_ROUNDS: ${{ inputs.repetitions || '1' }}
+          INPUT_ROUNDS: ${{ inputs.repetitions || '2' }}
           INPUT_THINK: ${{ inputs.think_scale || '0.1' }}
         run: |
           python3 - <<'PY'
@@ -82,12 +83,14 @@ jobs:
           mkdir -p "$RUNNER_TEMP/shootout-artifact/build"
           # Use the PostgreSQL 18 client with the PostgreSQL 18 service, rather
           # than Ubuntu's unversioned client metapackage (which can select 16).
-          sudo install -d /usr/share/postgresql-common/pgdg
-          sudo curl -fsSLo /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc \
-            https://www.postgresql.org/media/keys/ACCC4CF8.asc
-          echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt noble-pgdg main' \
-            | sudo tee /etc/apt/sources.list.d/nelua-shootout-pgdg.list > /dev/null
-          sudo apt-get update -qq
+          if ! apt-cache show postgresql-client-18 > /dev/null 2>&1; then
+            sudo install -d /usr/share/postgresql-common/pgdg
+            sudo curl -fsSLo /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc \
+              https://www.postgresql.org/media/keys/ACCC4CF8.asc
+            echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt noble-pgdg main' \
+              | sudo tee /etc/apt/sources.list.d/nelua-shootout-pgdg.list > /dev/null
+            sudo apt-get update -qq
+          fi
           sudo apt-get install -y -qq postgresql-client-18
           echo '/usr/lib/postgresql/18/bin' >> "$GITHUB_PATH"
           /usr/lib/postgresql/18/bin/psql --version | tee "$RUNNER_TEMP/shootout-artifact/psql-version.log"

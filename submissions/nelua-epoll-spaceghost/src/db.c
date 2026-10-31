@@ -4,17 +4,70 @@
 #include <arpa/inet.h>
 #include <endian.h>
 #include <inttypes.h>
+#include <errno.h>
+#include <poll.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-struct nc_db { PGconn *connection; bool prepared[128]; };
+enum { NC_PIPELINE_OFF, NC_PIPELINE_STAGING, NC_PIPELINE_RESULTS };
+struct nc_pipeline_op { int id; bool prepare; };
+struct nc_db {
+    PGconn *connection;
+    bool prepared[128];
+    bool pipeline_enabled, reset_needed, pipeline_failed;
+    int pipeline_state, pipeline_count;
+    struct nc_pipeline_op pipeline_ops[18];
+    bool pipeline_queued[9];
+    PGresult *pipeline_results[9];
+};
+
+static bool nc_db_session(nc_db *db)
+{
+    PGresult *r = PQexec(db->connection,
+        "SET jit=off; SET max_parallel_workers_per_gather=0; "
+        "SET statement_timeout='10s'; SET TimeZone='UTC'; "
+        "SET plan_cache_mode=force_generic_plan; SET enable_memoize=off");
+    bool good = r && PQresultStatus(r)==PGRES_COMMAND_OK;
+    PQclear(r);
+    return good;
+}
+
+/* A failed read pipeline is never replayed. Reconnect before the next operation
+ * because a failed implicit transaction can also roll back prepared statements. */
+static bool nc_db_ready(nc_db *db)
+{
+    if (!db || db->pipeline_state!=NC_PIPELINE_OFF) return false;
+    if (!db->reset_needed) return true;
+    PQreset(db->connection);
+    memset(db->prepared,0,sizeof(db->prepared));
+    if (PQstatus(db->connection)!=CONNECTION_OK ||
+        PQsetnonblocking(db->connection,0)!=0 || !nc_db_session(db)) return false;
+    db->reset_needed=false;
+    return true;
+}
+
+static void nc_db_log_error(int id,PGresult *r)
+{
+    if (r && PQresultStatus(r)==PGRES_FATAL_ERROR) {
+        const char *state=PQresultErrorField(r,PG_DIAG_SQLSTATE);
+        /* SQLSTATE only: never log input, tokens, passwords or SQL parameters. */
+        if (!state || strcmp(state,"23505"))
+            fprintf(stderr,"query %d failed (SQLSTATE %s)\n",id,state?state:"unknown");
+    }
+}
 
 nc_db *nc_db_open(const char *url)
 {
     nc_db *db = calloc(1,sizeof(*db));
     if (!db) return NULL;
+    const char *pipeline=getenv("READ_PIPELINE");
+    if (pipeline && *pipeline && strcmp(pipeline,"0") && strcmp(pipeline,"1")) {
+        fprintf(stderr,"READ_PIPELINE must be 0 or 1\n");
+        free(db); return NULL;
+    }
+    db->pipeline_enabled=!pipeline || !*pipeline || !strcmp(pipeline,"1");
     /* Avoid TLS CPU on loopback, preserving an explicit URL TLS policy. */
     char *parse_error=NULL;
     PQconninfoOption *options=PQconninfoParse(url,&parse_error);
@@ -34,40 +87,161 @@ nc_db *nc_db_open(const char *url)
         fprintf(stderr,"database connection failed\n");
         nc_db_close(db); return NULL;
     }
-    PGresult *r = PQexec(db->connection,
-        "SET jit=off; SET max_parallel_workers_per_gather=0; "
-        "SET statement_timeout='10s'; SET TimeZone='UTC'; "
-        "SET plan_cache_mode=force_generic_plan; SET enable_memoize=off");
-    bool good = r && PQresultStatus(r)==PGRES_COMMAND_OK;
-    PQclear(r);
-    if (!good) { nc_db_close(db); return NULL; }
+    if (!nc_db_session(db)) { nc_db_close(db); return NULL; }
     return db;
 }
 void nc_db_close(nc_db *db)
 {
-    if (db) { if (db->connection) PQfinish(db->connection); free(db); }
+    if (db) {
+        for (int i=0;i<9;++i) PQclear(db->pipeline_results[i]);
+        if (db->connection) PQfinish(db->connection);
+        free(db);
+    }
 }
 nc_result *nc_db_query(nc_db *db,int id,const char *sql,int count,const char *const *parameters)
 {
     if (!db || id<0 || id>=128 || count<0 || count>16) return NULL;
+    if (db->pipeline_state==NC_PIPELINE_RESULTS) {
+        if (id<90 || id>98) return NULL;
+        PGresult *r=db->pipeline_results[id-90];
+        db->pipeline_results[id-90]=NULL;
+        return r;
+    }
     char name[16];
     snprintf(name,sizeof(name),"n%d",id);
+    if (db->pipeline_state==NC_PIPELINE_STAGING) {
+        /* Only the nine batch read families can enter this path. In particular,
+         * writes keep the synchronous transaction/commit response contract. */
+        if (id<90 || id>98 || db->pipeline_queued[id-90] || !sql) {
+            db->pipeline_failed=true; return NULL;
+        }
+        db->pipeline_queued[id-90]=true;
+        if (db->pipeline_failed) return NULL;
+        if (!db->prepared[id]) {
+            if (!PQsendPrepare(db->connection,name,sql,count,NULL)) {
+                db->pipeline_failed=true; return NULL;
+            }
+            db->pipeline_ops[db->pipeline_count++]=(struct nc_pipeline_op){id,true};
+        }
+        if (!PQsendQueryPrepared(db->connection,name,count,parameters,NULL,NULL,1)) {
+            db->pipeline_failed=true; return NULL;
+        }
+        db->pipeline_ops[db->pipeline_count++]=(struct nc_pipeline_op){id,false};
+        return NULL;
+    }
+    if (!nc_db_ready(db)) return NULL;
     if (!db->prepared[id]) {
         PGresult *r = PQprepare(db->connection,name,sql,count,NULL);
         if (!r || PQresultStatus(r)!=PGRES_COMMAND_OK) return r;
         PQclear(r); db->prepared[id]=true;
     }
     PGresult *r = PQexecPrepared(db->connection,name,count,parameters,NULL,NULL,1);
-    if (r && PQresultStatus(r)==PGRES_FATAL_ERROR) {
-        const char *state=PQresultErrorField(r,PG_DIAG_SQLSTATE);
-        /* SQLSTATE only: never log input, tokens, passwords or SQL parameters. */
-        if (!state || strcmp(state,"23505"))
-            fprintf(stderr,"query %d failed (SQLSTATE %s)\n",id,state?state:"unknown");
-    }
+    nc_db_log_error(id,r);
     return r;
 }
+
+bool nc_db_pipeline_begin(nc_db *db)
+{
+    if (!db || !db->pipeline_enabled || !nc_db_ready(db)) return false;
+    if (PQsetnonblocking(db->connection,1)!=0) return false;
+    if (!PQenterPipelineMode(db->connection)) {
+        if (PQsetnonblocking(db->connection,0)!=0) db->reset_needed=true;
+        return false;
+    }
+    db->pipeline_failed=false;
+    db->pipeline_count=0;
+    memset(db->pipeline_queued,0,sizeof(db->pipeline_queued));
+    db->pipeline_state=NC_PIPELINE_STAGING;
+    return true;
+}
+
+bool nc_db_pipeline_staging(nc_db *db)
+{ return db && db->pipeline_state==NC_PIPELINE_STAGING; }
+
+static int64_t nc_db_milliseconds(void)
+{
+    struct timespec ts;
+    if (clock_gettime(CLOCK_MONOTONIC,&ts)!=0) return -1;
+    return (int64_t)ts.tv_sec*1000+ts.tv_nsec/1000000;
+}
+
+bool nc_db_pipeline_flush(nc_db *db)
+{
+    if (!db || db->pipeline_state!=NC_PIPELINE_STAGING) return false;
+    db->pipeline_state=NC_PIPELINE_RESULTS;
+    if (!PQpipelineSync(db->connection)) goto failed;
+    int next=0;
+    bool synced=false;
+    int64_t now=nc_db_milliseconds();
+    if (now<0) goto failed;
+    /* Bound the complete read batch, including a broken socket's wait. */
+    const int64_t deadline=now+10000;
+    while (!synced) {
+        int pending=PQflush(db->connection);
+        if (pending<0 || !PQconsumeInput(db->connection)) goto failed;
+        while (!PQisBusy(db->connection)) {
+            now=nc_db_milliseconds();
+            if (PQstatus(db->connection)!=CONNECTION_OK || now<0 || now>=deadline)
+                goto failed;
+            PGresult *r=PQgetResult(db->connection);
+            /* Each command has a NULL boundary; it is not the pipeline end. */
+            if (!r) continue;
+            ExecStatusType status=PQresultStatus(r);
+            if (status==PGRES_PIPELINE_SYNC) {
+                PQclear(r);
+                if (next!=db->pipeline_count) goto failed;
+                synced=true; break;
+            }
+            if (next>=db->pipeline_count ||
+                (status!=PGRES_COMMAND_OK && status!=PGRES_TUPLES_OK &&
+                 status!=PGRES_FATAL_ERROR && status!=PGRES_PIPELINE_ABORTED)) {
+                PQclear(r); goto failed;
+            }
+            struct nc_pipeline_op op=db->pipeline_ops[next++];
+            if (status==PGRES_FATAL_ERROR || status==PGRES_PIPELINE_ABORTED) {
+                nc_db_log_error(op.id,r);
+                db->reset_needed=true;
+            }
+            if (op.prepare) {
+                if (status==PGRES_COMMAND_OK) db->prepared[op.id]=true;
+                else db->reset_needed=true;
+                PQclear(r);
+            } else {
+                db->pipeline_results[op.id-90]=r;
+            }
+        }
+        if (synced) break;
+        now=nc_db_milliseconds();
+        int64_t remaining=deadline-now;
+        if (now<0 || remaining<=0) goto failed;
+        struct pollfd socket={PQsocket(db->connection),POLLIN|(pending?POLLOUT:0),0};
+        int ready=poll(&socket,1,(int)remaining);
+        if (ready<0 && errno==EINTR) continue;
+        if (ready<=0 || (socket.revents&(POLLERR|POLLNVAL)) ||
+            ((socket.revents&POLLHUP) && !(socket.revents&POLLIN))) goto failed;
+    }
+    if (!PQexitPipelineMode(db->connection) || PQsetnonblocking(db->connection,0)!=0)
+        goto failed;
+    return !db->pipeline_failed;
+failed:
+    db->reset_needed=true;
+    return false;
+}
+
+void nc_db_pipeline_end(nc_db *db)
+{
+    if (!db) return;
+    if (db->pipeline_state==NC_PIPELINE_STAGING) db->reset_needed=true;
+    for (int i=0;i<9;++i) {
+        PQclear(db->pipeline_results[i]);
+        db->pipeline_results[i]=NULL;
+    }
+    db->pipeline_state=NC_PIPELINE_OFF;
+}
+
 bool nc_tx(nc_db *db,const char *command)
 {
+    if (!nc_db_ready(db)) return false;
     PGresult *r=PQexec(db->connection,command);
     bool good=nc_db_ok(r); PQclear(r); return good;
 }

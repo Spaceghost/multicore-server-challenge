@@ -1,0 +1,42 @@
+[
+  {
+    "case": "pipeline-a0-0",
+    "rps": 12145.2,
+    "p50_ms": 32.863,
+    "p95_ms": 50.239,
+    "p99_ms": 133.247,
+    "errors": 0,
+    "host_cpu_pct": 47.32681497695235,
+    "lg_limited": false
+  },
+  {
+    "case": "pipeline-a1-1",
+    "rps": 12255.7,
+    "p50_ms": 28.879,
+    "p95_ms": 43.423,
+    "p99_ms": 116.479,
+    "errors": 0,
+    "host_cpu_pct": 43.21342847543799,
+    "lg_limited": false
+  },
+  {
+    "case": "pipeline-b0-0",
+    "rps": 12208.05,
+    "p50_ms": 29.807,
+    "p95_ms": 44.319,
+    "p99_ms": 104.319,
+    "errors": 0,
+    "host_cpu_pct": 43.8065638591406,
+    "lg_limited": false
+  },
+  {
+    "case": "pipeline-b1-1",
+    "rps": 12297.25,
+    "p50_ms": 28.031,
+    "p95_ms": 40.223,
+    "p99_ms": 78.655,
+    "errors": 0,
+    "host_cpu_pct": 42.39045461093421,
+    "lg_limited": false
+  }
+]

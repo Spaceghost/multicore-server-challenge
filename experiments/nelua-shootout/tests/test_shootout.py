@@ -123,6 +123,21 @@ class ShootoutTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 shootout.identifier(value)
 
+    def test_existing_listener_is_rejected_without_launching(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            launcher = directory / "start.sh"
+            launcher.write_text("#!/bin/sh\nexit 0\n")
+            server = shootout.Server({"launcher": str(launcher), "cwd": str(directory)},
+                                     "nc_shoot_test", 3110, directory, "test")
+            with patch.object(shootout.socket, "create_connection") as connection, \
+                    patch.object(shootout.subprocess, "Popen") as popen:
+                with self.assertRaisesRegex(RuntimeError, "already listening"):
+                    server.__enter__()
+                popen.assert_not_called()
+                connection.return_value.close.assert_called_once()
+            self.assertTrue(server.log.closed)
+
     def test_fake_host_continues_after_blocked_comparators(self):
         """Exercise orchestration/reporting without PostgreSQL, sockets or real load."""
         with tempfile.TemporaryDirectory() as temporary:

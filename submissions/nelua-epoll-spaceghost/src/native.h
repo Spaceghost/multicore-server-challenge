@@ -58,6 +58,13 @@ void nc_json_int64(nc_buffer *buffer, int64_t value);
 nc_db *nc_db_open(const char *url);
 void nc_db_close(nc_db *db);
 nc_result *nc_db_query(nc_db *db, int id, const char *sql, int count, const char *const *parameters);
+/* Optional batch-local read pipeline, enabled only by READ_PIPELINE=1.
+ * Stage calls queue IDs90..98; flush drains one Sync; the same queries then
+ * claim their results once. End releases all unclaimed results. */
+bool nc_db_pipeline_begin(nc_db *db);
+bool nc_db_pipeline_staging(nc_db *db);
+bool nc_db_pipeline_flush(nc_db *db);
+void nc_db_pipeline_end(nc_db *db);
 bool nc_tx(nc_db *db, const char *command);
 bool nc_db_ok(nc_result *result);
 bool nc_db_unique(nc_result *result);

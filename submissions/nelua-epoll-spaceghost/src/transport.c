@@ -124,10 +124,11 @@ nc_thread_count(const char *name, int fallback)
 }
 
 static int
-nc_switch(const char *name)
+nc_switch(const char *name, int fallback)
 {
     const char *value = getenv(name);
-    if (!value || !*value || strcmp(value, "0") == 0) return 0;
+    if (!value || !*value) return fallback;
+    if (strcmp(value, "0") == 0) return 0;
     if (strcmp(value, "1") == 0) return 1;
     fprintf(stderr, "%s must be 0 or 1\n", name);
     return -1;
@@ -702,8 +703,8 @@ main(void)
     server.pools[0].threads = nc_thread_count("DB_READ_THREADS", 4);
     server.pools[1].threads = nc_thread_count("DB_WRITE_THREADS", 8);
     server.pools[2].threads = nc_thread_count("DB_AUTH_THREADS", 8);
-    serial_gather = nc_switch("READ_GATHER_SERIAL");
-    batch_stats = nc_switch("READ_BATCH_STATS");
+    serial_gather = nc_switch("READ_GATHER_SERIAL", 1);
+    batch_stats = nc_switch("READ_BATCH_STATS", 0);
     if (serial_gather < 0 || batch_stats < 0) return 1;
     server.serial_read_gather = serial_gather != 0;
     server.read_batch_stats = batch_stats != 0;

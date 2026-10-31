@@ -22,6 +22,7 @@ import random
 import re
 import resource
 import signal
+import socket
 import statistics
 import subprocess
 import sys
@@ -249,6 +250,15 @@ class Server:
         deadline = time.monotonic() + 60
         self.url = f"http://127.0.0.1:{self.port}"
         try:
+            try:
+                connection = socket.create_connection(("127.0.0.1", self.port), timeout=0.5)
+            except ConnectionRefusedError:
+                pass
+            except OSError as error:
+                raise RuntimeError("could not establish that the benchmark port is unused") from error
+            else:
+                connection.close()
+                raise RuntimeError("benchmark port is already listening; refusing an overlapping server")
             self.process = subprocess.Popen(argv, cwd=self.case["cwd"], env=env,
                                             stdout=self.log, stderr=subprocess.STDOUT,
                                             start_new_session=True, preexec_fn=child_limits)

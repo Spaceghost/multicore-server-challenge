@@ -16,6 +16,7 @@ end
 
 local function tags(requests:*[0]*N.Request, count:cint, db:*N.Db)
   local result = N.query(db, 90, [[SELECT name FROM public.tags ORDER BY name]], 0, nilptr)
+  if N.pipeline_staging(db) then return end
   if not N.ok(result) then
     fail_group(requests, count)
     if result then N.free(result) end
@@ -100,6 +101,7 @@ local function lookup(requests:*[0]*N.Request, keys:*cstring, viewers:*int64,
        ORDER BY r.ordinal
     ]], 2, &parameters[0])
   end
+  if N.pipeline_staging(db) then return end
   if not N.ok(result) then
     fail_group(requests, count)
     if result then N.free(result) end
@@ -163,6 +165,7 @@ local function comments(requests:*[0]*N.Request, keys:*cstring, viewers:*int64,
       LEFT JOIN comments c ON c.key=r.key
      ORDER BY r.ordinal,c.created_at DESC,c.id DESC
   ]], 2, &parameters[0])
+  if N.pipeline_staging(db) then return end
   if not N.ok(result) then
     fail_group(requests, count)
     if result then N.free(result) end
@@ -202,6 +205,11 @@ end
 local function batch_list_sql(kind)
   local owner = kind == 9 and 'viewer' or '0::bigint'
   local owner_join = kind == 9 and 'r.viewer' or '0::bigint'
+  -- The feed join already proves this relationship for the request's viewer.
+  -- Keep false on the empty-page marker row as well.
+  local following = kind == 9 and '(a.id IS NOT NULL)' or [[
+    (r.viewer<>0 AND EXISTS(SELECT 1 FROM public.follows f
+      WHERE f.follower_id=r.viewer AND f.followee_id=a.author_id))]]
   local target, page, counted
   if kind == 5 then
     target = '0::bigint'
@@ -262,8 +270,7 @@ local function batch_list_sql(kind)
            (r.viewer<>0 AND EXISTS(SELECT 1 FROM public.favorites f
              WHERE f.user_id=r.viewer AND f.article_id=a.id)) AS favorited,
            a.username,a.bio,a.image,
-           (r.viewer<>0 AND EXISTS(SELECT 1 FROM public.follows f
-             WHERE f.follower_id=r.viewer AND f.followee_id=a.author_id)) AS following,
+           ]] .. following .. [[ AS following,
            c.n,r.ordinal::bigint
       FROM incoming r JOIN counts c ON c.key=r.key AND c.owner=]] .. owner_join .. [[
       LEFT JOIN pages p ON p.key=r.key AND p.owner=]] .. owner_join .. [[
@@ -296,6 +303,7 @@ local function pages(requests:*[0]*N.Request, keys:*cstring, viewers:*int64,
   elseif kind == 8 then sql = q_batch_favorite
   elseif kind == 9 then sql = q_batch_feed end
   local result = N.query(db, 89 + kind, sql, 4, &parameters[0])
+  if N.pipeline_staging(db) then return end
   if not N.ok(result) then
     fail_group(requests, count)
     if result then N.free(result) end
@@ -345,6 +353,7 @@ local function conduit_batch(requests:*[0]*N.Request, count:cint, db:*N.Db) <cex
   local viewers:[128]int64 <noinit>
   local limits:[128]int64 <noinit>
   local offsets:[128]int64 <noinit>
+  local has_group:boolean = false
   local i:cint = 0
   while i < count do
     local req = requests[i]
@@ -389,37 +398,59 @@ local function conduit_batch(requests:*[0]*N.Request, count:cint, db:*N.Db) <cex
       end
     end
     kinds[i] = kind
+    if kind > 0 then has_group = true end
     i = i + 1
   end
-  local kind:cint = 1
-  while kind <= 9 do
-    local used:cint = 0
-    i = 0
-    while i < count do
-      if kinds[i] == kind then
-        grouped[used] = requests[i]
-        viewers[used] = verified[i]
-        limits[used] = validated_limits[i]
-        offsets[used] = validated_offsets[i]
-        if kind >= 5 then keys[used] = filter_keys[i]
-        elseif kind >= 2 then keys[used] = N.segment(requests[i], 2)
-        else keys[used] = nilptr end
-        used = used + 1
+  -- The optional first pass queues these exact read families. The second pass
+  -- claims batch-local results and uses the same rendering/ordinal validation.
+  local pipeline:boolean = false
+  if has_group then pipeline = N.pipeline_begin(db) end
+  local passes:cint = 1
+  if pipeline then passes = 2 end
+  local phase:cint = 1
+  while phase <= passes do
+    local kind:cint = 1
+    while kind <= 9 do
+      local used:cint = 0
+      i = 0
+      while i < count do
+        if kinds[i] == kind then
+          grouped[used] = requests[i]
+          viewers[used] = verified[i]
+          limits[used] = validated_limits[i]
+          offsets[used] = validated_offsets[i]
+          if kind >= 5 then keys[used] = filter_keys[i]
+          elseif kind >= 2 then keys[used] = N.segment(requests[i], 2)
+          else keys[used] = nilptr end
+          used = used + 1
+        end
+        i = i + 1
       end
-      i = i + 1
+      if used > 0 then
+        if kind == 1 then tags((@*[0]*N.Request)(&grouped[0]), used, db)
+        elseif kind == 4 then
+          comments((@*[0]*N.Request)(&grouped[0]), &keys[0], &viewers[0], used, db)
+        elseif kind >= 5 then
+          pages((@*[0]*N.Request)(&grouped[0]), &keys[0], &viewers[0], &limits[0], &offsets[0], used, db, kind)
+        else
+          lookup((@*[0]*N.Request)(&grouped[0]), &keys[0], &viewers[0], used, db, kind)
+        end
+      end
+      kind = kind + 1
     end
-    if used > 0 then
-      if kind == 1 then tags((@*[0]*N.Request)(&grouped[0]), used, db)
-      elseif kind == 4 then
-        comments((@*[0]*N.Request)(&grouped[0]), &keys[0], &viewers[0], used, db)
-      elseif kind >= 5 then
-        pages((@*[0]*N.Request)(&grouped[0]), &keys[0], &viewers[0], &limits[0], &offsets[0], used, db, kind)
-      else
-        lookup((@*[0]*N.Request)(&grouped[0]), &keys[0], &viewers[0], used, db, kind)
+    if pipeline and phase == 1 then
+      if not N.pipeline_flush(db) then
+        i = 0
+        while i < count do
+          if kinds[i] > 0 then N.error(requests[i], 500) end
+          i = i + 1
+        end
+        break
       end
     end
-    kind = kind + 1
+    phase = phase + 1
   end
+  if pipeline then N.pipeline_end(db) end
   -- Other routes retain the complete individual handler and its validation.
   i = 0
   while i < count do

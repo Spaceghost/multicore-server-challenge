@@ -1,0 +1,42 @@
+[
+  {
+    "case": "serial-a0-0",
+    "rps": 12088.1,
+    "p50_ms": 35.871,
+    "p95_ms": 53.471,
+    "p99_ms": 119.295,
+    "errors": 0,
+    "host_cpu_pct": 48.273268486566586,
+    "lg_limited": false
+  },
+  {
+    "case": "serial-a1-1",
+    "rps": 12223.55,
+    "p50_ms": 30.831,
+    "p95_ms": 45.407,
+    "p99_ms": 100.415,
+    "errors": 0,
+    "host_cpu_pct": 44.92999326611558,
+    "lg_limited": false
+  },
+  {
+    "case": "serial-b0-0",
+    "rps": 12125.3,
+    "p50_ms": 34.719,
+    "p95_ms": 49.631,
+    "p99_ms": 75.199,
+    "errors": 0,
+    "host_cpu_pct": 46.3287512422461,
+    "lg_limited": false
+  },
+  {
+    "case": "serial-b1-1",
+    "rps": 12199.45,
+    "p50_ms": 30.927,
+    "p95_ms": 43.263,
+    "p99_ms": 78.335,
+    "errors": 0,
+    "host_cpu_pct": 44.86157620796965,
+    "lg_limited": false
+  }
+]
