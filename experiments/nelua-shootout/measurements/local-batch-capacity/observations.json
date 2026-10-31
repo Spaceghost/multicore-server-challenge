@@ -1,0 +1,152 @@
+[
+  {
+    "round": 1,
+    "capacity": 128,
+    "count": 232944,
+    "rps": 19412,
+    "p50_ms": 30.815,
+    "p90_ms": 47.359,
+    "p95_ms": 59.871,
+    "p99_ms": 125.887,
+    "max_ms": 272.895,
+    "mean_ms": 34.08360472044772,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 228719,
+      "201": 4152,
+      "204": 73
+    },
+    "cpu": 67.78911475767528,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "round": 1,
+    "capacity": 256,
+    "count": 222159,
+    "rps": 18513.25,
+    "p50_ms": 52.799,
+    "p90_ms": 69.311,
+    "p95_ms": 81.599,
+    "p99_ms": 170.367,
+    "max_ms": 329.727,
+    "mean_ms": 54.38666059443912,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 218133,
+      "201": 3957,
+      "204": 69
+    },
+    "cpu": 60.21257498824135,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "round": 1,
+    "capacity": 512,
+    "count": 211267,
+    "rps": 17605.583333333332,
+    "p50_ms": 77.055,
+    "p90_ms": 112.255,
+    "p95_ms": 125.311,
+    "p99_ms": 192.639,
+    "max_ms": 356.351,
+    "mean_ms": 76.08227908760016,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 207453,
+      "201": 3754,
+      "204": 60
+    },
+    "cpu": 56.25185782662643,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "round": 2,
+    "capacity": 512,
+    "count": 202267,
+    "rps": 16855.583333333332,
+    "p50_ms": 98.431,
+    "p90_ms": 153.215,
+    "p95_ms": 178.431,
+    "p99_ms": 243.967,
+    "max_ms": 354.303,
+    "mean_ms": 97.96972493288537,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 198569,
+      "201": 3636,
+      "204": 62
+    },
+    "cpu": 63.815319292677806,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "round": 2,
+    "capacity": 256,
+    "count": 221637,
+    "rps": 18469.75,
+    "p50_ms": 53.279,
+    "p90_ms": 75.455,
+    "p95_ms": 91.903,
+    "p99_ms": 142.335,
+    "max_ms": 307.967,
+    "mean_ms": 55.35396926505957,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 217586,
+      "201": 3978,
+      "204": 73
+    },
+    "cpu": 62.45735370029961,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "round": 2,
+    "capacity": 128,
+    "count": 235016,
+    "rps": 19584.666666666668,
+    "p50_ms": 28.383,
+    "p90_ms": 39.103,
+    "p95_ms": 46.079,
+    "p99_ms": 112.959,
+    "max_ms": 339.967,
+    "mean_ms": 30.416662031521223,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 230698,
+      "201": 4241,
+      "204": 77
+    },
+    "cpu": 66.00266331183597,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  }
+]

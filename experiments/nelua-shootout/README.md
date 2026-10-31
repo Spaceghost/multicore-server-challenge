@@ -1,5 +1,7 @@
 # Nelua versus the frozen top five
 
+[Measured results and rejected experiments](measurements/README.md) include the complete six-entry CI matrix and raw evidence.
+
 This research workflow compares `nelua-epoll-spaceghost` only with the five entries in
 [pins.tsv](pins.tsv). Their rank, source commit, source tree, and toolchain are frozen.
 Comparator sources must match those pins; a blocked entry stays in the report and is

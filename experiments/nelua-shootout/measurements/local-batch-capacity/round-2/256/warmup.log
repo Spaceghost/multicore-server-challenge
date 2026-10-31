@@ -1,0 +1,30 @@
+run shoot-s2309-r2-u8000-warmup: box 0, 8000 users -> http://127.0.0.1:3110, start 17:45:40.497, ramp 3s + measure 5s + tail 0s
+
+8000 users on 1 box(es), http://127.0.0.1:3110, measured 5 s after a 3 s ramp
+endpoint                                      count    req/s      p50      p90      p95      p99      max    err%
+GET /api/articles/:slug/comments              18511   3702.2     65.3    104.1    122.7    220.9      287    0.00
+GET /api/articles/:slug                       18473   3694.6     60.8    102.6    119.6    172.9      304    0.00
+GET /api/tags                                 17176   3435.2     60.5    102.7    120.9    172.9      304    0.00
+GET /api/articles                             10198   2039.6     65.5    106.8    127.4    221.2      287    0.00
+GET /api/articles/feed                         6928   1385.6     65.5    104.0    128.4    220.4      288    0.00
+GET /api/profiles/:username                    4962    992.4     60.3    100.9    118.9    165.2      304    0.00
+GET /api/articles?author                       3936    787.2     65.6    106.7    128.1    224.4      287    0.00
+GET /api/articles?tag                          3764    752.8     60.9    101.9    118.7    163.5      303    0.00
+POST /api/articles/:slug/favorite              1808    361.6      6.1    108.5    195.7    264.7      277    0.00
+POST /api/articles/:slug/comments              1201    240.2      5.9    108.5    194.8    265.2      283    0.00
+GET /api/articles?favorited                    1025    205.0     65.9    106.6    127.3    222.1      287    0.00
+POST /api/profiles/:username/follow             603    120.6      5.6    105.5    190.5    238.0      273    0.00
+GET /api/user                                   441     88.2     60.4     99.6    122.7    245.1      298    0.00
+POST /api/articles                              383     76.6      7.9    159.6    194.9    241.3      276    0.00
+DELETE /api/profiles/:username/follow           167     33.4      6.7    126.4    197.1    257.7      273    0.00
+PUT /api/user                                   154     30.8      6.7     70.1    141.4    261.5      271    0.00
+DELETE /api/articles/:slug/favorite             148     29.6      6.1     48.8    178.7    245.5      274    0.00
+POST /api/users/login                            99     19.8    118.8    169.7    179.8    195.8      216    0.00
+DELETE /api/articles/:slug/comments/:id          15      3.0      5.8    206.2    206.2    231.4      231    0.00
+PUT /api/articles/:slug                           6      1.2      5.3      9.2     12.1     12.1       12    0.00
+POST /api/users                                   1      0.2    121.7    121.7    121.7    121.7      122    0.00
+ALL                                           89999  17999.8     62.3    103.7    122.9    216.8      304    0.00
+mix: 1.86 calls/page, 2.250 req/s per user, 5.0% writes, 48468 page views
+box 0 (010d080d40b7): 8000 users, CPU avg 67% max 69%, loadgen proc 12%, RSS peak 220 MB, 8000 TCP connects, behind=false
+verdict: PASS   [p95 < 500 ms, p99 < 1000 ms, errors < 1%]
+lg_limited: no

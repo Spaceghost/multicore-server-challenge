@@ -1,0 +1,26 @@
+key	value
+platform	Linux-6.18.57-x86_64-with-glibc2.39
+machine	x86_64
+visible_cpus	9
+meminfo	MemTotal:       10206472 kB
+io_uring	blocked: errno=1 Operation not permitted
+io_uring_disabled	0
+cgroup_cpu_max	800000 100000
+cgroup_memory_max	8589934592
+cgroup_cpuset	0-8
+network_namespace	net:[4026532278]
+nofile_parent	(16384, 16384)
+nofile_child	16384
+nofile_matches_contest	False
+template	conduit_seed
+think_scale	0.1
+load_generator_location	same host
+official_score	no
+source_head	b78b722e4f4656a1f48f585d689a159d23eda5e6
+process_monitor_pid_namespace_matches	False
+cpu_model	AMD EPYC 9V74 80-Core Processor
+clock_ticks_per_second	100
+process_capabilities	"CapInh:	0000000000000000 | CapPrm:	0000000000000000 | CapEff:	0000000000000000 | CapBnd:	0000000000000000 | CapAmb:	0000000000000000 | NoNewPrivs:	1 | Seccomp:	2 | Seccomp_filters:	1"
+pg_version	PostgreSQL 18.0 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0, 64-bit
+pg_settings	effective_cache_size=524288 [8kB] | fsync=on | full_page_writes=on | max_connections=100 | max_parallel_workers=8 | max_parallel_workers_per_gather=2 | max_worker_processes=8 | random_page_cost=4 | shared_buffers=16384 [8kB] | synchronous_commit=on | work_mem=4096 [kB]
+template_size_bytes	3861479951

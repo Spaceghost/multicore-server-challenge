@@ -1,0 +1,7 @@
+name	launcher	cwd	sourcepin
+nelua-epoll-spaceghost	/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/nelua-epoll-spaceghost/start.sh	/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/nelua-epoll-spaceghost	
+rust-epoll-theCatWisel	/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/rust-epoll-theCatWisel/start.sh	/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/rust-epoll-theCatWisel	
+zig-iouring-nick-potts	/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/zig-iouring-nick-potts/start.sh	/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/zig-iouring-nick-potts	
+rust-epoll-WorriedArrow	/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/rust-epoll-WorriedArrow/start.sh	/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/rust-epoll-WorriedArrow	
+asm-epoll-nickita-khylkouski	/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/asm-epoll-nickita-khylkouski/start.sh	/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/asm-epoll-nickita-khylkouski	
+csharp-epoll-aot-gichamba	/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/csharp-epoll-aot-gichamba/start.sh	/home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/csharp-epoll-aot-gichamba	

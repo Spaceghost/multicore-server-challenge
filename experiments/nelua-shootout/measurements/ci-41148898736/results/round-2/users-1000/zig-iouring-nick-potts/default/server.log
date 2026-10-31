@@ -1,0 +1,3 @@
+conduit[24050]: bcrypt asm_bextr in batches of 5, 14.68 CPU-ms per hash
+conduit[24050]: 2 workers x (0 read + 1 write postgres connections, 2 bcrypt threads), sha-ni true, gzip on (vpclmulqdq crc), flags shed=off,ackdelay=on,gzip=on
+conduit[24100]: drain process: 4 read postgres connections for 2 workers, rings 4 MB ask + 16 MB answer per worker

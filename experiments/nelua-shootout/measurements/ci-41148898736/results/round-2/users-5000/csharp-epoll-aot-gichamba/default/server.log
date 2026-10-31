@@ -1,0 +1,5 @@
+conduit: starting
+stats rps tags=1464 list=865 list_tag=321 list_author=320 list_fav=76 feed=596 article=1651 comments=1644 profile=397 user=34 login=7 oldest_ms=11 batch_mean=55.7 pg_per_s=400 bcrypt_q=2 emfile=0 read_err=0 write_err=0 accept_err=0
+stats rps tags=1402 list=845 list_tag=298 list_author=302 list_fav=74 feed=559 article=1462 comments=1465 profile=375 user=33 login=8 oldest_ms=16 batch_mean=53.1 pg_per_s=369 bcrypt_q=1 emfile=0 read_err=0 write_err=0 accept_err=0
+stats rps tags=2233 list=1328 list_tag=471 list_author=486 list_fav=121 feed=902 article=2314 comments=2306 profile=608 user=53 login=12 oldest_ms=15 batch_mean=60.5 pg_per_s=582 bcrypt_q=0 emfile=0 read_err=0 write_err=0 accept_err=0
+stats rps tags=2412 list=1440 list_tag=508 list_author=508 list_fav=127 feed=972 article=2383 comments=2376 profile=635 user=62 login=14 oldest_ms=8 batch_mean=62.5 pg_per_s=593 bcrypt_q=0 emfile=0 read_err=0 write_err=0 accept_err=0

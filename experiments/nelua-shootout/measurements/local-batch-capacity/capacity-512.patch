@@ -1,0 +1,46 @@
+--- a/submissions/nelua-epoll-spaceghost/src/transport.c
++++ b/submissions/nelua-epoll-spaceghost/src/transport.c
+@@ -27,7 +27,7 @@
+ #define NC_IDLE_MS 75000U
+ #define NC_HEADER_MS 15000U
+ #define NC_WRITE_MS 30000U
+-#define NC_READ_BATCH_MAX 128
++#define NC_READ_BATCH_MAX 512
+ #define NC_READ_WINDOW_MS 20U
+ 
+ /* Also declared by native.h once the Nelua batch entrypoint lands. */
+--- a/submissions/nelua-epoll-spaceghost/src/batch.nelua
++++ b/submissions/nelua-epoll-spaceghost/src/batch.nelua
+@@ -338,21 +338,21 @@
+ 
+ local function conduit_batch(requests:*[0]*N.Request, count:cint, db:*N.Db) <cexport,codename'conduit_batch'>
+   if count < 1 then return end
+-  if count > 128 then
++  if count > 512 then
+     local i:cint = 0
+     while i < count do handle_one(requests[i], db); i = i + 1 end
+     return
+   end
+-  local kinds:[128]cint <noinit>
+-  local verified:[128]int64 <noinit>
+-  local validated_limits:[128]int64 <noinit>
+-  local validated_offsets:[128]int64 <noinit>
+-  local filter_keys:[128]cstring <noinit>
+-  local grouped:[128]*N.Request <noinit>
+-  local keys:[128]cstring <noinit>
+-  local viewers:[128]int64 <noinit>
+-  local limits:[128]int64 <noinit>
+-  local offsets:[128]int64 <noinit>
++  local kinds:[512]cint <noinit>
++  local verified:[512]int64 <noinit>
++  local validated_limits:[512]int64 <noinit>
++  local validated_offsets:[512]int64 <noinit>
++  local filter_keys:[512]cstring <noinit>
++  local grouped:[512]*N.Request <noinit>
++  local keys:[512]cstring <noinit>
++  local viewers:[512]int64 <noinit>
++  local limits:[512]int64 <noinit>
++  local offsets:[512]int64 <noinit>
+   local has_group:boolean = false
+   local i:cint = 0
+   while i < count do

@@ -1,0 +1,5 @@
+  Determining projects to restore...
+  Restored /home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/csharp-epoll-aot-gichamba/src/Conduit.csproj (in 1.66 sec).
+  Conduit -> /home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/csharp-epoll-aot-gichamba/src/bin/Release/net10.0/linux-x64/conduit.dll
+  Generating native code
+  Conduit -> /home/runner/work/multicore-server-challenge/multicore-server-challenge/submissions/csharp-epoll-aot-gichamba/out/

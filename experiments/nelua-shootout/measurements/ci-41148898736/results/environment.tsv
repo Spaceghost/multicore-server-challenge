@@ -1,0 +1,26 @@
+key	value
+platform	Linux-7.0.0-1017-azure-x86_64-with-glibc2.39
+machine	x86_64
+visible_cpus	4
+meminfo	MemTotal:       16367524 kB
+io_uring	available
+io_uring_disabled	0
+cgroup_cpu_max	unavailable
+cgroup_memory_max	unavailable
+cgroup_cpuset	0-3
+network_namespace	net:[4026531833]
+nofile_parent	(65536, 65536)
+nofile_child	65536
+nofile_matches_contest	False
+template	conduit_seed
+think_scale	0.1
+load_generator_location	same host
+official_score	no
+source_head	1a97e10df48a4ed734640bf72df8a62ca8ae6d7a
+process_monitor_pid_namespace_matches	True
+cpu_model	AMD EPYC 7763 64-Core Processor
+clock_ticks_per_second	100
+process_capabilities	"CapInh:	0000000000000000 | CapPrm:	0000000000000000 | CapEff:	0000000000000000 | CapBnd:	000001ffffffffff | CapAmb:	0000000000000000 | NoNewPrivs:	0 | Seccomp:	0 | Seccomp_filters:	0"
+pg_version	PostgreSQL 18.6 (Debian 18.6-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+pg_settings	effective_cache_size=524288 [8kB] | fsync=on | full_page_writes=on | max_connections=100 | max_parallel_workers=8 | max_parallel_workers_per_gather=2 | max_worker_processes=8 | random_page_cost=4 | shared_buffers=16384 [8kB] | synchronous_commit=on | work_mem=4096 [kB]
+template_size_bytes	2426918591

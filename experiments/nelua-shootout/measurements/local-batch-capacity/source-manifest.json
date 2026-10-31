@@ -1,0 +1,27 @@
+{
+  "base_commit": "2a07dab2445432f908297a782876d1c851cab137",
+  "variants": {
+    "256": {
+      "binary": "/workspace/scratch/7de47ba8b27a/review-batch-capacity/256/bin/conduit",
+      "bytes": 398304,
+      "sha256": "8f4ce8ddd85bd7d1cb964c0896e730142aa227328bee430eb22bce03a045fc4e",
+      "changed_sources": [
+        "src/batch.nelua",
+        "src/transport.c"
+      ],
+      "typed_arrays": 10,
+      "compiled": true
+    },
+    "512": {
+      "binary": "/workspace/scratch/7de47ba8b27a/review-batch-capacity/512/bin/conduit",
+      "bytes": 398304,
+      "sha256": "b5976de812fbb48ed564c61f6570cce83b34c86c1f2df723bc048862e336958f",
+      "changed_sources": [
+        "src/batch.nelua",
+        "src/transport.c"
+      ],
+      "typed_arrays": 10,
+      "compiled": true
+    }
+  }
+}

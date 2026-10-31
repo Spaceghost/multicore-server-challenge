@@ -1,0 +1,2 @@
+Nelua epoll ready on 127.0.0.1:3110; DB lanes 4/8/8 (120 bytes/idle connection)
+read batches: serial=1 batches=44216 requests=5646108 mean=127.69 max=128 solo=1 mean_oldest_ms=22.40 max_oldest_ms=811
