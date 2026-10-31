@@ -33,7 +33,7 @@ INSERT INTO public.article_tags (article_id,tag_id) SELECT id,2 FROM public.arti
 INSERT INTO public.article_tags (article_id,tag_id) VALUES (1,3),(1,5);
 INSERT INTO public.favorites (user_id,article_id) SELECT 2,id FROM public.articles;
 INSERT INTO public.favorites (user_id,article_id) VALUES (1,1),(1,1100);
-INSERT INTO public.follows (follower_id,followee_id) VALUES (1,2),(1,3);
+INSERT INTO public.follows (follower_id,followee_id) VALUES (1,2),(1,3),(3,2),(4,2);
 
 -- Ties force the secondary id DESC ordering; article-2 remains comment-free.
 INSERT INTO public.comments (id,article_id,author_id,body,created_at,updated_at)

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd "$(dirname "$0")"
-NELUA_REV=3c29419776dfdca194fa7e9c572498264fe5c654
+NELUA_REV=4b5dfd4a76ce4f6e3c59983295f32f7db68466b4
 NELUA_ROOT="${NELUA_ROOT:-$PWD/.deps/nelua}"
-if [ ! -d "$NELUA_ROOT/.git" ]; then
+if [ ! -e "$NELUA_ROOT/.git" ]; then
   mkdir -p "$(dirname "$NELUA_ROOT")"
   git clone --no-checkout https://github.com/Spaceghost/nelua-lang.git "$NELUA_ROOT"
   git -C "$NELUA_ROOT" checkout --detach "$NELUA_REV"

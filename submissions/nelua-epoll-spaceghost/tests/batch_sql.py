@@ -60,7 +60,7 @@ def emitted_queries(path):
     for match in re.finditer(pattern, path.read_text()):
         sql = ast.literal_eval(match.group(1))
         if "page_keys AS MATERIALIZED" in sql:
-            if "WHERE fo.follower_id=k.owner" in sql:
+            if "WHERE fo.follower_id=k.owner" in sql or "hub_floors AS MATERIALIZED" in sql:
                 family = "feed"
             elif "FROM public.article_tags x WHERE x.tag_id=f.id" in sql:
                 family = "tag"
@@ -223,6 +223,19 @@ def lookup_checks(db, queries):
     print("PASS: profile/article/comment batches, independent viewers, markers, UTF8/controls and newest100",flush=True)
 
 
+def check_page_group(db, query, family, inputs):
+    parameters = [vector([row[0] for row in inputs],text=True)] + [
+        vector([row[column] for row in inputs]) for column in range(1,4)]
+    groups = indexed_rows(db.prepared(query, parameters), len(inputs))
+    for ordinal, arguments in enumerate(inputs,1):
+        rows = groups[ordinal]
+        equal("page count remains identical across its rows", len({row["n"] for row in rows}), 1)
+        actual = {"articles": [
+            {k:v for k,v in row.items() if k not in ("n","ordinal")}
+            for row in rows if row["slug"] is not None], "count": rows[0]["n"]}
+        equal(f"{family} page {arguments}", actual, page_oracle(db,family,*arguments))
+
+
 def page_checks(db, queries):
     cases = {
         "global": [("",1,10,0),("",0,10,0),("",2,5,5),("",1,100,0),
@@ -238,19 +251,24 @@ def page_checks(db, queries):
     }
     count = 0
     for family, inputs in cases.items():
-        parameters = [vector([row[0] for row in inputs],text=True)] + [
-            vector([row[column] for row in inputs]) for column in range(1,4)]
-        groups = indexed_rows(db.prepared(queries[family], parameters), len(inputs))
-        for ordinal, arguments in enumerate(inputs,1):
-            rows = groups[ordinal]
-            equal("page count remains identical across its rows", len({row["n"] for row in rows}), 1)
-            actual = {"articles": [
-                {k:v for k,v in row.items() if k not in ("n","ordinal")}
-                for row in rows if row["slug"] is not None], "count": rows[0]["n"]}
-            equal(f"{family} page {arguments}", actual, page_oracle(db,family,*arguments))
-            count += 1
+        check_page_group(db,queries[family],family,inputs)
+        count += len(inputs)
         print(f"PASS: {family}, {len(inputs)} overlapping/missing/capped/huge-offset page requests",flush=True)
     equal("page request matrix remains complete", count, 29)
+
+
+def feed_overlap_checks(db, query):
+    # Distinct viewers share an author with 1100 articles. Keep extreme offsets
+    # separate so they cannot disable all ordinary shared-author floor probes.
+    groups = [
+        [("",1,10,0),("",3,20,5),("",4,100,0)],
+        [("",1,20,1000),("",3,1,1099),("",4,20,1000)],
+        [("",1,1,MAX_OFFSET),("",3,10,MAX_OFFSET-5)],
+    ]
+    for inputs in groups:
+        check_page_group(db,query,"feed",inputs)
+    print("PASS: shared followees, capped counts, pages beyond 1000 and huge-offset fallback",flush=True)
+    return sum(map(len,groups))
 
 
 def main():
@@ -266,7 +284,8 @@ def main():
     db.reset_fixture()
     lookup_checks(db,queries)
     page_checks(db,queries)
-    print(f"PASS: {CHECKS} assertions; 14 lookup/comment and 29 page requests match SQL oracles",flush=True)
+    extra_pages = feed_overlap_checks(db,queries["feed"])
+    print(f"PASS: {CHECKS} assertions; 14 lookup/comment and {29 + extra_pages} page requests match SQL oracles",flush=True)
 
 
 if __name__ == "__main__":

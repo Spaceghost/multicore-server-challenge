@@ -5,10 +5,12 @@
 #include <crypt.h>
 #include <inttypes.h>
 #include <limits.h>
+#include <openssl/core_names.h>
 #include <openssl/crypto.h>
 #include <openssl/evp.h>
-#include <openssl/hmac.h>
+#include <openssl/params.h>
 #include <openssl/rand.h>
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -762,6 +764,85 @@ nc_token(nc_request *request)
     return request->authorization && strncmp(request->authorization,"Token ",6) == 0 ? request->authorization+6 : NULL;
 }
 
+typedef struct nc_hmac_state {
+    EVP_MAC_CTX *context;
+    unsigned char *secret;
+    size_t secret_length;
+} nc_hmac_state;
+
+static pthread_once_t nc_hmac_once=PTHREAD_ONCE_INIT;
+static pthread_key_t nc_hmac_key;
+static bool nc_hmac_key_ready;
+
+static void
+nc_hmac_clear(nc_hmac_state *state)
+{
+    EVP_MAC_CTX_free(state->context);
+    OPENSSL_clear_free(state->secret,state->secret_length);
+    state->context=NULL; state->secret=NULL; state->secret_length=0;
+}
+
+static void
+nc_hmac_free(void *pointer)
+{
+    nc_hmac_state *state=pointer;
+    nc_hmac_clear(state);
+    free(state);
+}
+
+static void
+nc_hmac_key_create(void)
+{
+    nc_hmac_key_ready=pthread_key_create(&nc_hmac_key,nc_hmac_free)==0;
+}
+
+/* Only configuration key material/context survives calls: each message is hashed afresh.
+ * One context per worker avoids shared mutable crypto state and per-request
+ * provider/context allocation. A changed environment secret replaces the key. */
+static bool
+nc_hmac_sha256(const char *secret,size_t secret_length,const unsigned char *data,
+               size_t length,unsigned char *digest,unsigned *digest_length)
+{
+    if (pthread_once(&nc_hmac_once,nc_hmac_key_create)!=0 || !nc_hmac_key_ready)
+        return false;
+    nc_hmac_state *state=pthread_getspecific(nc_hmac_key);
+    if (!state) {
+        state=calloc(1,sizeof(*state));
+        if (!state) return false;
+        if (pthread_setspecific(nc_hmac_key,state)!=0) { free(state); return false; }
+    }
+    if (!state->context) {
+        EVP_MAC *algorithm=EVP_MAC_fetch(NULL,"HMAC",NULL);
+        if (!algorithm) return false;
+        state->context=EVP_MAC_CTX_new(algorithm);
+        EVP_MAC_free(algorithm);
+        if (!state->context) return false;
+    }
+    if (secret_length!=state->secret_length || !state->secret ||
+        memcmp(secret,state->secret,secret_length)!=0) {
+        unsigned char *saved=OPENSSL_memdup(secret,secret_length);
+        if (!saved) return false;
+        char digest_name[]="SHA256";
+        OSSL_PARAM parameters[]={
+            OSSL_PARAM_utf8_string(OSSL_MAC_PARAM_DIGEST,digest_name,0),
+            OSSL_PARAM_END
+        };
+        if (!EVP_MAC_init(state->context,(const unsigned char *)secret,secret_length,parameters)) {
+            OPENSSL_clear_free(saved,secret_length); goto failed;
+        }
+        OPENSSL_clear_free(state->secret,state->secret_length);
+        state->secret=saved; state->secret_length=secret_length;
+    } else if (!EVP_MAC_init(state->context,NULL,0,NULL)) goto failed;
+    size_t size=0;
+    if (!EVP_MAC_update(state->context,data,length) ||
+        !EVP_MAC_final(state->context,digest,&size,32) || size!=32) goto failed;
+    *digest_length=(unsigned)size;
+    return true;
+failed:
+    nc_hmac_clear(state);
+    return false;
+}
+
 int64_t
 nc_auth(nc_request *request)
 {
@@ -778,7 +859,7 @@ nc_auth(nc_request *request)
     if (!secret || !*secret || strlen(secret) > INT_MAX) return -1;
     signature=nc_base64_decode(request,second+1,strlen(second+1),&signature_length);
     if (!signature || signature_length != 32 ||
-        !HMAC(EVP_sha256(),secret,(int)strlen(secret),(const unsigned char *)token,(size_t)(second-token),digest,&digest_length) ||
+        !nc_hmac_sha256(secret,strlen(secret),(const unsigned char *)token,(size_t)(second-token),digest,&digest_length) ||
         digest_length != signature_length || CRYPTO_memcmp(signature,digest,signature_length) != 0) return -1;
     header=nc_base64_decode(request,token,(size_t)(first-token),&header_length);
     payload=nc_base64_decode(request,first+1,(size_t)(second-first-1),&payload_length);
@@ -816,7 +897,7 @@ nc_issue_token(nc_request *request, int64_t id)
     if (!message) return NULL;
     memcpy(message,header,sizeof(header)-1); message[sizeof(header)-1]='.';
     memcpy(message+sizeof(header),payload,strlen(payload)+1);
-    if (!HMAC(EVP_sha256(),secret,(int)strlen(secret),(const unsigned char *)message,message_length,digest,&digest_length)) return NULL;
+    if (!nc_hmac_sha256(secret,strlen(secret),(const unsigned char *)message,message_length,digest,&digest_length)) return NULL;
     signature=nc_base64_encode(request,digest,digest_length);
     if (!signature) return NULL;
     signature_length=strlen(signature);

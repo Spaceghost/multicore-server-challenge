@@ -5,7 +5,7 @@ Front: direct
 Conduit's application logic is Nelua: all 19 API operations, routing, parameterized
 SQL, validation, response objects, and JSON emission. It compiles to native C
 using [Spaceghost's Nelua fork](https://github.com/Spaceghost/nelua-lang), pinned
-to `3c29419776dfdca194fa7e9c572498264fe5c654`.
+to `4b5dfd4a76ce4f6e3c59983295f32f7db68466b4`.
 
 A native host supplies epoll sockets, request-owned buffers, libpq, OpenSSL 3,
 and bcrypt. The build targets GCC 13 and Ubuntu 24.04's development packages;
@@ -25,7 +25,7 @@ bash test/run.sh submissions/nelua-epoll-spaceghost
 
 The official runner requires the challenge seed, Go, psql, curl, and PostgreSQL
 test credentials; see [test/run.sh](../../test/run.sh). The build verifies a clean
-compiler checkout at the pin, emits C, links one executable, strips unused
+compiler checkout or linked worktree at the pin, emits C, links one executable, strips unused
 symbols, and audits generated C for runtime imports. No binaries are committed.
 
 `start.sh` runs in the foreground. Set `DATABASE_URL` and `JWT_SECRET`; `HOST`
@@ -41,12 +41,14 @@ eight mutation, and eight authentication workers. Bcrypt stays off the epoll
 thread. Pending work, memory, headers, bodies, and output are bounded; overload
 receives 503. Idle keep-alive timeout is 75 seconds.
 
-One collector gathers at most 128 reads for up to 20 ms from the oldest enqueue
+One collector gathers at most 128 reads for up to 8 ms from the oldest enqueue
 time, then releases collection before database work. Other read workers execute
 completed batches concurrently. Article, profile, comment, tag, and page/count
 lookups share SQL and deduplicate keys within that batch. Viewer-specific flags
 use each request's independently verified token; ordinality maps results back
-to requests. Shared data and rendered responses end with the batch.
+to requests. Shared data and rendered responses end with the batch. Each frozen
+tag group executes a fresh query, renders once, and copies bytes into each
+request's independently owned response buffer; later arrivals cannot reuse it.
 
 A bounded libpq pipeline submits at most nine batch-read families before waiting
 for results, with a 10-second deadline for flushing and draining the pipeline.
@@ -78,7 +80,10 @@ or `READ_PIPELINE=0` to disable the corresponding strategy for comparison.
 ## Correctness
 
 Every authenticated request verifies HS256, signature, expiry, and a positive
-decimal subject. Login checks the stored bcrypt hash; registration and password
+decimal subject. Worker-local OpenSSL HMAC contexts retain only configuration
+key material and keyed provider state. Every call reinitializes the context,
+hashes the current token and verifies its signature; secret changes rekey it,
+and cryptographic failures discard its state. Login checks the stored bcrypt hash; registration and password
 changes compute **cost 10** with fresh random salts. Interleaving up to eight
 independent bcrypt states shares execution resources while completing every
 password's work. Libxcrypt handles compatibility cases and supplies an independent
@@ -96,6 +101,8 @@ From the submission directory:
 
 ```sh
 python3 tests/request_test.py
+python3 tests/auth_state.py --sanitize
+python3 tests/tags_batch.py --sanitize
 python3 tests/transport_gather.py --sanitize
 DATABASE_URL='dbname=postgres' python3 tests/read_pipeline.py --sanitize
 createdb nc_batch_validation

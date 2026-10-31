@@ -28,7 +28,7 @@
 #define NC_HEADER_MS 15000U
 #define NC_WRITE_MS 30000U
 #define NC_READ_BATCH_MAX 128
-#define NC_READ_WINDOW_MS 20U
+#define NC_READ_WINDOW_MS 8U
 
 /* Also declared by native.h once the Nelua batch entrypoint lands. */
 extern void conduit_batch(nc_request **requests, int count, nc_db *db);
