@@ -13,6 +13,7 @@ import csv
 import ctypes
 from datetime import datetime, timezone
 import hashlib
+import http.client
 import json
 import math
 import os
@@ -28,8 +29,6 @@ import subprocess
 import sys
 import threading
 import time
-import urllib.error
-import urllib.request
 
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
@@ -220,6 +219,20 @@ def child_limits():
     resource.setrlimit(resource.RLIMIT_NOFILE, (available, available))
 
 
+def health_request(port):
+    # Match the official curl/Go HTTP/1.1 readiness clients. urllib forces
+    # Connection: close; some asynchronous servers close before their reply
+    # when that extra header is present. Drain the response before closing.
+    connection = http.client.HTTPConnection("127.0.0.1", port, timeout=1)
+    try:
+        connection.request("GET", "/api/tags", headers={"Accept": "application/json"})
+        response = connection.getresponse()
+        body = response.read()
+        return response.status, body[:512]
+    finally:
+        connection.close()
+
+
 class Server:
     def __init__(self, case, database, port, directory, secret, settings=None):
         self.case, self.database, self.port, self.directory = case, database, port, directory
@@ -266,19 +279,23 @@ class Server:
                 if self.process.poll() is not None:
                     raise RuntimeError(f"server exited before health check ({self.process.returncode})")
                 try:
-                    with urllib.request.urlopen(self.url + "/api/tags", timeout=1) as response:
-                        if response.status == 200:
-                            observed = Path(f"/proc/{self.process.pid}/exe")
-                            try:
-                                executable = observed.resolve(strict=True)
-                                digest = hashlib.sha256(executable.read_bytes()).hexdigest()
-                                write_tsv(self.directory / "executable.tsv",
-                                          {"path": str(executable), "sha256": digest})
-                            except OSError:
-                                pass
-                            return self
-                except (OSError, urllib.error.URLError):
-                    time.sleep(0.2)
+                    status, body = health_request(self.port)
+                    if status == 200:
+                        observed = Path(f"/proc/{self.process.pid}/exe")
+                        try:
+                            executable = observed.resolve(strict=True)
+                            digest = hashlib.sha256(executable.read_bytes()).hexdigest()
+                            write_tsv(self.directory / "executable.tsv",
+                                      {"path": str(executable), "sha256": digest})
+                        except OSError:
+                            pass
+                        return self
+                    detail = f"status={status} body={body!r}"
+                except (OSError, http.client.HTTPException) as error:
+                    detail = f"{type(error).__name__}: {error}"
+                with (self.directory / "health.log").open("a") as health_log:
+                    health_log.write(detail + "\n")
+                time.sleep(0.2)
             raise RuntimeError("health check failed after 60 seconds")
         except BaseException:
             self.__exit__(None, None, None)
@@ -299,8 +316,19 @@ class Server:
             self.log.close()
 
 
+def proc_pid_namespace_matches():
+    try:
+        return int(Path("/proc/self/stat").read_text().split(" ", 1)[0]) == os.getpid()
+    except (OSError, ValueError):
+        return False
+
+
 def group_usage(pid):
-    total, ticks = 0, 0
+    # Some sandboxes expose host /proc but namespace-local Popen PIDs. Those
+    # numbers cannot safely identify our child/group; zero would be misleading.
+    if not proc_pid_namespace_matches():
+        return None, None
+    total, ticks, found = 0, 0, False
     page_kb = os.sysconf("SC_PAGE_SIZE") // 1024
     for path in Path("/proc").glob("[0-9]*/stat"):
         try:
@@ -308,11 +336,12 @@ def group_usage(pid):
             fields = content[content.rfind(")") + 2:].split()
             # Fields after comm begin with state; pgrp index 2, rss index21.
             if int(fields[2]) == pid:
+                found = True
                 total += int(fields[21]) * page_kb
                 ticks += int(fields[11]) + int(fields[12])
         except (OSError, ValueError, IndexError):
             continue
-    return total / 1024, ticks
+    return (total / 1024, ticks) if found else (None, None)
 
 
 class Monitor:
@@ -370,6 +399,7 @@ def result_eligible(row):
 
 def app_cpu(samples):
     """Average occupied cores over the sampled ramp/measure/tail span."""
+    samples = [sample for sample in samples if sample.get("cpu_jiffies") is not None]
     if len(samples) < 2 or samples[-1]["time"] <= samples[0]["time"]:
         return ""
     elapsed = samples[-1]["time"] - samples[0]["time"]
@@ -409,8 +439,10 @@ def report(args, rows, conformance, environment):
             selected = [row for row in rows if row["name"] == name and row["variant"] == variant
                         and row["users"] == users_at and result_eligible(row)]
             if selected:
-                values = [f"{statistics.median(float(row[key]) for row in selected):.2f}"
-                          for key in ("rps", "p50_ms", "p95_ms", "p99_ms", "error_rate", "app_rss_peak_mb")]
+                values = []
+                for key in ("rps", "p50_ms", "p95_ms", "p99_ms", "error_rate", "app_rss_peak_mb"):
+                    measured = [float(row[key]) for row in selected if row.get(key) not in (None, "")]
+                    values.append(f"{statistics.median(measured):.2f}" if measured else "unavailable")
             else:
                 values = ["—"] * 6
             label = name + (f" ({variant})" if name == OUR_NAME else "")
@@ -448,6 +480,7 @@ def environment_metadata(args):
               "template": args.template, "think_scale": args.think_scale,
               "load_generator_location": "same host", "official_score": "no",
               "source_head": git("rev-parse", "HEAD")}
+    values["process_monitor_pid_namespace_matches"] = proc_pid_namespace_matches()
     values["cpu_model"] = next((line.partition(":")[2].strip()
                                 for line in text_file("/proc/cpuinfo").splitlines()
                                 if line.startswith("model name")), "unavailable")
@@ -456,7 +489,7 @@ def environment_metadata(args):
                                               if line.startswith(("Cap", "NoNewPrivs", "Seccomp")))
     try:
         values["pg_version"] = psql("SELECT version()")
-        values["pg_settings"] = psql("SELECT name || '=' || setting || coalesce(unit,'') FROM pg_settings "
+        values["pg_settings"] = psql("SELECT name || '=' || setting || coalesce(' [' || unit || ']','') FROM pg_settings "
                                     "WHERE name IN ('max_connections','shared_buffers','effective_cache_size',"
                                     "'work_mem','max_worker_processes','max_parallel_workers','max_parallel_workers_per_gather',"
                                     "'synchronous_commit','fsync','full_page_writes','random_page_cost') ORDER BY name")
@@ -554,7 +587,8 @@ def run(args):
                                        host_cpu_pct=box.get("cpu_avg_measure_pct", ""),
                                        loadgen_cpu_pct=box.get("proc_cpu_avg_measure_pct", ""),
                                        app_cpu_core_eq=app_cpu(monitor.samples),
-                                       app_rss_peak_mb=max((s["rss_mb"] for s in monitor.samples), default=0),
+                                       app_rss_peak_mb=max((s["rss_mb"] for s in monitor.samples
+                                                           if s["rss_mb"] is not None), default=""),
                                        app_db_connections_peak=peak,
                                        reason="sampled connection limit exceeded" if peak > 95 else
                                               "connection sampling unavailable" if peak < 0 else

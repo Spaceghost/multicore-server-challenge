@@ -1,6 +1,7 @@
 import contextlib
 import csv
 import importlib.util
+import io
 from pathlib import Path
 import tempfile
 from types import SimpleNamespace
@@ -49,6 +50,15 @@ class ShootoutTests(unittest.TestCase):
         with patch.object(shootout.os, "sysconf", return_value=100):
             self.assertEqual(shootout.app_cpu([{"time": 10, "cpu_jiffies": 100},
                                                {"time": 12, "cpu_jiffies": 400}]), 1.5)
+        self.assertEqual(shootout.app_cpu([{"time": 10, "cpu_jiffies": None},
+                                           {"time": 12, "cpu_jiffies": None}]), "")
+
+    def test_invisible_processes_are_unavailable_not_zero(self):
+        with patch.object(shootout, "proc_pid_namespace_matches", return_value=False):
+            self.assertEqual(shootout.group_usage(123), (None, None))
+        with patch.object(shootout, "proc_pid_namespace_matches", return_value=True), \
+                patch.object(shootout.Path, "glob", return_value=[]):
+            self.assertEqual(shootout.group_usage(123), (None, None))
 
     def test_native_sourcepin_rejects_dirty_or_unrelated_sources(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -138,6 +148,26 @@ class ShootoutTests(unittest.TestCase):
                 connection.return_value.close.assert_called_once()
             self.assertTrue(server.log.closed)
 
+    def test_health_uses_persistent_http_and_drains_before_close(self):
+        with patch.object(shootout.http.client, "HTTPConnection") as client:
+            calls = []
+            connection = client.return_value
+            response = connection.getresponse.return_value
+            response.status = 200
+            response.read.side_effect = lambda: calls.append("read") or b'{"tags":[]}'
+            connection.close.side_effect = lambda: calls.append("close")
+            self.assertEqual(shootout.health_request(3110), (200, b'{"tags":[]}'))
+            connection.request.assert_called_once_with("GET", "/api/tags", headers={"Accept": "application/json"})
+            self.assertEqual(calls, ["read", "close"])
+
+    def test_health_retains_status_and_body_of_non_200(self):
+        with patch.object(shootout.http.client, "HTTPConnection") as client:
+            response = client.return_value.getresponse.return_value
+            response.status = 503
+            response.read.return_value = b"not ready"
+            self.assertEqual(shootout.health_request(3110), (503, b"not ready"))
+            client.return_value.close.assert_called_once()
+
     def test_fake_host_continues_after_blocked_comparators(self):
         """Exercise orchestration/reporting without PostgreSQL, sockets or real load."""
         with tempfile.TemporaryDirectory() as temporary:
@@ -183,7 +213,8 @@ class ShootoutTests(unittest.TestCase):
                 stack.enter_context(patch.object(shootout, "Monitor", FakeMonitor))
                 stack.enter_context(patch.object(shootout, "command", return_value=SimpleNamespace(returncode=0)))
                 stack.enter_context(patch.object(shootout, "load_run", side_effect=load))
-                self.assertEqual(shootout.run(args), 2)
+                with contextlib.redirect_stdout(io.StringIO()):
+                    self.assertEqual(shootout.run(args), 2)
             with (args.output / "runs.tsv").open() as stream:
                 rows = list(csv.DictReader(stream, delimiter="\t"))
             self.assertEqual(len(rows), 6)

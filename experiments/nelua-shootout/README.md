@@ -5,8 +5,11 @@ This research workflow compares `nelua-epoll-spaceghost` only with the five entr
 Comparator sources must match those pins; a blocked entry stays in the report and is
 never replaced by a lower-ranked implementation. Nothing here belongs in the contest entry.
 
-The workflow builds and starts the original submissions without source patches. Run
-`build-all.sh LOG_DIRECTORY` on a disposable Ubuntu 24.04 host to install their toolchains
+The workflow builds and starts the original submissions without source patches.
+Readiness uses a standard persistent HTTP/1.1 request, matching the official curl/Go
+clients, and drains its response before closing the connection.
+
+Run `build-all.sh LOG_DIRECTORY` on a disposable Ubuntu 24.04 host to install their toolchains
 and build all six, preserving each install/build log. It continues through individual
 failures. `SHOOTOUT_SKIP_INSTALL=1` skips dependency installation on a prepared host.
 Only the original dependency installers run with `sudo`; benchmark servers run as the
@@ -21,6 +24,12 @@ run sequentially on the same Ubuntu 24.04 runner with PostgreSQL 18. The full se
 compiler/build logs, conformance, and results are uploaded even when coverage fails.
 The stock CI database configuration is recorded as a diagnostic environment; it is not
 represented as the contest's dedicated eight-core machine.
+
+The first two research CI runs built all six unchanged entries, but the original
+urllib readiness probe added `Connection: close`, which triggered C#'s premature
+asynchronous response close path. Those reports correctly show incomplete coverage;
+their five measured cases remain diagnostics. The harness now matches the official
+persistent HTTP client behavior for every entry. No comparator source was changed.
 
 For an existing PostgreSQL 18 instance, first build `bench/cmd/conformance` and
 `bench/cmd/loadgen`, and run the repository's `seed/make-seed.sh` normally. Supply the
@@ -71,6 +80,8 @@ source hashes, launchers, runtime settings, capabilities, and one-second process
 are kept alongside it. Connection counts above 95 fail a run; these are observed sample
 peaks, not a proof that shorter spikes cannot occur. RSS sums process RSS and may count
 shared mappings more than once. Process CPU jiffies are available in the raw samples.
+If process inspection is unavailable, or `/proc` exposes a different PID namespace
+from the harness, app CPU/RSS cells are blank/unavailable. Host CPU is not substituted.
 
 Exit status 0 means every requested case and variant passed conformance, thresholds,
 connection sampling, and load-generator eligibility. Status 2 means partial or ineligible
