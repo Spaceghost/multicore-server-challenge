@@ -1,0 +1,20 @@
+{
+  "created_utc": "2026-10-31T02:20:00.724388+00:00",
+  "source_commit": "bc35c96ef444521151f6f3a78591f39b59f21b6e",
+  "compiler_commit": "4b5dfd4a76ce4f6e3c59983295f32f7db68466b4",
+  "source_dirty": false,
+  "binary_sha256": "8e7ea48034baa456bcb68b49a78b2bbe84a57be295317a41f17802313d46d101",
+  "users": 8000,
+  "warmup_s": 10,
+  "ramp_s": 5,
+  "measure_s": 300,
+  "tail_s": 3,
+  "think_scale": 0.1,
+  "template": "conduit_seed",
+  "articles": 500000,
+  "official_score": false,
+  "load_generator_location": "same host",
+  "proc_pid_namespace_matches": false,
+  "application_rss": "unavailable",
+  "pg_root_guard": "existing local diagnostic build only; no patch applied by this driver"
+}

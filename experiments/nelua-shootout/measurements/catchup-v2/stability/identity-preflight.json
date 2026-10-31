@@ -1,0 +1,37 @@
+{
+  "uid": 0,
+  "euid": 0,
+  "gid": 0,
+  "uid_map": "0          0          1",
+  "gid_map": "0          0          1",
+  "status": "Uid:\t0\t0\t0\t0\nGid:\t0\t0\t0\t0\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t0000000000000000\nCapAmb:\t0000000000000000\nNoNewPrivs:\t1\nSeccomp:\t2",
+  "attempts": [
+    {
+      "command": [
+        "setpriv",
+        "--reuid=65534",
+        "--regid=65534",
+        "--clear-groups",
+        "id",
+        "-u"
+      ],
+      "returncode": 127,
+      "stdout": "",
+      "stderr": "setpriv: setresuid failed: Invalid argument\n"
+    },
+    {
+      "command": [
+        "runuser",
+        "-u",
+        "nobody",
+        "--",
+        "id",
+        "-u"
+      ],
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "runuser: cannot set groups: Operation not permitted\n"
+    }
+  ],
+  "ordinary_uid_available": false
+}

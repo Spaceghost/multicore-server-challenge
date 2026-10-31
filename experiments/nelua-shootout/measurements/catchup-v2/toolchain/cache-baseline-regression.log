@@ -1,0 +1,41 @@
+[32m[PASS] [0m[35mrunner[0m | [1mversion numbers[0m
+[32m[PASS] [0m[35mrunner[0m | [1mcompile simple programs[0m
+[32m[PASS] [0m[35mrunner[0m | [1mrun simple programs[0m
+[32m[PASS] [0m[35mrunner[0m | [1merror on parsing an invalid program[0m
+[32m[PASS] [0m[35mrunner[0m | [1mprint correct generated AST[0m
+[32m[PASS] [0m[35mrunner[0m | [1mprint correct code[0m
+[32m[PASS] [0m[35mrunner[0m | [1mdefine option[0m
+[32m[PASS] [0m[35mrunner[0m | [1mpragma option[0m
+[32m[PASS] [0m[35mrunner[0m | [1mconfigure module search paths[0m
+[32m[PASS] [0m[35mrunner[0m | [1mdebug options[0m
+[32m[PASS] [0m[35mrunner[0m | [1mprogram arguments[0m
+[32m[PASS] [0m[35mrunner[0m | [1mshared libraries[0m
+[32m[PASS] [0m[35mrunner[0m | [1mbundled C libraries[0m
+[31m[FAIL] [0m[35mrunner[0m | [1minvalidates cached binaries when companion C sources change[0m ([34m...h/7de47ba8b27a/nelua-codegen-review/spec/runner_spec.lua[0m:[1m173[0m/[1m209[0m)
+[34m./spec/tools/expect.lua[0m:[1m39[0m: [31mExpected string to contains.[0m
+Passed in:
+4
+
+Expected:
+5
+stack traceback:
+	[C]: in function 'error'
+	...h/7de47ba8b27a/nelua-lang/lualib/nelua/utils/errorer.lua:15: in function 'nelua.utils.errorer.assertf'
+	./spec/tools/expect.lua:39: in function 'spec.tools.expect.contains'
+	./spec/tools/expect.lua:123: in function 'spec.tools.expect.run'
+	...h/7de47ba8b27a/nelua-codegen-review/spec/runner_spec.lua:209: in function <...h/7de47ba8b27a/nelua-codegen-review/spec/runner_spec.lua:173>
+	[C]: in function 'xpcall'
+	...e47ba8b27a/nelua-lang/lualib/nelua/thirdparty/lester.lua:309: in function 'nelua.thirdparty.lester.it'
+	...h/7de47ba8b27a/nelua-codegen-review/spec/runner_spec.lua:173: in local 'func'
+	...e47ba8b27a/nelua-lang/lualib/nelua/thirdparty/lester.lua:214: in function 'nelua.thirdparty.lester.describe'
+	...h/7de47ba8b27a/nelua-codegen-review/spec/runner_spec.lua:11: in main chunk
+	[C]: in function 'dofile'
+	(command line):1: in main chunk
+	[C]: in ?
+
+[32m[PASS] [0m[35mrunner[0m | [1mstatic libraries[0m
+[32m[PASS] [0m[35mrunner[0m | [1mverbose[0m
+[32m[PASS] [0m[35mrunner[0m | [1mversion[0m
+[32m[PASS] [0m[35mrunner[0m | [1merror tracebacks[0m
+[31m[====] [35mrunner[0m | [32m17[0m successes / [31m1[0m failures / [1m0.096804[0m seconds
+[32m17[0m successes / [33m0[0m skipped / [31m1[0m failures / [1m0.096811[0m seconds

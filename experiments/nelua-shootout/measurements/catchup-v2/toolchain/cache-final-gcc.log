@@ -1,0 +1,526 @@
+./nelua-lua spec/init.lua
+[32m[PASS] [0m[35mexcept[0m | [1mraising strings[0m
+[32m[PASS] [0m[35mexcept[0m | [1mraising tables[0m
+[32m[PASS] [0m[35mexcept[0m | [1mraising something[0m
+[32m[PASS] [0m[35mexcept[0m | [1mraising Exception[0m
+[32m[PASS] [0m[35mexcept[0m | [1mraising labeled Exception[0m
+[32m[PASS] [0m[35mexcept[0m | [1mreraising[0m
+[32m[PASS] [0m[35mexcept[0m | [1mignore errors[0m
+[32m[PASS] [0m[35mexcept[0m | [1mignore number errors[0m
+[32m[PASS] [0m[35mexcept[0m | [1merrors with __tostring metamethod[0m
+[32m[PASS] [0m[35mexcept[0m | [1mraising in pcall[0m
+[32m[====] [35mexcept[0m | [32m10[0m successes / [1m0.002947[0m seconds
+[32m[PASS] [0m[35mbn[0m | [1mbig numbers[0m
+[32m[PASS] [0m[35mbn[0m | [1mregular number conversion[0m
+[32m[PASS] [0m[35mbn[0m | [1mdecimal number conversion[0m
+[32m[PASS] [0m[35mbn[0m | [1mhexadecimal conversion[0m
+[32m[PASS] [0m[35mbn[0m | [1mbinary conversion[0m
+[32m[PASS] [0m[35mbn[0m | [1mscientific notation[0m
+[32m[====] [35mbn[0m | [32m6[0m successes / [1m0.000524[0m seconds
+[32m[PASS] [0m[35mpegger[0m | [1mc double quoting[0m
+[32m[====] [35mpegger[0m | [32m1[0m successes / [1m0.000020[0m seconds
+[32m[PASS] [0m[35mutils[0m | [1mfs.findmodulepath[0m
+[32m[PASS] [0m[35mutils[0m | [1mtabler.shallow_compare_nomt[0m
+[32m[====] [35mutils[0m | [32m2[0m successes / [1m0.000177[0m seconds
+[32m[PASS] [0m[35master[0m | [1mcreate a valid ASTNode[0m
+[32m[PASS] [0m[35master[0m | [1merror on invalid ASTNode[0m
+[32m[PASS] [0m[35master[0m | [1mclone different ASTNode[0m
+[32m[PASS] [0m[35master[0m | [1mpretty[0m
+[32m[PASS] [0m[35master[0m | [1mclone[0m
+[32m[====] [35master[0m | [32m5[0m successes / [1m0.000270[0m seconds
+[32m[PASS] [0m[35msyntaxdefs[0m | [1mempty file[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [1minvalid syntax[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [1mshebang[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mcomments[0m | [1mshort[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mcomments[0m | [1mlong[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [1midentifiers[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [1mspaces[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [1mline breaks[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mreturn[0m | [1msimple[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mreturn[0m | [1mwith semicolon[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mreturn[0m | [1mwith value[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mreturn[0m | [1mwith multiple values[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstring[0m | [1mlong[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstring[0m | [1mshort[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstring[0m | [1mliteral[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstring[0m | [1mescape sequence[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mnumbers[0m | [1mbinary[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mnumbers[0m | [1mhexadecimal[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mnumbers[0m | [1minteger[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mnumbers[0m | [1mfractional[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mnumbers[0m | [1mexponential[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mnumbers[0m | [1mliteral[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1mnumber[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1mstring[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1mboolean[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1mnil[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1mnilptr[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1mvarargs[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1midentifier[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1minitializer list[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1msurrounded expression[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1mdot index[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1marray index[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1manonymous function[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1mcall global[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1mcall with arguments[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1mcall field[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1mcall method[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mexpression[0m | [1mdo expression[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtable[0m | [1mcomplex fields[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtable[0m | [1mmultiple values[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtable[0m | [1mnested[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mcall[0m | [1msimple[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mcall[0m | [1mdot index[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mcall[0m | [1marray index[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mcall[0m | [1mmethod[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mcall[0m | [1mnested[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mif[0m | [1msimple[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mif[0m | [1mwith elseifs and else[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mswitch[0m | [1msimple[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mswitch[0m | [1mwith else part[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mswitch[0m | [1mmultiple cases[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mswitch[0m | [1mmultiple cases with shared block[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mswitch[0m | [1mfallthrough[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mdo[0m | [1msimple[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mdo[0m | [1mwith statements[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mdefer[0m | [1msimple[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mdefer[0m | [1mwith statements[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mloop[0m | [1mwhile[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mloop[0m | [1mbreak and continue[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mloop[0m | [1mrepeat[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mfor[0m | [1msimple[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mfor[0m | [1mreverse with comparations[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mfor[0m | [1min[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mfor[0m | [1min typed[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mgoto[0m | [1msimple[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mgoto[0m | [1mlabel[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mgoto[0m | [1mcomplex[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mvariable declaration[0m | [1mlocal variable[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mvariable declaration[0m | [1mlocal variable assignment[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mvariable declaration[0m | [1mnon local variable[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mvariable declaration[0m | [1mvariable annotations[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mvariable declaration[0m | [1mvariable mutabilities[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mvariable declaration[0m | [1mvariable multiple assigments[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mvariable declaration[0m | [1mrecord global variables[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35massignment[0m | [1msimple[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35massignment[0m | [1mmultiple[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35massignment[0m | [1mon indexes[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35massignment[0m | [1mon calls[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mfunction[0m | [1msimple[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mfunction[0m | [1mvarargs[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mfunction[0m | [1mtyped varargs[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mfunction[0m | [1mlocal and typed[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mfunction[0m | [1mglobal and typed[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mfunction[0m | [1mglobal and typed with annotations[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mfunction[0m | [1mwith colon index[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mstatement[0m | [35mfunction[0m | [1mwith dot index[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'or'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'and'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'<'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'>'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'<='[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'>='[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'~='[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'=='[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'|'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'~'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'&'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'<<'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'>>'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'>>>'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'..'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'+'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'-'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'*'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'/'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'//'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'///'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'%'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'%%%'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'not'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'#'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'-'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'~'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'&'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'*'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperator[0m | [1m'^'[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperators following precedence rules for[0m | [1m`and` and `or`[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperators following precedence rules for[0m | [1mlua precedence rules[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35moperators following precedence rules for[0m | [1mlua associative rules[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtype expression[0m | [1mfunction[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtype expression[0m | [1marray type[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtype expression[0m | [1mrecord type[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtype expression[0m | [1munion type[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtype expression[0m | [1mvariant type[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtype expression[0m | [1moptional type[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtype expression[0m | [1menum type[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtype expression[0m | [1mpointer type[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtype expression[0m | [1mgeneric type[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtype expression[0m | [1mcomplex types[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtype expression[0m | [1mtype instantiation[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtype expression[0m | [1mtype cast[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mtype expression[0m | [1mnamespaced types[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mannotation[0m | [1mvariable[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mannotation[0m | [1mfunction[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mpreprocessor[0m | [1mone line[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mpreprocessor[0m | [1mmultiline[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mpreprocessor[0m | [1memitting nodes[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mpreprocessor[0m | [1meval expression[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mpreprocessor[0m | [1mreplacement macro syntax sugar[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mpreprocessor[0m | [1meval name[0m
+[32m[PASS] [0m[35msyntaxdefs[0m | [35mutf8 character[0m | [1mfunction[0m
+[32m[====] [35msyntaxdefs[0m | [32m142[0m successes / [1m0.032644[0m seconds
+[32m[PASS] [0m[35manalyzer[0m | [1manalyzed ast transform[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mlocal variable[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mglobal variable[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mname collision[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mcomptime variable[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mconst variable[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mauto type[0m
+[32m[PASS] [0m[35manalyzer[0m | [1many type[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mnil type[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mnilptr type[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mnumeric types coercion[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mnarrow casting[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mnumeric ranges[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mtype declaration[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mfor loop variables[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mvariable assignments[0m
+[32m[PASS] [0m[35manalyzer[0m | [1munary operators[0m
+[32m[PASS] [0m[35manalyzer[0m | [1munary operator not[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator shift[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator add[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator mul[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator div[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator idiv[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator tdiv[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator mod[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator tmod[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator pow[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator eq[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator ne[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator lt[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator bor[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator band[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator bxor[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator shl[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator shr[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator asr[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary conditional and[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary conditional or[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbinary operator concat[0m
+[32m[PASS] [0m[35manalyzer[0m | [1moperation with parenthesis[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mlate deduction[0m
+[32m[PASS] [0m[35manalyzer[0m | [1manonymous functions[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mfunction definition[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mclosures[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mpoly function definition[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mfunction return[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mfunction multiple return[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mswitch[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mswitch fallthrough[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mfunction call[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mcallbacks[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mfor in[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbreak[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mcontinue[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mgoto[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mspans[0m
+[32m[PASS] [0m[35manalyzer[0m | [1marrays[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mindexing[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mrecords[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mrecords metamethods[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mdependent functions resolution[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mrecord methods[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mrecord fields[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mtype neasting[0m
+[32m[PASS] [0m[35manalyzer[0m | [1menums[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mpointers[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mdereferencing and referencing[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mautomatic referencing[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mautomatic dereferencing[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mpointers to complex types[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mtype construction[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mtype casting[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mannotations[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mcimport[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mclose[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mbuiltins[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mrequire builtin[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mstrict mode[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mconcepts[0m
+[32m[PASS] [0m[35manalyzer[0m | [1moverload and facultative concepts[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mdecltype concept[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mgenerics[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mcustom braces initialization[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mdo expressions[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mforward type declaration[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mcincomplete declaration[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mforward function declaration[0m
+[32m[PASS] [0m[35manalyzer[0m | [1musing annotation[0m
+[32m[PASS] [0m[35manalyzer[0m | [1munion type[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mvariant type[0m
+[32m[PASS] [0m[35manalyzer[0m | [1moptional type[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mside effects detection[0m
+[32m[PASS] [0m[35manalyzer[0m | [1minvalid type uses[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mnocopy type annotation[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mpolymorphic varargs[0m
+[32m[PASS] [0m[35manalyzer[0m | [1mmissing symbols error suggestions[0m
+[32m[====] [35manalyzer[0m | [32m96[0m successes / [1m0.407112[0m seconds
+[32m[PASS] [0m[35mLua generator[0m | [1mempty file[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mreturn[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mnumber[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mstring[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mboolean[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mnil[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mvarargs[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mtable[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mfunction[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mindexing[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mcall[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mif[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mswitch[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mdo[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mwhile[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mrepeat[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mfor[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mbreak[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mgoto[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mvariable declaration[0m
+[32m[PASS] [0m[35mLua generator[0m | [1massignment[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mfunction definition[0m
+[32m[PASS] [0m[35mLua generator[0m | [1munary operators[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mbinary operators[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mlua 5.1 compat operators[0m
+[32m[PASS] [0m[35mLua generator[0m | [1mtyped var initialization[0m
+[32m[====] [35mLua generator[0m | [32m26[0m successes / [1m0.013440[0m seconds
+[32m[PASS] [0m[35mC generator[0m | [1mempty file[0m
+[32m[PASS] [0m[35mC generator[0m | [1mreturn[0m
+[32m[PASS] [0m[35mC generator[0m | [1mlocal variable[0m
+[32m[PASS] [0m[35mC generator[0m | [1mglobal variable[0m
+[32m[PASS] [0m[35mC generator[0m | [1mnumber[0m
+[32m[PASS] [0m[35mC generator[0m | [1mnumber literals[0m
+[32m[PASS] [0m[35mC generator[0m | [1mtype cast[0m
+[32m[PASS] [0m[35mC generator[0m | [1mstring[0m
+[32m[PASS] [0m[35mC generator[0m | [1mboolean[0m
+[32m[PASS] [0m[35mC generator[0m | [1mnil[0m
+[32m[PASS] [0m[35mC generator[0m | [1mcall[0m
+[32m[PASS] [0m[35mC generator[0m | [1mcallbacks[0m
+[32m[PASS] [0m[35mC generator[0m | [1mif[0m
+[32m[PASS] [0m[35mC generator[0m | [1mswitch[0m
+[32m[PASS] [0m[35mC generator[0m | [1mfallthrough[0m
+[32m[PASS] [0m[35mC generator[0m | [1mdo[0m
+[32m[PASS] [0m[35mC generator[0m | [1mdefer[0m
+[32m[PASS] [0m[35mC generator[0m | [1mclose[0m
+[32m[PASS] [0m[35mC generator[0m | [1mwhile[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrepeat[0m
+[32m[PASS] [0m[35mC generator[0m | [1mfor[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbreak and continue[0m
+[32m[PASS] [0m[35mC generator[0m | [1mgoto[0m
+[32m[PASS] [0m[35mC generator[0m | [1mvariable declaration[0m
+[32m[PASS] [0m[35mC generator[0m | [1moperation on comptime variables[0m
+[32m[PASS] [0m[35mC generator[0m | [1massignment[0m
+[32m[PASS] [0m[35mC generator[0m | [1mmultiple assignment[0m
+[32m[PASS] [0m[35mC generator[0m | [1mfunction definition[0m
+[32m[PASS] [0m[35mC generator[0m | [1manonymous functions[0m
+[32m[PASS] [0m[35mC generator[0m | [1mpoly functions[0m
+[32m[PASS] [0m[35mC generator[0m | [1mpoly function aliases[0m
+[32m[PASS] [0m[35mC generator[0m | [1mpoly function for records[0m
+[32m[PASS] [0m[35mC generator[0m | [1mpoly functions with comptime arguments[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrecursive functions[0m
+[32m[PASS] [0m[35mC generator[0m | [1mglobal function definition[0m
+[32m[PASS] [0m[35mC generator[0m | [1mfunction return[0m
+[32m[PASS] [0m[35mC generator[0m | [1mfunction multiple returns[0m
+[32m[PASS] [0m[35mC generator[0m | [1mcall with multiple args[0m
+[32m[PASS] [0m[35mC generator[0m | [1mcall with omitted args[0m
+[32m[PASS] [0m[35mC generator[0m | [1mcall with side effects[0m
+[32m[PASS] [0m[35mC generator[0m | [1munary operator `not`[0m
+[32m[PASS] [0m[35mC generator[0m | [1munary operator `ref`[0m
+[32m[PASS] [0m[35mC generator[0m | [1munary operator `unm`[0m
+[32m[PASS] [0m[35mC generator[0m | [1munary operator `deref`[0m
+[32m[PASS] [0m[35mC generator[0m | [1munary operator `bnot`[0m
+[32m[PASS] [0m[35mC generator[0m | [1munary operator `len`[0m
+[32m[PASS] [0m[35mC generator[0m | [1munary operator `lt`[0m
+[32m[PASS] [0m[35mC generator[0m | [1munary operator `le`[0m
+[32m[PASS] [0m[35mC generator[0m | [1munary operator `gt`[0m
+[32m[PASS] [0m[35mC generator[0m | [1munary operator `ge`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `eq`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `ne`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `add`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `sub`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `mul`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `div`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `idiv`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `tdiv`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `mod`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `tmod`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `pow`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `band`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `bor`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `bxor`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `shl`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `shr`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `asr`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary shifting[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary operator `concat`[0m
+[32m[PASS] [0m[35mC generator[0m | [1mstring comparisons[0m
+[32m[PASS] [0m[35mC generator[0m | [1marray comparisons[0m
+[32m[PASS] [0m[35mC generator[0m | [1mnumber comparisons[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrecord comparisons[0m
+[32m[PASS] [0m[35mC generator[0m | [1mbinary conditional operators[0m
+[32m[PASS] [0m[35mC generator[0m | [1mexpressions with side effects[0m
+[32m[PASS] [0m[35mC generator[0m | [1mstatement expressions[0m
+[32m[PASS] [0m[35mC generator[0m | [1mreplacement macros[0m
+[32m[PASS] [0m[35mC generator[0m | [1mc types[0m
+[32m[PASS] [0m[35mC generator[0m | [1mreserved names quoting[0m
+[32m[PASS] [0m[35mC generator[0m | [1mvariable shadowing[0m
+[32m[PASS] [0m[35mC generator[0m | [1many type[0m
+[32m[PASS] [0m[35mC generator[0m | [1mtable type[0m
+[32m[PASS] [0m[35mC generator[0m | [1mcstring and string[0m
+[32m[PASS] [0m[35mC generator[0m | [1marrays[0m
+[32m[PASS] [0m[35mC generator[0m | [1marray bounds checking[0m
+[32m[PASS] [0m[35mC generator[0m | [1marrays inside records[0m
+[32m[PASS] [0m[35mC generator[0m | [1mmulti dimensional arrays[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrecords[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrecords size[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrecord methods[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrecord metametods[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrecord operator overloading[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrecord globals[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrecords referencing itself[0m
+[32m[PASS] [0m[35mC generator[0m | [1menums[0m
+[32m[PASS] [0m[35mC generator[0m | [1mpointers[0m
+[32m[PASS] [0m[35mC generator[0m | [1mfunction pointers[0m
+[32m[PASS] [0m[35mC generator[0m | [1mautomatic reference[0m
+[32m[PASS] [0m[35mC generator[0m | [1mautomatic dereference[0m
+[32m[PASS] [0m[35mC generator[0m | [1mautomatic casting[0m
+[32m[PASS] [0m[35mC generator[0m | [1mnarrow casting[0m
+[32m[PASS] [0m[35mC generator[0m | [1mimplicit casting for unbounded arrays[0m
+[32m[PASS] [0m[35mC generator[0m | [1mnilptr[0m
+[32m[PASS] [0m[35mC generator[0m | [1mmanual memory managment[0m
+[32m[PASS] [0m[35mC generator[0m | [1mC varargs[0m
+[32m[PASS] [0m[35mC generator[0m | [1mcall pragmas[0m
+[32m[PASS] [0m[35mC generator[0m | [1mannotations[0m
+[32m[PASS] [0m[35mC generator[0m | [1mtype codenames[0m
+[32m[PASS] [0m[35mC generator[0m | [1mentrypoint[0m
+[32m[PASS] [0m[35mC generator[0m | [1mhook main[0m
+[32m[PASS] [0m[35mC generator[0m | [1mprint builtin[0m
+[32m[PASS] [0m[35mC generator[0m | [1msizeof builtin[0m
+[32m[PASS] [0m[35mC generator[0m | [1merror builtin[0m
+[32m[PASS] [0m[35mC generator[0m | [1massert builtin[0m
+[32m[PASS] [0m[35mC generator[0m | [1mcheck builtin[0m
+[32m[PASS] [0m[35mC generator[0m | [1merror builtin[0m
+[32m[PASS] [0m[35mC generator[0m | [1mwarn builtin[0m
+[32m[PASS] [0m[35mC generator[0m | [1mlikely builtin[0m
+[32m[PASS] [0m[35mC generator[0m | [1mcontext pragmas[0m
+[32m[PASS] [0m[35mC generator[0m | [1mpragma writestderr[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrequire builtin[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrequire returns[0m
+[32m[PASS] [0m[35mC generator[0m | [1mname collision[0m
+[32m[PASS] [0m[35mC generator[0m | [1mtop scope variables prefix[0m
+[32m[PASS] [0m[35mC generator[0m | [1mGC requirements[0m
+[32m[PASS] [0m[35mC generator[0m | [1mconcepts[0m
+[32m[PASS] [0m[35mC generator[0m | [1mgenerics[0m
+[32m[PASS] [0m[35mC generator[0m | [1mdeprecated[0m
+[32m[PASS] [0m[35mC generator[0m | [1mforward type declaration[0m
+[32m[PASS] [0m[35mC generator[0m | [1mfunction assignment[0m
+[32m[PASS] [0m[35mC generator[0m | [1mimporting type of unknown sizes[0m
+[32m[PASS] [0m[35mC generator[0m | [1mimporting type declaration[0m
+[32m[PASS] [0m[35mC generator[0m | [1munions[0m
+[32m[PASS] [0m[35mC generator[0m | [1mfacultative[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrecord as namespaces[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrecord initialize evaluation order[0m
+[32m[PASS] [0m[35mC generator[0m | [1mpolymorphic variable arguments[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrecord field aliases[0m
+[32m[PASS] [0m[35mC generator[0m | [1missue with multiple returns and dead code elimination[0m
+[32m[PASS] [0m[35mC generator[0m | [1mrecursive function resolution[0m
+[32m[====] [35mC generator[0m | [32m140[0m successes / [1m6.676194[0m seconds
+[32m[PASS] [0m[35mpreprocessor[0m | [1mevaluate expressions[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mevaluate names[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mparse if[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mparse loops[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1minject other symbol type[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mcheck symbols inside functions[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mprint symbol[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mprint enums[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1minject fields[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mprint ast[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mprint types[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mgenerate functions[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mprint symbol[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mprint config[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mglobal preprocessor variables[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mdirectives[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mcall codes after inference[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mcall codes after analyze pass[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1minject statements[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mwrap statements[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1munpack ast nodes[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mnested preprocessing[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mcheck function[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mauto type[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mmultiple blocks[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mpoly function[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mreport errors[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mpreprocessor replacement[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mpreprocessor functions[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mmacros[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mexpression macros[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mnon hygienic macros[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mhygienic macros[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mgeneralize macro[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mcompiler information[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mrequire override[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1msource location[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1mrun brainfuck[0m
+[32m[PASS] [0m[35mpreprocessor[0m | [1madd library path[0m
+[32m[====] [35mpreprocessor[0m | [32m39[0m successes / [1m0.255365[0m seconds
+[32m[PASS] [0m[35mstandard library[0m | [1mrequire[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mbuiltins[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mtraits[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mlibc[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mmath[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mmemory[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mgc[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mallocators[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mspan[0m
+[32m[PASS] [0m[35mstandard library[0m | [1msequence[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mvector[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mlist[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mhashmap[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mhash[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mio[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mos[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mstringbuilder[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mstring[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mutf8[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mpattern matching[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mpack[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mdefer[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mcoroutine[0m
+[32m[PASS] [0m[35mstandard library[0m | [1mthreads[0m
+[32m[====] [35mstandard library[0m | [32m24[0m successes / [1m11.027936[0m seconds
+[32m[PASS] [0m[35mrunner[0m | [1mversion numbers[0m
+[32m[PASS] [0m[35mrunner[0m | [1mcompile simple programs[0m
+[32m[PASS] [0m[35mrunner[0m | [1mrun simple programs[0m
+[32m[PASS] [0m[35mrunner[0m | [1merror on parsing an invalid program[0m
+[32m[PASS] [0m[35mrunner[0m | [1mprint correct generated AST[0m
+[32m[PASS] [0m[35mrunner[0m | [1mprint correct code[0m
+[32m[PASS] [0m[35mrunner[0m | [1mdefine option[0m
+[32m[PASS] [0m[35mrunner[0m | [1mpragma option[0m
+[32m[PASS] [0m[35mrunner[0m | [1mconfigure module search paths[0m
+[32m[PASS] [0m[35mrunner[0m | [1mdebug options[0m
+[32m[PASS] [0m[35mrunner[0m | [1mprogram arguments[0m
+[32m[PASS] [0m[35mrunner[0m | [1mshared libraries[0m
+[32m[PASS] [0m[35mrunner[0m | [1mbundled C libraries[0m
+[32m[PASS] [0m[35mrunner[0m | [1minvalidates cached binaries when companion C sources change[0m
+[32m[PASS] [0m[35mrunner[0m | [1mstatic libraries[0m
+[32m[PASS] [0m[35mrunner[0m | [1mverbose[0m
+[32m[PASS] [0m[35mrunner[0m | [1mversion[0m
+[32m[PASS] [0m[35mrunner[0m | [1merror tracebacks[0m
+[32m[====] [35mrunner[0m | [32m18[0m successes / [1m1.717629[0m seconds
+[32m[PASS] [0m[35mcompact C codegen[0m | [1mapplies compact settings immediately and to future config builds[0m
+[32m[PASS] [0m[35mcompact C codegen[0m | [1mcan explicitly omit static ABI assertions and duplicate exports[0m
+[32m[====] [35mcompact C codegen[0m | [32m2[0m successes / [1m0.000031[0m seconds
+[32m511[0m successes / [33m0[0m skipped / [31m0[0m failures / [1m20.138652[0m seconds

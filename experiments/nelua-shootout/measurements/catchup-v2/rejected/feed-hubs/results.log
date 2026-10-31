@@ -1,0 +1,57 @@
+PARITY one 10
+PARITY eight 80
+PARITY 32 320
+PARITY 128 1280
+PARITY empty 1
+PARITY mixed-empty 311
+PARITY varying 165
+PARITY same-viewer-pages 218
+PARITY largeoffset 8
+PARITY random128 3395
+EXPLAIN one baseline {"execution_ms": 1.006, "planning_ms": 0.043, "hits": 457, "read": 0, "rows": 10.0, "article_index_rows": 1443.0, "article_index_loops": 55}
+EXPLAIN one candidate {"execution_ms": 0.929, "planning_ms": 0.038, "hits": 455, "read": 0, "rows": 10.0, "article_index_rows": 1443.0, "article_index_loops": 51}
+EXPLAIN one floor-only {"execution_ms": 0.862, "planning_ms": 0.037, "hits": 455, "read": 0, "rows": 10.0, "article_index_rows": 1443.0, "article_index_loops": 51}
+EXPLAIN eight baseline {"execution_ms": 4.095, "planning_ms": 0.029, "hits": 2676, "read": 0, "rows": 80.0, "article_index_rows": 9618.24, "article_index_loops": 269}
+EXPLAIN eight candidate {"execution_ms": 3.085, "planning_ms": 0.036, "hits": 2290, "read": 0, "rows": 80.0, "article_index_rows": 6939.95, "article_index_loops": 236}
+EXPLAIN eight floor-only {"execution_ms": 3.615, "planning_ms": 0.032, "hits": 2423, "read": 0, "rows": 80.0, "article_index_rows": 7939.96, "article_index_loops": 237}
+EXPLAIN 32 baseline {"execution_ms": 14.179, "planning_ms": 0.04, "hits": 8886, "read": 0, "rows": 320.0, "article_index_rows": 35084.61, "article_index_loops": 956}
+EXPLAIN 32 candidate {"execution_ms": 10.664, "planning_ms": 0.043, "hits": 7472, "read": 0, "rows": 320.0, "article_index_rows": 23383.17, "article_index_loops": 835}
+EXPLAIN 32 floor-only {"execution_ms": 11.876, "planning_ms": 0.039, "hits": 7981, "read": 0, "rows": 320.0, "article_index_rows": 29383.05, "article_index_loops": 841}
+EXPLAIN 128 baseline {"execution_ms": 45.975, "planning_ms": 0.057, "hits": 29833, "read": 0, "rows": 1280.0, "article_index_rows": 140075.76, "article_index_loops": 3549}
+EXPLAIN 128 candidate {"execution_ms": 30.492, "planning_ms": 0.076, "hits": 23093, "read": 0, "rows": 1280.0, "article_index_rows": 37590.14, "article_index_loops": 2967}
+EXPLAIN 128 floor-only {"execution_ms": 51.165, "planning_ms": 0.058, "hits": 26039, "read": 0, "rows": 1280.0, "article_index_rows": 117590.78, "article_index_loops": 3047}
+EXPLAIN varying baseline {"execution_ms": 16.676, "planning_ms": 0.046, "hits": 7890, "read": 0, "rows": 165.0, "article_index_rows": 40399.29, "article_index_loops": 956}
+EXPLAIN varying candidate {"execution_ms": 13.71, "planning_ms": 0.086, "hits": 6440, "read": 0, "rows": 165.0, "article_index_rows": 25372.58, "article_index_loops": 835}
+EXPLAIN varying floor-only {"execution_ms": 16.846, "planning_ms": 0.047, "hits": 6957, "read": 0, "rows": 165.0, "article_index_rows": 31732.46, "article_index_loops": 841}
+EXPLAIN random128 baseline {"execution_ms": 137.528, "planning_ms": 0.075, "hits": 62286, "read": 0, "rows": 3395.0, "article_index_rows": 187388.14, "article_index_loops": 3207}
+EXPLAIN random128 candidate {"execution_ms": 103.857, "planning_ms": 0.087, "hits": 56478, "read": 0, "rows": 3395.0, "article_index_rows": 56501.409999999996, "article_index_loops": 2737}
+EXPLAIN random128 floor-only {"execution_ms": 92.66, "planning_ms": 0.062, "hits": 58958, "read": 0, "rows": 3395.0, "article_index_rows": 119501.73999999999, "article_index_loops": 2800}
+WAITING_FOR_CPU_WINDOW 15.0
+TIMING eight baseline 288.89678988793065
+TIMING eight candidate 270.4030015488848
+TIMING eight floor-only 305.9004046401574
+TIMING eight floor-only 309.9620745907064
+TIMING eight candidate 340.4014921400373
+TIMING eight baseline 300.1413627917524
+SUMMARY eight {"baseline": 294.5190763398415, "candidate": 305.40224684446105, "floor-only": 307.9312396154319} ratio 1.0369523449545985 floor_ratio 1.045539200524024
+TIMING 32 baseline 78.13824216015247
+TIMING 32 candidate 100.7701530550665
+TIMING 32 floor-only 93.67568821055772
+TIMING 32 floor-only 90.38956285484657
+TIMING 32 candidate 96.92968314936827
+TIMING 32 baseline 82.4553103615417
+SUMMARY 32 {"baseline": 80.29677626084708, "candidate": 98.84991810221739, "floor-only": 92.03262553270216} ratio 1.2310571196669182 floor_ratio 1.146155920802234
+TIMING 128 baseline 22.387573617974795
+TIMING 128 candidate 31.29337028862696
+TIMING 128 floor-only 23.346829010041443
+TIMING 128 floor-only 24.460814425905713
+TIMING 128 candidate 32.69140591057831
+TIMING 128 baseline 21.7723118898643
+SUMMARY 128 {"baseline": 22.079942753919546, "candidate": 31.992388099602636, "floor-only": 23.903821717973578} ratio 1.4489343770569092 floor_ratio 1.0826034281148789
+TIMING varying baseline 79.76208007399693
+TIMING varying candidate 98.6809548020986
+TIMING varying floor-only 94.88569168169607
+TIMING varying floor-only 102.92850555080844
+TIMING varying candidate 112.40005794629437
+TIMING varying baseline 80.8719772335944
+SUMMARY varying {"baseline": 80.31702865379566, "candidate": 105.54050637419648, "floor-only": 98.90709861625226} ratio 1.314048940096202 floor_ratio 1.2314586367803593

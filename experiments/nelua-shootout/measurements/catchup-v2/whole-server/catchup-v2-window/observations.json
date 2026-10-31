@@ -1,0 +1,210 @@
+[
+  {
+    "users": 1000,
+    "round": 1,
+    "case": "baseline",
+    "count": 37688,
+    "rps": 2512.5333333333333,
+    "p50_ms": 20.591,
+    "p90_ms": 27.935,
+    "p95_ms": 30.303,
+    "p99_ms": 64.927,
+    "max_ms": 288.255,
+    "mean_ms": 21.52831503396302,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 36991,
+      "201": 673,
+      "204": 24
+    },
+    "cpu": 14.052727451339967,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "users": 1000,
+    "round": 1,
+    "case": "window8",
+    "count": 38706,
+    "rps": 2580.4,
+    "p50_ms": 9.511,
+    "p90_ms": 14.119,
+    "p95_ms": 15.791,
+    "p99_ms": 26.479,
+    "max_ms": 248.063,
+    "mean_ms": 10.32546636180439,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 37998,
+      "201": 684,
+      "204": 24
+    },
+    "cpu": 15.33113427298043,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "users": 1000,
+    "round": 2,
+    "case": "window8",
+    "count": 38373,
+    "rps": 2558.2,
+    "p50_ms": 9.287,
+    "p90_ms": 13.447,
+    "p95_ms": 15.167,
+    "p99_ms": 30.495,
+    "max_ms": 251.007,
+    "mean_ms": 10.29042670627784,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 37677,
+      "201": 683,
+      "204": 13
+    },
+    "cpu": 14.938083886616177,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "users": 1000,
+    "round": 2,
+    "case": "baseline",
+    "count": 37372,
+    "rps": 2491.4666666666667,
+    "p50_ms": 20.959,
+    "p90_ms": 27.695,
+    "p95_ms": 30.207,
+    "p99_ms": 52.095,
+    "max_ms": 258.303,
+    "mean_ms": 21.080848549716396,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 36694,
+      "201": 666,
+      "204": 12
+    },
+    "cpu": 12.995379243176838,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "users": 8000,
+    "round": 1,
+    "case": "baseline",
+    "count": 293520,
+    "rps": 19568,
+    "p50_ms": 29.279,
+    "p90_ms": 41.727,
+    "p95_ms": 49.215,
+    "p99_ms": 110.335,
+    "max_ms": 271.615,
+    "mean_ms": 31.367840351594385,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 288244,
+      "201": 5165,
+      "204": 111
+    },
+    "cpu": 65.46079232912841,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "users": 8000,
+    "round": 1,
+    "case": "window8",
+    "count": 295411,
+    "rps": 19694.066666666666,
+    "p50_ms": 27.583,
+    "p90_ms": 38.239,
+    "p95_ms": 44.831,
+    "p99_ms": 110.271,
+    "max_ms": 292.607,
+    "mean_ms": 28.94752293584193,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 290105,
+      "201": 5193,
+      "204": 113
+    },
+    "cpu": 65.57218969021811,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "users": 8000,
+    "round": 2,
+    "case": "window8",
+    "count": 293970,
+    "rps": 19598,
+    "p50_ms": 28.511,
+    "p90_ms": 40.959,
+    "p95_ms": 48.543,
+    "p99_ms": 112.511,
+    "max_ms": 332.287,
+    "mean_ms": 29.913053920468062,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 288565,
+      "201": 5304,
+      "204": 101
+    },
+    "cpu": 65.64971943010663,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "users": 8000,
+    "round": 2,
+    "case": "baseline",
+    "count": 289339,
+    "rps": 19289.266666666666,
+    "p50_ms": 30.079,
+    "p90_ms": 60.671,
+    "p95_ms": 88.511,
+    "p99_ms": 144.639,
+    "max_ms": 299.007,
+    "mean_ms": 36.440425258952345,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 284019,
+      "201": 5222,
+      "204": 98
+    },
+    "cpu": 65.92035073781453,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "provenance": "Recovered from the recorded tool-session summary; these rounded samples are not an original raw log. Reproducer source is preserved alongside this file.",
+  "iterations_per_sample": 30000,
+  "order": [
+    "baseline",
+    "candidate",
+    "candidate",
+    "baseline",
+    "baseline",
+    "candidate",
+    "candidate",
+    "baseline"
+  ],
+  "baseline_cpu_ns": [
+    3467.59,
+    2478.83,
+    2579.63,
+    2575.45
+  ],
+  "candidate_cpu_ns": [
+    1742.66,
+    1585.79,
+    1951.53,
+    1592.51
+  ],
+  "checksum_all_samples": 304293,
+  "baseline_median_cpu_ns": 2577.54,
+  "candidate_median_cpu_ns": 1667.585,
+  "candidate_change_percent": -35.303234867354135
+}

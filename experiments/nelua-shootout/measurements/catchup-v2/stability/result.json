@@ -1,0 +1,9 @@
+{
+  "status": "blocked",
+  "reason": "no representable ordinary application UID",
+  "postgres_started": false,
+  "application_started": false,
+  "measurement_started": false,
+  "eligible": false,
+  "official_score": false
+}

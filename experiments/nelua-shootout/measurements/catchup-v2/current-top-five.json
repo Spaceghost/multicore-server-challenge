@@ -1,0 +1,34 @@
+{
+  "url": "https://benchmarks.arjaythedev.com/",
+  "checked_at_utc": "2026-10-31T02:16:02.132442+00:00",
+  "page_sha256": "009648058d6e98c866b7062ab7c8447ec6f3d11ebb57d5d1baa1c9c7eb5197dd",
+  "top_five": [
+    {
+      "rank": 1,
+      "name": "rust-epoll-theCatWisel",
+      "official_users": 190000
+    },
+    {
+      "rank": 2,
+      "name": "zig-iouring-nick-potts",
+      "official_users": 190000
+    },
+    {
+      "rank": 3,
+      "name": "rust-epoll-WorriedArrow",
+      "official_users": 170000
+    },
+    {
+      "rank": 4,
+      "name": "asm-epoll-nickita-khylkouski",
+      "official_users": 150000
+    },
+    {
+      "rank": 5,
+      "name": "csharp-epoll-aot-gichamba",
+      "official_users": 130000
+    }
+  ],
+  "matches_pins_tsv": true,
+  "note": "Official scores are context only; our local and CI diagnostic scores are not comparable to this leaderboard."
+}

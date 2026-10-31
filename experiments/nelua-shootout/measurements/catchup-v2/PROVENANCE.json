@@ -1,0 +1,43 @@
+{
+  "baseline_source": "2a07dab2445432f908297a782876d1c851cab137",
+  "baseline_compiler": "3c29419776dfdca194fa7e9c572498264fe5c654",
+  "selected_source": "bc35c96ef444521151f6f3a78591f39b59f21b6e",
+  "selected_compiler": "4b5dfd4a76ce4f6e3c59983295f32f7db68466b4",
+  "selected_generated_c": {
+    "bytes": 79645,
+    "sha256": "3a7c1cdc5c81396f9994de3b5ad3b08d0e410cbdd45ca5ad9c6e670b61efd603",
+    "old_new_compiler_output_identical": true
+  },
+  "binary_hash_note": "Hashes captured at archive time from the preserved named variants; binaries are not included.",
+  "preserved_binary_sha256": {
+    "baseline": "30fec3f4e29772306e895768a86ba0f221c8495b091634c4016df48e6752b12e",
+    "tags_hmac_feed_20ms": "ac253a8ec126afdf7cc9d6bdf06af23985c140c0657e3b459c87cac212798efe",
+    "tags_hmac_20ms": "d641a3d14bb603d385cb444a41bf03d1fa395ea865a3b65882a6492911791df9",
+    "tags_hmac_mimalloc_20ms": "e824afb752328bafc378f26f9e04edf0d2d6024e1548b6f716f8235645c0d13d",
+    "selected_tags_hmac_8ms": "8e7ea48034baa456bcb68b49a78b2bbe84a57be295317a41f17802313d46d101"
+  },
+  "cases": {
+    "catchup-v2-abba": {
+      "baseline": "baseline",
+      "candidate": "tags_hmac_feed_20ms"
+    },
+    "catchup-v2-host-allocator": {
+      "baseline": "baseline",
+      "host": "tags_hmac_20ms",
+      "allocator": "tags_hmac_mimalloc_20ms"
+    },
+    "catchup-v2-window": {
+      "baseline": "baseline",
+      "window8": "selected_tags_hmac_8ms"
+    }
+  },
+  "window_causality": "window8 compares the final tags+HMAC+8ms combination to the old PR. This does not isolate timer duration alone.",
+  "allocator": {
+    "name": "mimalloc",
+    "version": "3.3.2",
+    "source_package": "libmimalloc-sys 0.1.49",
+    "url": "https://static.crates.io/crates/libmimalloc-sys/libmimalloc-sys-0.1.49.crate",
+    "archive_sha256": "6a45a52f43e1c16f667ccfe4dd8c85b7f7c204fd5e3bf46c5b0db9a5c3c0b8e9",
+    "observed_binary_sha256": "e824afb752328bafc378f26f9e04edf0d2d6024e1548b6f716f8235645c0d13d"
+  }
+}

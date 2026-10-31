@@ -1,0 +1,1192 @@
+[
+  {
+    "path": "COPIED-SHA256.json",
+    "bytes": 41213,
+    "sha256": "8df21113211ffdfcb749f645fa874b4d2873216e42770aee75914e683c51dae0"
+  },
+  {
+    "path": "MEDIANS.json",
+    "bytes": 1840,
+    "sha256": "142f459f9ab37ee0f08510ad4b5a30888abe0a20daa86a82a1ea603dfea19473"
+  },
+  {
+    "path": "PROVENANCE.json",
+    "bytes": 1976,
+    "sha256": "c1d1d138b83d8562f447160e4630a49e56e48f2f6f42e77bf917ad6dafc6cd25"
+  },
+  {
+    "path": "README.md",
+    "bytes": 7908,
+    "sha256": "31789266170253f17bbe6e80cabb38530f13a676843e745975c55e2724cde98c"
+  },
+  {
+    "path": "RULES.md",
+    "bytes": 19449,
+    "sha256": "cc300d84eb35c081572fe7cc0525e887f7a4e7e62620e1b77df01af840181949"
+  },
+  {
+    "path": "components/hmac/baseline-request.c",
+    "bytes": 32748,
+    "sha256": "3efe1979b8028a586364911d1b5d4d495820b635b052d883bfb584ec1eadd613"
+  },
+  {
+    "path": "components/hmac/recovered-session-samples.json",
+    "bytes": 678,
+    "sha256": "8cc7890f85885acc4ecc1e8f98f6b4ee7f0fe67ad94896b4bd3395a127320a0b"
+  },
+  {
+    "path": "components/hmac/src/BCRYPT-LICENSE",
+    "bytes": 1213,
+    "sha256": "8783c3757e5cda9666663b4a9e5c476c3483d8677535a7a8f391ce260f764ec7"
+  },
+  {
+    "path": "components/hmac/src/bcrypt.c",
+    "bytes": 16912,
+    "sha256": "befb77440c49e3b127dc85810120a2a57298116532d7766d39a2ee8f72bda946"
+  },
+  {
+    "path": "components/hmac/src/bcrypt.h",
+    "bytes": 883,
+    "sha256": "e01468542911daadaa7a9bcf290e21e0c60b66bc2c70da269d2f44f732287c1f"
+  },
+  {
+    "path": "components/hmac/src/bf_tables.h",
+    "bytes": 13135,
+    "sha256": "180c465e6737dd8b38b72765e29e64a2c3f5662cbdd3591b3e08177ada85b3c2"
+  },
+  {
+    "path": "components/hmac/src/native.h",
+    "bytes": 4059,
+    "sha256": "f5158cbe3f0d1f6f58387badc5d26e5ab8509d432004944c314b22cc940d3e5e"
+  },
+  {
+    "path": "components/hmac/src/request.c",
+    "bytes": 35549,
+    "sha256": "85f9906d06796859eeafafc17e96c34d99dfd7abe05a6bdf0804344310dc2a99"
+  },
+  {
+    "path": "components/hmac/tests/auth_state.c",
+    "bytes": 5843,
+    "sha256": "b5793d22fd7a9511abbf9b278b05e4ea1e56f182f6d6c5948ac0bddefce9e973"
+  },
+  {
+    "path": "components/hmac/tests/auth_state.py",
+    "bytes": 1373,
+    "sha256": "2d4aa29318283ac4ec3bf3edca4dd007357e802b61e113b3fe1c594d5297eba3"
+  },
+  {
+    "path": "components/hmac/tests/request_auth_bench.c",
+    "bytes": 2578,
+    "sha256": "8c8d1b9fb992239c6d7f4df9467c757a575cebac74ab506779de5e1cc4d05a96"
+  },
+  {
+    "path": "components/hmac/tools/bench-auth.py",
+    "bytes": 3655,
+    "sha256": "7095a0ba68e0e1ad5a736b309ea49d679537d59ec79b7db399ce99a4e9422de8"
+  },
+  {
+    "path": "components/tags/tags-batch-abba.log",
+    "bytes": 538,
+    "sha256": "4b09a37a9b751eca231b574f8851fe1a868b7c457deaa9def03dc12599cd5715"
+  },
+  {
+    "path": "components/tags/tags_batch.c",
+    "bytes": 5761,
+    "sha256": "2fe3c60abdcd468ab59661402df1e713176fc66858e1dea46af5afd2e4694b2e"
+  },
+  {
+    "path": "components/tags/tags_batch.py",
+    "bytes": 2691,
+    "sha256": "7770d99fe20b2f14421cae97833343c48a57938f88424532181ed4625625f8e3"
+  },
+  {
+    "path": "current-top-five.json",
+    "bytes": 877,
+    "sha256": "f74f1ee95f24c53b3fc0daf4e099049e9907f3f10e02b273360e4710ea3e25ad"
+  },
+  {
+    "path": "rejected/feed-hubs/128-baseline-plan.json",
+    "bytes": 52624,
+    "sha256": "e4cf5d210c75303f60290e474f345fae719c72af95e7bdca5c9c40a7b1037e62"
+  },
+  {
+    "path": "rejected/feed-hubs/128-candidate-plan.json",
+    "bytes": 79102,
+    "sha256": "33920f8fae5b14c7e5bef3a1eec77202e400f0ac5b7ac564114d3e08affe04df"
+  },
+  {
+    "path": "rejected/feed-hubs/128-floor-only-plan.json",
+    "bytes": 68166,
+    "sha256": "a382c38536a2d149b3dcf3197ecc2e1394a0e2e1c2db563c71e3023f7ebdec13"
+  },
+  {
+    "path": "rejected/feed-hubs/32-baseline-plan.json",
+    "bytes": 52567,
+    "sha256": "278b5b6258665f2b0ca3df4ca170f794ac421f08104b52a75b13b9996e33a75e"
+  },
+  {
+    "path": "rejected/feed-hubs/32-candidate-plan.json",
+    "bytes": 79022,
+    "sha256": "e8df8d2dd37cba71eae43e777726b1e63fc573d0cc7f24fd591613799cc7c618"
+  },
+  {
+    "path": "rejected/feed-hubs/32-floor-only-plan.json",
+    "bytes": 68097,
+    "sha256": "b93a7b132cd5c4134921d8005a24c84703d064aab43bcda9e455c60fb8e52b6c"
+  },
+  {
+    "path": "rejected/feed-hubs/README.md",
+    "bytes": 5429,
+    "sha256": "705fb68bc0ffa8c7db04b26003438abe873b235c6817f6b59a121266ad08f50e"
+  },
+  {
+    "path": "rejected/feed-hubs/baseline.sql",
+    "bytes": 2515,
+    "sha256": "276dbe2cff51c288d5337d8d31a38ff2d4c9f07e9836f8f2003cc098b32d0fa2"
+  },
+  {
+    "path": "rejected/feed-hubs/candidate.sql",
+    "bytes": 4061,
+    "sha256": "8862d8b1ac958d39731537fa9493022baca909ad3fe604a8616f93785739290b"
+  },
+  {
+    "path": "rejected/feed-hubs/eight-baseline-plan.json",
+    "bytes": 52483,
+    "sha256": "e47a1b9d79541c728f4f4f9e2bc017758b5260933fa7a52b88298a95e35d2be1"
+  },
+  {
+    "path": "rejected/feed-hubs/eight-candidate-plan.json",
+    "bytes": 78935,
+    "sha256": "5756c3250c31f6720de596491515a822f273e6f428a059e119a6b78c79dec402"
+  },
+  {
+    "path": "rejected/feed-hubs/eight-floor-only-plan.json",
+    "bytes": 68003,
+    "sha256": "40b94c64cbd23f87a49e29223b3522368726b80329a8777f15121e39fa504388"
+  },
+  {
+    "path": "rejected/feed-hubs/floor-only.sql",
+    "bytes": 4026,
+    "sha256": "704eed7a1e6bf3db8459f1f7b34c34e98781ab9f7578565dbf86cafd48af01d7"
+  },
+  {
+    "path": "rejected/feed-hubs/generate.py",
+    "bytes": 3611,
+    "sha256": "249bf61b8655101ef90f3130c6684501870b910bca7c35a4b796eeade0592a17"
+  },
+  {
+    "path": "rejected/feed-hubs/inputs.json",
+    "bytes": 5752,
+    "sha256": "8163f9f81ce0dea2bfca23b89f0a4b3e5c5a823ccc40a72e2d87936f63a3a614"
+  },
+  {
+    "path": "rejected/feed-hubs/one-baseline-plan.json",
+    "bytes": 52451,
+    "sha256": "4925b3b1aae2a8dd6f5f85fad30c1215207eb60a218280578e3b60dc86781117"
+  },
+  {
+    "path": "rejected/feed-hubs/one-candidate-plan.json",
+    "bytes": 78717,
+    "sha256": "9d9c79acfd27eca45b2f0fa79d0952e92b5d7d98a0d7ca5d057c6972fd47447a"
+  },
+  {
+    "path": "rejected/feed-hubs/one-floor-only-plan.json",
+    "bytes": 67952,
+    "sha256": "104b06ae8e04f3a65758c59c6d6cf3354b6ab985c76c6133461b6cc33027ad3c"
+  },
+  {
+    "path": "rejected/feed-hubs/prototype.py",
+    "bytes": 5833,
+    "sha256": "a84e8c7d7af8a475c490da2e710d86ac676a0520381da27717142f2e31a018d8"
+  },
+  {
+    "path": "rejected/feed-hubs/random128-baseline-plan.json",
+    "bytes": 52656,
+    "sha256": "b39748c96f856a7ef9d9efce3a4c7647f0f4feb1a7d35e711b198d3992087bef"
+  },
+  {
+    "path": "rejected/feed-hubs/random128-candidate-plan.json",
+    "bytes": 79131,
+    "sha256": "6c02c762a3f7f1071b4ae32aeb09becfc9b72af8295d1204fc95d41fdb82d2fd"
+  },
+  {
+    "path": "rejected/feed-hubs/random128-floor-only-plan.json",
+    "bytes": 68198,
+    "sha256": "4d01a4d36bde15f5e95c23536b6f274b72846fd19adec0124c157e14a4552bc3"
+  },
+  {
+    "path": "rejected/feed-hubs/reproduce.py",
+    "bytes": 1189,
+    "sha256": "f857dd29c8b0c8c25ef6aaef3fc745d7a6f190df8d099f9f01b2c49ec7c0c89a"
+  },
+  {
+    "path": "rejected/feed-hubs/results.log",
+    "bytes": 4940,
+    "sha256": "a2f34e9c0cf23d036c359b2a75ea2569b06c3273b17c1739ec0577a4da374450"
+  },
+  {
+    "path": "rejected/feed-hubs/validation.log",
+    "bytes": 3269,
+    "sha256": "e6f764ba5fc2d4894082e6a02012e7af028282b16114ec01f6ff1254e24f3756"
+  },
+  {
+    "path": "rejected/feed-hubs/varying-baseline-plan.json",
+    "bytes": 52561,
+    "sha256": "4615f38dba8a252c22127058415b2f9bb028138a1019990096e2ab8f3dd0db06"
+  },
+  {
+    "path": "rejected/feed-hubs/varying-candidate-plan.json",
+    "bytes": 79020,
+    "sha256": "6ffc9bad57aa7aab9762fcc03c2dfc0bc60d71e9c8d1349f30a1a537400a2a41"
+  },
+  {
+    "path": "rejected/feed-hubs/varying-floor-only-plan.json",
+    "bytes": 68096,
+    "sha256": "5da0f81d2875cf1bfcc8d17eeb9f9a67f0575e467980d6a8f2ba108cb20946f1"
+  },
+  {
+    "path": "rejected/mimalloc/host20.patch",
+    "bytes": 428,
+    "sha256": "6ce97361f7286eeeba174f9c6c0803e80b4e99b2de8a15c6e77aa9d4c31bf509"
+  },
+  {
+    "path": "rejected/mimalloc/tests/allocator_ownership.c",
+    "bytes": 2484,
+    "sha256": "2ff79c9791f6ff864eb084f4a45e36cbc494520b1fcb5bda1aeb99e22ebd15fb"
+  },
+  {
+    "path": "rejected/mimalloc/tools/allocator-host.h",
+    "bytes": 466,
+    "sha256": "bba75befa87c11f2a1a3b7eca13ed58b5ba5e9317c6e7388108070540c2368ff"
+  },
+  {
+    "path": "rejected/mimalloc/tools/build-allocator.sh",
+    "bytes": 2175,
+    "sha256": "d9fa29c5abbf9aa8b7d237b514f787a8b6fb6065e99591089af0b1a031568ea5"
+  },
+  {
+    "path": "stability/README.md",
+    "bytes": 1346,
+    "sha256": "da7b3217abc219c8602d427e5023ba546683a42213bd1380980d6e15269ea054"
+  },
+  {
+    "path": "stability/capabilities.txt",
+    "bytes": 176,
+    "sha256": "4bb1ab22633259e1fe8781d636c2b015ebf0b1a36e340c3e51ef9b48dbdb469d"
+  },
+  {
+    "path": "stability/gid-map.txt",
+    "bytes": 24,
+    "sha256": "478301042ab0fe14e8492dfacff4292846114744b8e2e67c93a1881cac850298"
+  },
+  {
+    "path": "stability/identity-preflight.json",
+    "bytes": 909,
+    "sha256": "8b523c1bd0016be03454064952dbb189355d84a5874acd93d4a370bc9dfa7e66"
+  },
+  {
+    "path": "stability/metadata.json",
+    "bytes": 691,
+    "sha256": "fc9ee7923d1b96d160ff320f11ccdb223c9728f63d942e771ded14f259e1fe98"
+  },
+  {
+    "path": "stability/result.json",
+    "bytes": 224,
+    "sha256": "35e9a9c60e626e9d1745a446b386b9cdd2e426fd7f95f999e2df45ce8c1f6c61"
+  },
+  {
+    "path": "stability/uid-map.txt",
+    "bytes": 24,
+    "sha256": "478301042ab0fe14e8492dfacff4292846114744b8e2e67c93a1881cac850298"
+  },
+  {
+    "path": "stability-driver.py",
+    "bytes": 11225,
+    "sha256": "85408431baf538b678ab0d8ac37164589a4f8d594384061362a2a1f1c9da560d"
+  },
+  {
+    "path": "toolchain/cache-baseline-regression.log",
+    "bytes": 2443,
+    "sha256": "520c310dde9381c8fcff024aa7617ddbf3bcfd929df92703df8fcebeac98a87e"
+  },
+  {
+    "path": "toolchain/cache-final-clang.log",
+    "bytes": 36306,
+    "sha256": "c3b3259bda908bb3cae40a6bf5b2c2b1c231401909e9feb9ea9da908d5705084"
+  },
+  {
+    "path": "toolchain/cache-final-gcc.log",
+    "bytes": 36308,
+    "sha256": "2ecc7f047b98ec5315201debd89c7d0176f24e8fb99849ee02ecf2204b783c71"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/environment.tsv",
+    "bytes": 1293,
+    "sha256": "8f2640d4b5654ee437c81f8c3147aa3110f3344699177cafe60cf310395fd6a9"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/observations.json",
+    "bytes": 1918,
+    "sha256": "cd91c1225cc5c70f632aabbb034e1d2520c0a43262ba5c1041f0f1cfbebfb219"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/baseline/application-samples.tsv",
+    "bytes": 782,
+    "sha256": "fe21e269d48a33f5c2f4f3183167d6f3290636acfac36ae8a6b1991c9e2a9c7d"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/baseline/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/baseline/measured-box.json",
+    "bytes": 123436,
+    "sha256": "da3611de4c72193ae75acdbe15501db7b962597a3acd71bc1b2bbfcdef326985"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/baseline/measured.log",
+    "bytes": 3104,
+    "sha256": "45e246d1cc5abf6a0f099469a6db4e6839522da6a8b2e2a4738d1b0ccbe6c4ff"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/baseline/merged.json",
+    "bytes": 22922,
+    "sha256": "3b0b29b036f8ea4c16fccc6412e6dc1b0a9fa3a4fcf5f51eaffb21f8bde03779"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/baseline/merged.txt",
+    "bytes": 2973,
+    "sha256": "aff2b0c531e5db120ea59a0aceec2df810dbefc6b2c34066360d98b6aabd4699"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/baseline/server.log",
+    "bytes": 198,
+    "sha256": "68b347ae43b11a6c7a895b2b0b88d2b81925baf58e8626c3fb51585a8ff7a3f4"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/baseline/warmup-box.json",
+    "bytes": 73232,
+    "sha256": "e0292f4b53294815af6570568071423505cb15eed2b31f18779d6cce003845fc"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/baseline/warmup.log",
+    "bytes": 3102,
+    "sha256": "d0c40916ee0123df954bd5d419e52a6af0fd16b1e4c5790eacd55e5a4609ab33"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/candidate/application-samples.tsv",
+    "bytes": 779,
+    "sha256": "57ec76f8d25396e146de88b873729ead1f77c3843ba57a4653975a8e33fd6df8"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/candidate/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/candidate/measured-box.json",
+    "bytes": 124205,
+    "sha256": "294132efa4efdfe3bb66331448828d0689853647c31114082d47b2362c369cb5"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/candidate/measured.log",
+    "bytes": 3104,
+    "sha256": "049fb2559095e827cd38c58ed23792c9f7ee4e8a63fe696debaa4683e9e71422"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/candidate/merged.json",
+    "bytes": 22855,
+    "sha256": "2917bc09713f56b7b167c8499e2850f1a29b7ddf20239bea736e191d9bdaef1e"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/candidate/merged.txt",
+    "bytes": 2973,
+    "sha256": "dec5e1dd79bba93e8fb0487ea20147a41c4a9917cf7299f1333c136816e98bc7"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/candidate/server.log",
+    "bytes": 198,
+    "sha256": "f29aac29c680c59ef7e6c54fdde1ff221e5927d55af7d2d7b0370eb01239a3bd"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/candidate/warmup-box.json",
+    "bytes": 64608,
+    "sha256": "e937f21dd6b527820b66d9c9eed79f878dc558d1f00b5dc97de3d35c09d76ee6"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-1/candidate/warmup.log",
+    "bytes": 3102,
+    "sha256": "270fb1259494172bf88f634d87840ce2d2d2ff32fbe474d8feeaa77b03bd1f1e"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/baseline/application-samples.tsv",
+    "bytes": 776,
+    "sha256": "3d42e8d5342893b6abdd83a8e634043b1b6c289c8aef809726bfa1ae6c09416a"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/baseline/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/baseline/measured-box.json",
+    "bytes": 121605,
+    "sha256": "71b7e0338d15619c09d85ebefaf322797e8be0d406295fa4d37a427388b12544"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/baseline/measured.log",
+    "bytes": 3104,
+    "sha256": "3328f9ffa5bf4541ecff68a69b52128e896eb5bcf267533ab9a41f79fc547909"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/baseline/merged.json",
+    "bytes": 22549,
+    "sha256": "5e3606280468f77fb298136aab15772153889148c42c900b6a1b7d823c51897e"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/baseline/merged.txt",
+    "bytes": 2973,
+    "sha256": "4ceb841f732f6023680539b7c488f1704f2a0d0ef96f6f3863fa215062dd5624"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/baseline/server.log",
+    "bytes": 197,
+    "sha256": "af8460e93aa899064dd0e0315e36df85d85db0919e17eee56d6d8533f6f01b7d"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/baseline/warmup-box.json",
+    "bytes": 64520,
+    "sha256": "2e810fab714f5f087224f58229107b8486e4b9610b141902960c8c08727e8023"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/baseline/warmup.log",
+    "bytes": 3102,
+    "sha256": "bcc3df4392532fe18d554f0750de5320a56facf005ccdee0097c4289875c3348"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/candidate/application-samples.tsv",
+    "bytes": 780,
+    "sha256": "d2d1c6b1f8eef9efc4fbd3d6b8946732c85102b669618f95ef6b25623c847d38"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/candidate/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/candidate/measured-box.json",
+    "bytes": 124654,
+    "sha256": "d8ba52334d629a8680342c084d163ba159528855a245c7689ab1f196a3bf15b0"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/candidate/measured.log",
+    "bytes": 3104,
+    "sha256": "6eefcff86932bc3783d6fa8bd47e7ba0264121dea5d70bcadbc797088bc7b7bc"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/candidate/merged.json",
+    "bytes": 22712,
+    "sha256": "c3560be228c6b6aa209686cad9bec963cfdef06ad2da711a3e9334ba0dd42fea"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/candidate/merged.txt",
+    "bytes": 2973,
+    "sha256": "472e6157aa62e4ef21480878431303447fc7a00dbcce0851d8ace73511e1c71d"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/candidate/server.log",
+    "bytes": 198,
+    "sha256": "f3d7d8d1915a3905cf27cdccc0b0af4002326ef549fcb7feccee6fff1a572c39"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/candidate/warmup-box.json",
+    "bytes": 63541,
+    "sha256": "e3d9b69a9378e8c8f57d4ff38bacb67f26d919359bddc80aa99bd20d897de33e"
+  },
+  {
+    "path": "whole-server/catchup-v2-abba/round-2/candidate/warmup.log",
+    "bytes": 3102,
+    "sha256": "22156d1077366ef36299412e4167654f3cde0bd3ef34256e57f79fe803c28be2"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/conformance/allocator/conformance.log",
+    "bytes": 53,
+    "sha256": "abd5d3a4babe7038d1092ab6a54e7ce65df25f3677c086122038e87c6895014c"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/conformance/allocator/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/conformance/allocator/server.log",
+    "bytes": 80,
+    "sha256": "e12e68449265a6a15f20174c241bba72beda5848538f0647ed7629f07d084f58"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/conformance/host/conformance.log",
+    "bytes": 53,
+    "sha256": "abd5d3a4babe7038d1092ab6a54e7ce65df25f3677c086122038e87c6895014c"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/conformance/host/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/conformance/host/server.log",
+    "bytes": 80,
+    "sha256": "e12e68449265a6a15f20174c241bba72beda5848538f0647ed7629f07d084f58"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/environment.tsv",
+    "bytes": 1293,
+    "sha256": "8f2640d4b5654ee437c81f8c3147aa3110f3344699177cafe60cf310395fd6a9"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/observations.json",
+    "bytes": 2871,
+    "sha256": "b36adefc58fdc73ffd8671a29bf2c843a6ed17a37514b766989515c7da68204e"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/allocator/application-samples.tsv",
+    "bytes": 779,
+    "sha256": "d9187ff7b5bdad9e7ba1d7265ed435f979837cca4cbe331a6a9c4d672884d359"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/allocator/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/allocator/measured-box.json",
+    "bytes": 121708,
+    "sha256": "f4710e9265793996b3e042034b8dc87e35637f39bed07f32a5407a510f2a6a76"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/allocator/measured.log",
+    "bytes": 3104,
+    "sha256": "82c91cb6902fb6bb2588dc27b2b4df497b5e0b29708c696c36e049e7996d6600"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/allocator/merged.json",
+    "bytes": 22576,
+    "sha256": "018cc456f33022f88713c7ddb0b94e08a324e2f717e9c3370d424b3d587e93c0"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/allocator/merged.txt",
+    "bytes": 2973,
+    "sha256": "e3260ee1e1ea54eb561cb2666b1601c62c9b95c1fe8ae98dc4af248835410cb5"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/allocator/server.log",
+    "bytes": 198,
+    "sha256": "1e1c8d8572cf847bdb7b9ba53ed448b4bae169bdcc24356495858c963943524f"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/allocator/warmup-box.json",
+    "bytes": 63295,
+    "sha256": "2dbd6a22e3c07eff8e16f7dde5aae12fadedcf84cecf0899ff2d3986b62d66e3"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/allocator/warmup.log",
+    "bytes": 3102,
+    "sha256": "42e04099455b4f3495b7aaeec626c9bcb4c690a12b52664ba48c2ca3eb4487fa"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/baseline/application-samples.tsv",
+    "bytes": 775,
+    "sha256": "bcd3dd9fa2ce65bbc3104ce5c22774b5fde32ae24139eeb7e2507ca34d6ad346"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/baseline/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/baseline/measured-box.json",
+    "bytes": 122001,
+    "sha256": "107205b5365173c82e4a8ca9e2eab4cdda32152594d430ab676b9975d725fc68"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/baseline/measured.log",
+    "bytes": 3104,
+    "sha256": "d616daa2efe93b2bbf07d178c981345137e3e953b0684414adb036e7e50034ca"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/baseline/merged.json",
+    "bytes": 22408,
+    "sha256": "176a689596206fc390d54f1af289174d3d5438f8ff200c64ebb41a846ffbb078"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/baseline/merged.txt",
+    "bytes": 2973,
+    "sha256": "e19c6e444df0325ce08212669d235ea631411fa09d5a66fcd9926cf360c0a3d4"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/baseline/server.log",
+    "bytes": 198,
+    "sha256": "24c1758fa83c78520c5a75eecec062cb0cc67f0b7fd8f0bfc281e50775f81c50"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/baseline/warmup-box.json",
+    "bytes": 68200,
+    "sha256": "e3f14606ad2475845a9d8fe5421b8c94645b1cf38fa4c182fee68450986a141e"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/baseline/warmup.log",
+    "bytes": 3102,
+    "sha256": "a7a2946e84bcdad9eab9eef5d764894086e8a86f6f53531ee52aeb4add39e8d7"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/host/application-samples.tsv",
+    "bytes": 780,
+    "sha256": "914d67c7db9ea64ba0c929ddd5fb4b06ca76b2e480a18bae1925e6c5dac43ef2"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/host/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/host/measured-box.json",
+    "bytes": 126666,
+    "sha256": "636649444a4c47ce8c61272340f7e8550a2606d6a69b1f81a84e25ff140ce331"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/host/measured.log",
+    "bytes": 3104,
+    "sha256": "92a843dafe42b3f9a5d927711f7b410ec67b308cfdcca6df478f1dce6dc72750"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/host/merged.json",
+    "bytes": 22910,
+    "sha256": "552e1965b264159e8339b030587782094313a7ea8e1e913fec4f875166d4835a"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/host/merged.txt",
+    "bytes": 2973,
+    "sha256": "9d509e4d03653b5796f986439b115f65e3ee9699f178b41e02d90a321a8cc678"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/host/server.log",
+    "bytes": 198,
+    "sha256": "92b2ced686364d02d93adcfce5bc578f2f1fa9cb0eed2747ed2a85b0c3d3869e"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/host/warmup-box.json",
+    "bytes": 63645,
+    "sha256": "4d4c06d797d46c71cc4ee725f1d89820b607aa87f93974e721bef90f7d6d3892"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-1/host/warmup.log",
+    "bytes": 3102,
+    "sha256": "0e9b4e8323326b9924931a1f58f23446ecf986e1fdf0914affcfad16247bf917"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/allocator/application-samples.tsv",
+    "bytes": 782,
+    "sha256": "59030a19b5097aea6335ccd828846c435d01e7748cbcf637a54699b9cb9443bc"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/allocator/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/allocator/measured-box.json",
+    "bytes": 130522,
+    "sha256": "19390c49516d756a1f98a8765b0c0bd553da3f072ea4c003566b9f25c14d2ecd"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/allocator/measured.log",
+    "bytes": 3104,
+    "sha256": "55e7f5148c8d1818f541cfa5bca9894c9cdd21d2b080189834cfb3b6ded5e403"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/allocator/merged.json",
+    "bytes": 23356,
+    "sha256": "d74f5bd3da47b81368cd80b027ea90d75d3e73952ff896681dd850af50c2cda9"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/allocator/merged.txt",
+    "bytes": 2973,
+    "sha256": "0344e9283c22d59d368691189944eb8c2c2f154753fb2895155ff26550ccea64"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/allocator/server.log",
+    "bytes": 198,
+    "sha256": "c534b66a343218efd7ea898603096e11cbe8fabc05460b4c6dd6fa51485d578e"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/allocator/warmup-box.json",
+    "bytes": 71208,
+    "sha256": "0124618e1e92e0e2ec5d0c824d5f002b39d9b213beb6423d2c9b6a586bd84452"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/allocator/warmup.log",
+    "bytes": 3102,
+    "sha256": "d794ec51b5e3ee28293b7d09d5edae2d2eb07fb9e10be8a61303c3238ed508e7"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/baseline/application-samples.tsv",
+    "bytes": 778,
+    "sha256": "4ff795c5a03cd2d14fb093944fe0dd1f333937f3d0899c76a73258773b96a4ec"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/baseline/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/baseline/measured-box.json",
+    "bytes": 124180,
+    "sha256": "5d90bd1d3c646590b024080849b89d4b427a213ddd76605572f675de0fefe063"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/baseline/measured.log",
+    "bytes": 3104,
+    "sha256": "6696dd76758ec997243cc01259c7fd8fa4ff6b1aef746006e18ef734f068e0c2"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/baseline/merged.json",
+    "bytes": 22847,
+    "sha256": "44aab4c357a4902d54adace98c520a73628a237ab6f3d8d33e7a660ee42920e8"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/baseline/merged.txt",
+    "bytes": 2973,
+    "sha256": "cb2a4b83d534a616e15319af4c22a6b978612f2715dfc152399a99b0be5eb400"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/baseline/server.log",
+    "bytes": 198,
+    "sha256": "20b5d921cf66d54583384d5209ccce0c5fb5565005ebb2b836107e8c4ad4c7da"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/baseline/warmup-box.json",
+    "bytes": 69828,
+    "sha256": "3a2b478f488603517152c7db084775d7a7d94cd167d86353e4c4b53e58b2f703"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/baseline/warmup.log",
+    "bytes": 3102,
+    "sha256": "10c99d99dadac8448db137e27c4613356cebf0e6a64fefe9629cb7c7969b66da"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/host/application-samples.tsv",
+    "bytes": 776,
+    "sha256": "e98422b83fb7d2ec899ca7870ffbe49c08843de008f1fb9ac5e617b391ee907e"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/host/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/host/measured-box.json",
+    "bytes": 126824,
+    "sha256": "fa3616ddcf01152d7e2aa618c410d8cf9358bd48f6b17e5a1306401dbd8ad42a"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/host/measured.log",
+    "bytes": 3104,
+    "sha256": "a3a572fe30ee6f15773b61f63d35d218d19ca61fe8b5b5b73d72fc2b1c5d8f78"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/host/merged.json",
+    "bytes": 23154,
+    "sha256": "eff4e2c690b0e9a987ba4e67998ae5641f2c4ae3b7aee4c629914089463dc932"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/host/merged.txt",
+    "bytes": 2973,
+    "sha256": "a2f2b1bd0f73ed373fbfffd3841414b84196f35b331d1b06911f76eb6e8a22af"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/host/server.log",
+    "bytes": 198,
+    "sha256": "35a17017f8d62a000612e95abea991699b1a498bbfdbbfac003858809751f9b2"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/host/warmup-box.json",
+    "bytes": 66020,
+    "sha256": "892b3e05f0b6267a5dcf9a68794e98dcb6b48b0b3ee8bf301e491f1e125d1f8b"
+  },
+  {
+    "path": "whole-server/catchup-v2-host-allocator/round-2/host/warmup.log",
+    "bytes": 3102,
+    "sha256": "465ac9923c2ab25fd96c805d0a9a57cd1a67f82bfb6a7801718f0f3057b58bf2"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/environment.tsv",
+    "bytes": 1293,
+    "sha256": "8f2640d4b5654ee437c81f8c3147aa3110f3344699177cafe60cf310395fd6a9"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/observations.json",
+    "bytes": 3997,
+    "sha256": "17be666900178f2806fdd18e65b1a501f600511672862b78f82ac6da7c060b54"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/baseline/application-samples.tsv",
+    "bytes": 561,
+    "sha256": "26ef4ef727958081da41b5a39afc30053776afa0bc2fb08953d11d12766f3203"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/baseline/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/baseline/measured-box.json",
+    "bytes": 44663,
+    "sha256": "f86f7e1e8d38d5ac96414bdcacec337bef35b8361ca046d33e44581b13b86e07"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/baseline/measured.log",
+    "bytes": 2987,
+    "sha256": "ea3bf2829fbbba15098dadb82c7efe41338988321de4737c9303584f68736798"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/baseline/merged.json",
+    "bytes": 15574,
+    "sha256": "2296d032752349826c8f3572870e322572ad5658e93c414bc17b41a87b1c1a2c"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/baseline/merged.txt",
+    "bytes": 2856,
+    "sha256": "b11f7c9ce50a91f06d2fd0c377630e19a651e9cd33cdc5b613681bc2bda4b474"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/baseline/server.log",
+    "bytes": 195,
+    "sha256": "5fbe1fda39b84c87927bbba231e03b04ca0832b672063f6402c4c2fcbe246117"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/baseline/warmup-box.json",
+    "bytes": 22710,
+    "sha256": "954dd06d29ea09f0dfb056b529aecab4630d58f7fccc23988778ed192b677488"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/baseline/warmup.log",
+    "bytes": 2982,
+    "sha256": "9631ba1f55675293b5a0b93a026254fd71fa3bb2517d38cabc29677cc2dabdf5"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/window8/application-samples.tsv",
+    "bytes": 552,
+    "sha256": "5e395ae779a2b6465837516db4e658ec5d14758a66dc6c5a20eacffbf7b5ffbc"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/window8/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/window8/measured-box.json",
+    "bytes": 47763,
+    "sha256": "1aa031dd0434f3607bbe034f16441113c5163e174bb64fcd36485dad05a4445a"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/window8/measured.log",
+    "bytes": 2987,
+    "sha256": "8fb5e47c4a38b26ba9e83c81dc426923628ec33ec97751c24e44bcf9740df554"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/window8/merged.json",
+    "bytes": 15780,
+    "sha256": "9fce0a22c3c8d0b5679a114cce94aeb77d4e0028bb84fed1701da2958b8f732b"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/window8/merged.txt",
+    "bytes": 2856,
+    "sha256": "ad4346cfef0fda00c3ca9078188bd36a4148fee60bc133ee3d646e34dab89441"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/window8/server.log",
+    "bytes": 194,
+    "sha256": "84f6ffdb657da6bf538e316c5bc3fd8e012e6fa5886bed9aaad7ced6737079d5"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/window8/warmup-box.json",
+    "bytes": 23812,
+    "sha256": "15848203de59ccc582a77c5dcced7b16ed581fd1ba719dd034844715501e0527"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-1/window8/warmup.log",
+    "bytes": 2982,
+    "sha256": "22cdcbbb03f3dbdecad3e2b56a2097f172f087292b9144e88f52743df5e57c6c"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/baseline/application-samples.tsv",
+    "bytes": 557,
+    "sha256": "2f422f586544ad176911ef77727dfdd450a6644679a3db08b267038be05d8db4"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/baseline/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/baseline/measured-box.json",
+    "bytes": 44788,
+    "sha256": "b907b45f0fa69f56547b42aa868f2438c6b26afad4a85ea448f45cbf429b94fe"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/baseline/measured.log",
+    "bytes": 3101,
+    "sha256": "24d9bac322a5a55beb8ab392fedbd1d7ed121172044f830417e1c988e7d5cb91"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/baseline/merged.json",
+    "bytes": 15969,
+    "sha256": "defbf03eda48af579449c333daad56747f58151646060a883b0ce3f5b20c2903"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/baseline/merged.txt",
+    "bytes": 2970,
+    "sha256": "84d34cd242910837668621bc3326c53538cb810fce4803d2a4d726036506be6c"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/baseline/server.log",
+    "bytes": 196,
+    "sha256": "52abf3c1e0a2a61812e4185f17826ca3a7d22f8ca9a7e4a86853d1faec2ab4fe"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/baseline/warmup-box.json",
+    "bytes": 22804,
+    "sha256": "805170711a7d1fe5fe5f9c3cc2429b01c21eb517e906fbe0b0a2e652e4c1819d"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/baseline/warmup.log",
+    "bytes": 2982,
+    "sha256": "d5ad8c0dca2fa4bf57589080faac735e6bd142c0fcabe6cbe97e8fc165ca3e5a"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/window8/application-samples.tsv",
+    "bytes": 557,
+    "sha256": "dbb036c1bb9db15fa3101e2d651e13198f859d796d14daa8a7c48cc999ac6133"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/window8/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/window8/measured-box.json",
+    "bytes": 47148,
+    "sha256": "203272cc232266c29b95d5e33806df9b7e2dd6a0ea02743548e6aade2be4441a"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/window8/measured.log",
+    "bytes": 3101,
+    "sha256": "e8007725647cb45bc8c242edd802b68cd6d646376b6547496b121e85eddbc005"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/window8/merged.json",
+    "bytes": 15984,
+    "sha256": "95672177f5b30be843337fd7cca242a7a951928d1b7904dcd2fec85889203f51"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/window8/merged.txt",
+    "bytes": 2970,
+    "sha256": "36ecd9286f3cb41dc6516902affa37c7d58ba19193a276e9691acf6e47cdc503"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/window8/server.log",
+    "bytes": 196,
+    "sha256": "92cb317d4cf09ab20e5037d72a44f5942ea3da6d9f0985131832098a44dc5ce9"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/window8/warmup-box.json",
+    "bytes": 24985,
+    "sha256": "97a32b2f61c37b8e60a8a87baaabcb4b3604c773f3abe75623842eb26f4438b6"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-1000/round-2/window8/warmup.log",
+    "bytes": 2982,
+    "sha256": "74d24615044cc617c71e07ee202d3e47d824a844a5e3e809ddf184e22697ee97"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/baseline/application-samples.tsv",
+    "bytes": 582,
+    "sha256": "eb06711f0198d006c6f6f8eb69f7b1aa1c15ec41ec4db946a7c1970fb022a13d"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/baseline/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/baseline/measured-box.json",
+    "bytes": 90608,
+    "sha256": "0f03808da423efb8cded87bb322ed1e6581e59c03ad46dcf049b7e9aa329c4a4"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/baseline/measured.log",
+    "bytes": 3104,
+    "sha256": "7af57f80c981397109465f8d6d13ec3fb64f1be294a9d5904abc1c49112925e2"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/baseline/merged.json",
+    "bytes": 20198,
+    "sha256": "91b83ce8ffcb62cd3235cffc548fb6d291ab9f647018123eaee0d6ef6054d40e"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/baseline/merged.txt",
+    "bytes": 2973,
+    "sha256": "ca17ab695f749883dd3dd393cf5eaca446c3b343ed5545e7935a675e45e59098"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/baseline/server.log",
+    "bytes": 198,
+    "sha256": "88ea66ff6febf62fffa3f2d2ea3e7b818d4f36862d740e911fe29c1723a64efb"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/baseline/warmup-box.json",
+    "bytes": 48946,
+    "sha256": "98c68dc2c9f4606e42ef0610127e8dc2275bf7dba0dc8e014ff533d25b098c14"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/baseline/warmup.log",
+    "bytes": 3099,
+    "sha256": "e1f8022d32dc452fbcd62f1cdbea4ec5b5d19a1526202dd10e7937294dc74187"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/window8/application-samples.tsv",
+    "bytes": 582,
+    "sha256": "99341c3d2fbc717d38e3e6bc066fdd763b9ea79c8c532c8b2f6701a53b8c450c"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/window8/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/window8/measured-box.json",
+    "bytes": 100560,
+    "sha256": "698c0289cefbebb21c7120db19111828da9b0236a3062fee2d8c9dcc38327537"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/window8/measured.log",
+    "bytes": 3104,
+    "sha256": "5bd7d90916803be6e76aa052b590c37e59080e89fb0eb6c76d9cf66a1e976740"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/window8/merged.json",
+    "bytes": 20691,
+    "sha256": "75675796f5513f76adc24bc35103a14691290c97002ff2c0961e9a5f1512bff4"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/window8/merged.txt",
+    "bytes": 2973,
+    "sha256": "d7cb719399c703d0111d420111cfdfd0fe631f744cff218f11953c0203a69c69"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/window8/server.log",
+    "bytes": 197,
+    "sha256": "6e7e501a8f439653b19f971763170a3635711bcb42a82c739e1651f6fed051a8"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/window8/warmup-box.json",
+    "bytes": 49455,
+    "sha256": "460890a7d4df47ef523f9b991dacdb474b706df2c68f181b96fbdd28cd6885ad"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-1/window8/warmup.log",
+    "bytes": 3099,
+    "sha256": "81c208865bb5350f70972406112c84605d94acab17eb5398bdea5aa25bb63156"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/baseline/application-samples.tsv",
+    "bytes": 558,
+    "sha256": "86ef71e9e151b039c1f4b8e055164f97484735fd321cc37de8806784c2160c5f"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/baseline/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/baseline/measured-box.json",
+    "bytes": 95648,
+    "sha256": "f41b0a4222ec0241de0b8b99a2d1ff05502ff98bdf9518d8023f246463343ce4"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/baseline/measured.log",
+    "bytes": 3104,
+    "sha256": "f91a477a1ea2f3cd5e35b0e7bf070ffd6ed5e401260eac279b67c1efa2fba376"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/baseline/merged.json",
+    "bytes": 20847,
+    "sha256": "00fe874855f15ec65454e93e4e1efbeae0e296609152fea645b96d846e463c63"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/baseline/merged.txt",
+    "bytes": 2973,
+    "sha256": "944bb8d08da7b1fe0f4d4935e3691a533510413c5d3a76b68431014ee1416511"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/baseline/server.log",
+    "bytes": 198,
+    "sha256": "4326d49507793db8be96703bc08fe9bfb6aa4f225f9bea2eceb01c4398ac4a45"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/baseline/warmup-box.json",
+    "bytes": 46057,
+    "sha256": "60485546debd1babd50ab96841f3d727360d437166bb72ea706105422a731f80"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/baseline/warmup.log",
+    "bytes": 3099,
+    "sha256": "cdca7c94cb0982c8934fd17ea8034b03e66441f3b66e6f94c1f6440f61d1afed"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/window8/application-samples.tsv",
+    "bytes": 557,
+    "sha256": "754f4e0402a6bf0bf9b1fc012e000933d239b662d0c02379927feb57ea25e5fd"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/window8/health.log",
+    "bytes": 55,
+    "sha256": "ff148466b3ab75b039b591eae67aab549ba4dbfa0a771a950f19f5288e5d5693"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/window8/measured-box.json",
+    "bytes": 99983,
+    "sha256": "b46ed650181f9d62066157e4e9c1ca674f25d3ab7f83b910091107aef5f67e26"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/window8/measured.log",
+    "bytes": 3104,
+    "sha256": "dad91013cf7b1d3523e35eb662ff68856b6a966695d0cfafc5a1b7dc885ad610"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/window8/merged.json",
+    "bytes": 20758,
+    "sha256": "f202554c8b356ac3b0d6655837326dd8dc60205573f50c575344b33491bfcfc0"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/window8/merged.txt",
+    "bytes": 2973,
+    "sha256": "86697ba0641d960181fa2700d4b5751b8e91237bf61ce5c4d40fd03c82566cc4"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/window8/server.log",
+    "bytes": 197,
+    "sha256": "ec227c9753248e48d941fdbd11b9cd357067afc7280659d1ff0c85fb81e71e6e"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/window8/warmup-box.json",
+    "bytes": 48912,
+    "sha256": "ee498e58c58f7b6b1ebc3045662e6e61931d191fec4161779e4af0bbcd50e661"
+  },
+  {
+    "path": "whole-server/catchup-v2-window/users-8000/round-2/window8/warmup.log",
+    "bytes": 3099,
+    "sha256": "dcd84a528b76ef49f2f0132c8153e8719fa86a9bf68cfdbbd6bcf58856e0c4e7"
+  }
+]

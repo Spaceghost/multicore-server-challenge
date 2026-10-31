@@ -1,0 +1,152 @@
+[
+  {
+    "round": 1,
+    "case": "baseline",
+    "count": 388469,
+    "rps": 19423.45,
+    "p50_ms": 31.023,
+    "p90_ms": 44.735,
+    "p95_ms": 54.015,
+    "p99_ms": 121.087,
+    "max_ms": 263.167,
+    "mean_ms": 33.21400002059359,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 381401,
+      "201": 6896,
+      "204": 172
+    },
+    "cpu": 67.81232812554138,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "round": 1,
+    "case": "host",
+    "count": 386533,
+    "rps": 19326.65,
+    "p50_ms": 31.087,
+    "p90_ms": 51.807,
+    "p95_ms": 69.183,
+    "p99_ms": 134.783,
+    "max_ms": 334.591,
+    "mean_ms": 35.30356955551027,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 379506,
+      "201": 6857,
+      "204": 170
+    },
+    "cpu": 67.18513013974606,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "round": 1,
+    "case": "allocator",
+    "count": 389142,
+    "rps": 19457.1,
+    "p50_ms": 29.903,
+    "p90_ms": 44.703,
+    "p95_ms": 54.111,
+    "p99_ms": 109.503,
+    "max_ms": 257.407,
+    "mean_ms": 32.413490073032506,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 382070,
+      "201": 6902,
+      "204": 170
+    },
+    "cpu": 67.28640659156927,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "round": 2,
+    "case": "allocator",
+    "count": 382684,
+    "rps": 19134.2,
+    "p50_ms": 33.311,
+    "p90_ms": 63.423,
+    "p95_ms": 99.903,
+    "p99_ms": 200.575,
+    "max_ms": 328.191,
+    "mean_ms": 40.92361161950858,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 375634,
+      "201": 6876,
+      "204": 174
+    },
+    "cpu": 68.43078404698215,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "round": 2,
+    "case": "host",
+    "count": 387184,
+    "rps": 19359.2,
+    "p50_ms": 30.959,
+    "p90_ms": 52.223,
+    "p95_ms": 79.231,
+    "p99_ms": 156.159,
+    "max_ms": 294.399,
+    "mean_ms": 36.165732687817666,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 380045,
+      "201": 6956,
+      "204": 183
+    },
+    "cpu": 66.74048723162389,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "round": 2,
+    "case": "baseline",
+    "count": 387413,
+    "rps": 19370.65,
+    "p50_ms": 31.599,
+    "p90_ms": 51.519,
+    "p95_ms": 64.479,
+    "p99_ms": 138.239,
+    "max_ms": 331.263,
+    "mean_ms": 35.616621840258325,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 380256,
+      "201": 6972,
+      "204": 185
+    },
+    "cpu": 67.76138534140553,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  }
+]

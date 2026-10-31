@@ -1,9 +1,11 @@
 # Shootout evidence
 
-The submission remains one commit, 2a07dab, in [PR #146](https://github.com/arjaythedev/multicore-server-challenge/pull/146). These research records compare only Nelua with the frozen top five; native/SQL ablations compare our own variants. No official capacity winner is claimed.
+The submission remains one commit, bc35c96, in [PR #146](https://github.com/arjaythedev/multicore-server-challenge/pull/146). The previous 2a07dab baseline is preserved on `codex/nelua-baseline-2a07dab`. These research records compare only Nelua with the frozen top five; native/SQL ablations compare our own variants. No official capacity winner is claimed.
 
 | Evidence | Outcome |
 | --- | --- |
+| [Selected catch-up changes and raw diagnostics](catchup-v2/README.md) | Batch-local tag rendering, per-message HMAC verification with reusable key setup, and an 8 ms gather window; paired local p95 improves at both loads. Feed and mimalloc prototypes are rejected after mixed-workload checks. |
+| [Exact-head rule audit](catchup-v2/RULES.md) | All 12 rules checked against bc35c96, with fixed source links, accepted batching precedents and explicit diagnostic limitations. Upstream green CI uses the dev seed; full-seed validation is separate. |
 | [All-six CI matrix](ci-41148898736/README.md) | Six original builds and six 197/197 conformance passes; 24/24 measurements complete and SLO pass with zero errors; 16 eligible, 8 whole-host CPU flags. Nelua trails four leaders on low-load latency. |
 | [Local 8000-user ablation](local-8000-2026-10-30/README.md) | Serialized collection plus read pipelining improves p95 in both orders; independent random trajectories, incomplete top-five runtime coverage. |
 | [Five-minute stability hold](local-five-minute-stability/README.md) | 18,779 req/s, p95 122.879 ms, p99 213.503 ms, 0.09% HTTP 503 errors; SLO pass, not load-generator limited. |

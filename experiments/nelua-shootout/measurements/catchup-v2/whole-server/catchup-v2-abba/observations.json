@@ -1,0 +1,102 @@
+[
+  {
+    "round": 1,
+    "case": "baseline",
+    "count": 386181,
+    "rps": 19309.05,
+    "p50_ms": 31.039,
+    "p90_ms": 48.511,
+    "p95_ms": 74.943,
+    "p99_ms": 141.823,
+    "max_ms": 270.335,
+    "mean_ms": 35.52652955220473,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 379159,
+      "201": 6849,
+      "204": 173
+    },
+    "cpu": 67.65294326461051,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "round": 1,
+    "case": "candidate",
+    "count": 386932,
+    "rps": 19346.6,
+    "p50_ms": 29.871,
+    "p90_ms": 44.767,
+    "p95_ms": 60.063,
+    "p99_ms": 173.567,
+    "max_ms": 318.719,
+    "mean_ms": 34.64970356289993,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 379887,
+      "201": 6872,
+      "204": 173
+    },
+    "cpu": 67.7463377406696,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "round": 2,
+    "case": "candidate",
+    "count": 388484,
+    "rps": 19424.2,
+    "p50_ms": 31.007,
+    "p90_ms": 46.367,
+    "p95_ms": 61.983,
+    "p99_ms": 132.735,
+    "max_ms": 274.687,
+    "mean_ms": 34.542686406647434,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 381312,
+      "201": 6987,
+      "204": 185
+    },
+    "cpu": 70.08994615935714,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  },
+  {
+    "round": 2,
+    "case": "baseline",
+    "count": 390074,
+    "rps": 19503.7,
+    "p50_ms": 30.287,
+    "p90_ms": 43.391,
+    "p95_ms": 52.095,
+    "p99_ms": 128.959,
+    "max_ms": 265.471,
+    "mean_ms": 32.78902917138791,
+    "errors": 0,
+    "error_rate": 0,
+    "statuses": {
+      "200": 382862,
+      "201": 7025,
+      "204": 187
+    },
+    "cpu": 66.76897465883181,
+    "verdict": {
+      "pass": true,
+      "lg_limited": false
+    },
+    "connections": 20
+  }
+]

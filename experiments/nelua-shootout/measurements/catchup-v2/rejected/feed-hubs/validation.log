@@ -1,0 +1,28 @@
+PARITY one 10
+PARITY eight 80
+PARITY 32 320
+PARITY 128 1280
+PARITY empty 1
+PARITY mixed-empty 311
+PARITY varying 165
+PARITY same-viewer-pages 218
+PARITY largeoffset 8
+PARITY random128 3395
+EXPLAIN one baseline {"execution_ms": 1.117, "planning_ms": 0.043, "hits": 457, "read": 0, "rows": 10.0, "article_index_rows": 1443.0, "article_index_loops": 55}
+EXPLAIN one candidate {"execution_ms": 1.069, "planning_ms": 0.038, "hits": 455, "read": 0, "rows": 10.0, "article_index_rows": 1443.0, "article_index_loops": 51}
+EXPLAIN one floor-only {"execution_ms": 0.893, "planning_ms": 0.053, "hits": 455, "read": 0, "rows": 10.0, "article_index_rows": 1443.0, "article_index_loops": 51}
+EXPLAIN eight baseline {"execution_ms": 4.459, "planning_ms": 0.031, "hits": 2676, "read": 0, "rows": 80.0, "article_index_rows": 9618.24, "article_index_loops": 269}
+EXPLAIN eight candidate {"execution_ms": 3.227, "planning_ms": 0.035, "hits": 2290, "read": 0, "rows": 80.0, "article_index_rows": 6939.95, "article_index_loops": 236}
+EXPLAIN eight floor-only {"execution_ms": 3.335, "planning_ms": 0.034, "hits": 2423, "read": 0, "rows": 80.0, "article_index_rows": 7939.96, "article_index_loops": 237}
+EXPLAIN 32 baseline {"execution_ms": 14.402, "planning_ms": 0.034, "hits": 8886, "read": 0, "rows": 320.0, "article_index_rows": 35084.61, "article_index_loops": 956}
+EXPLAIN 32 candidate {"execution_ms": 10.774, "planning_ms": 0.05, "hits": 7472, "read": 0, "rows": 320.0, "article_index_rows": 23383.17, "article_index_loops": 835}
+EXPLAIN 32 floor-only {"execution_ms": 11.601, "planning_ms": 0.043, "hits": 7981, "read": 0, "rows": 320.0, "article_index_rows": 29383.05, "article_index_loops": 841}
+EXPLAIN 128 baseline {"execution_ms": 43.521, "planning_ms": 0.049, "hits": 29833, "read": 0, "rows": 1280.0, "article_index_rows": 140075.76, "article_index_loops": 3549}
+EXPLAIN 128 candidate {"execution_ms": 29.1, "planning_ms": 0.081, "hits": 23093, "read": 0, "rows": 1280.0, "article_index_rows": 37590.14, "article_index_loops": 2967}
+EXPLAIN 128 floor-only {"execution_ms": 39.96, "planning_ms": 0.059, "hits": 26039, "read": 0, "rows": 1280.0, "article_index_rows": 117590.78, "article_index_loops": 3047}
+EXPLAIN varying baseline {"execution_ms": 13.302, "planning_ms": 0.05, "hits": 7890, "read": 0, "rows": 165.0, "article_index_rows": 40399.29, "article_index_loops": 956}
+EXPLAIN varying candidate {"execution_ms": 9.295, "planning_ms": 0.049, "hits": 6440, "read": 0, "rows": 165.0, "article_index_rows": 25372.58, "article_index_loops": 835}
+EXPLAIN varying floor-only {"execution_ms": 10.342, "planning_ms": 0.043, "hits": 6957, "read": 0, "rows": 165.0, "article_index_rows": 31732.46, "article_index_loops": 841}
+EXPLAIN random128 baseline {"execution_ms": 94.1, "planning_ms": 0.046, "hits": 62286, "read": 0, "rows": 3395.0, "article_index_rows": 187388.14, "article_index_loops": 3207}
+EXPLAIN random128 candidate {"execution_ms": 80.55, "planning_ms": 0.063, "hits": 56478, "read": 0, "rows": 3395.0, "article_index_rows": 56501.409999999996, "article_index_loops": 2737}
+EXPLAIN random128 floor-only {"execution_ms": 87.634, "planning_ms": 0.081, "hits": 58958, "read": 0, "rows": 3395.0, "article_index_rows": 119501.73999999999, "article_index_loops": 2800}

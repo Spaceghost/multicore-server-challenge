@@ -1,0 +1,92 @@
+[
+  {
+    "series": "feed ABBA",
+    "users": 8000,
+    "case": "baseline",
+    "repeats": 2,
+    "rps": 19406.375,
+    "p95_ms": 63.519,
+    "p99_ms": 135.39100000000002,
+    "cpu": 67.21095896172116
+  },
+  {
+    "series": "feed ABBA",
+    "users": 8000,
+    "case": "candidate",
+    "repeats": 2,
+    "rps": 19385.4,
+    "p95_ms": 61.022999999999996,
+    "p99_ms": 153.151,
+    "cpu": 68.91814195001336
+  },
+  {
+    "series": "host/heap",
+    "users": 8000,
+    "case": "baseline",
+    "repeats": 2,
+    "rps": 19397.050000000003,
+    "p95_ms": 59.247,
+    "p99_ms": 129.663,
+    "cpu": 67.78685673347346
+  },
+  {
+    "series": "host/heap",
+    "users": 8000,
+    "case": "host",
+    "repeats": 2,
+    "rps": 19342.925000000003,
+    "p95_ms": 74.207,
+    "p99_ms": 145.471,
+    "cpu": 66.96280868568498
+  },
+  {
+    "series": "host/heap",
+    "users": 8000,
+    "case": "allocator",
+    "repeats": 2,
+    "rps": 19295.65,
+    "p95_ms": 77.007,
+    "p99_ms": 155.039,
+    "cpu": 67.85859531927571
+  },
+  {
+    "series": "selected combo",
+    "users": 1000,
+    "case": "baseline",
+    "repeats": 2,
+    "rps": 2502.0,
+    "p95_ms": 30.255000000000003,
+    "p99_ms": 58.511,
+    "cpu": 13.524053347258402
+  },
+  {
+    "series": "selected combo",
+    "users": 1000,
+    "case": "window8",
+    "repeats": 2,
+    "rps": 2569.3,
+    "p95_ms": 15.479,
+    "p99_ms": 28.487000000000002,
+    "cpu": 15.134609079798302
+  },
+  {
+    "series": "selected combo",
+    "users": 8000,
+    "case": "baseline",
+    "repeats": 2,
+    "rps": 19428.63333333333,
+    "p95_ms": 68.863,
+    "p99_ms": 127.487,
+    "cpu": 65.69057153347147
+  },
+  {
+    "series": "selected combo",
+    "users": 8000,
+    "case": "window8",
+    "repeats": 2,
+    "rps": 19646.033333333333,
+    "p95_ms": 46.687,
+    "p99_ms": 111.39099999999999,
+    "cpu": 65.61095456016237
+  }
+]

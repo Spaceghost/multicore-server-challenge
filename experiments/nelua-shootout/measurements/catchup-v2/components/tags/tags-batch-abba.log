@@ -1,0 +1,6 @@
+PASS: tag batch escaping, independent ownership, fresh results, errors and allocation failure
+PASS: tag batch escaping, independent ownership, fresh results, errors and allocation failure
+{"baseline":true,"requests":25600,"cpu_seconds":0.205257413,"response_bytes":51456000}
+{"baseline":false,"requests":25600,"cpu_seconds":0.016125531,"response_bytes":51456000}
+{"baseline":false,"requests":25600,"cpu_seconds":0.017360737,"response_bytes":51456000}
+{"baseline":true,"requests":25600,"cpu_seconds":0.231204886,"response_bytes":51456000}
