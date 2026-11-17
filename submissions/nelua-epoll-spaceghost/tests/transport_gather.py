@@ -25,9 +25,11 @@ def main():
         subprocess.run(cc + flags + [str(ROOT / 'tests/transport_gather.c'),
                                     '-o', str(binary)], check=True)
         for serial in (0, 1):
-            for early in (0, 1):
-                subprocess.run([str(binary), str(serial), str(early)], check=True,
-                               timeout=10, env={**os.environ, 'ASAN_OPTIONS': 'detect_leaks=0'})
+            for adaptive in (0, 1):
+                for early in (0, 1):
+                    for workers in (2, 4):
+                        subprocess.run([str(binary), str(serial), str(early), str(adaptive), str(workers)], check=True,
+                                       timeout=10, env={**os.environ, 'ASAN_OPTIONS': 'detect_leaks=0'})
 
 
 if __name__ == '__main__':

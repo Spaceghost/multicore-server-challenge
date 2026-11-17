@@ -16,7 +16,7 @@ struct nc_pipeline_op { int id; bool prepare; };
 struct nc_db {
     PGconn *connection;
     bool prepared[128];
-    bool pipeline_enabled, reset_needed, pipeline_failed;
+    bool pipeline_enabled, read_coalesce, reset_needed, pipeline_failed;
     int pipeline_state, pipeline_count;
     struct nc_pipeline_op pipeline_ops[18];
     bool pipeline_queued[9];
@@ -68,6 +68,12 @@ nc_db *nc_db_open(const char *url)
         free(db); return NULL;
     }
     db->pipeline_enabled=!pipeline || !*pipeline || !strcmp(pipeline,"1");
+    const char *coalesce=getenv("READ_COALESCE");
+    if (coalesce && *coalesce && strcmp(coalesce,"0") && strcmp(coalesce,"1")) {
+        fprintf(stderr,"READ_COALESCE must be 0 or 1\n");
+        free(db); return NULL;
+    }
+    db->read_coalesce=!coalesce || !*coalesce || !strcmp(coalesce,"1");
     /* Avoid TLS CPU on loopback, preserving an explicit URL TLS policy. */
     char *parse_error=NULL;
     PQconninfoOption *options=PQconninfoParse(url,&parse_error);
@@ -89,6 +95,10 @@ nc_db *nc_db_open(const char *url)
     }
     if (!nc_db_session(db)) { nc_db_close(db); return NULL; }
     return db;
+}
+bool nc_db_read_coalesce(nc_db *db)
+{
+    return !db || db->read_coalesce;
 }
 void nc_db_close(nc_db *db)
 {

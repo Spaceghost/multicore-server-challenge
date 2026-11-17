@@ -29,6 +29,7 @@
 #define NC_WRITE_MS 30000U
 #define NC_READ_BATCH_MAX 128
 #define NC_READ_WINDOW_MS 8U
+#define NC_READ_IDLE_WINDOW_MS 2U
 
 /* Also declared by native.h once the Nelua batch entrypoint lands. */
 extern void conduit_batch(nc_request **requests, int count, nc_db *db);
@@ -64,6 +65,7 @@ typedef struct nc_pool {
     pthread_cond_t available;
     nc_connection *head, *tail;
     int threads;
+    unsigned executing; /* Protected by lock; collectors do not count. */
     bool stopping;
 } nc_pool;
 
@@ -81,7 +83,7 @@ typedef struct nc_server {
     nc_connection *connections, *garbage;
     size_t input_bytes, pending_bytes, pending_count;
     const char *database_url;
-    bool serial_read_gather, read_batch_stats;
+    bool serial_read_gather, adaptive_read_gather, read_batch_stats;
     /* Updated under the read pool lock; inspected after all workers join. */
     uint64_t read_batches, read_requests, read_solo_batches, read_oldest_ms;
     unsigned read_max_batch;
@@ -379,7 +381,12 @@ nc_worker(void *argument)
         connections[count] = connection;
         requests[count++] = connection->request;
         if (read_pool) {
-            uint64_t deadline = connection->queued_at + NC_READ_WINDOW_MS;
+            /* Use spare workers promptly; keep the original batching window
+             * when every other worker is already executing a batch. */
+            unsigned window = server.adaptive_read_gather &&
+                pool->executing + 1 < (unsigned) pool->threads
+                ? NC_READ_IDLE_WINDOW_MS : NC_READ_WINDOW_MS;
+            uint64_t deadline = connection->queued_at + window;
             while (count < NC_READ_BATCH_MAX && !pool->stopping) {
                 if (pool->head) {
                     connection = pool->head;
@@ -410,11 +417,18 @@ nc_worker(void *argument)
             server.read_oldest_ms += oldest;
             if (oldest > server.read_max_oldest_ms) server.read_max_oldest_ms = oldest;
         }
+        if (read_pool) ++pool->executing;
         pthread_mutex_unlock(&pool->lock);
         if (gather) pthread_mutex_unlock(&pool->gather_lock);
 
         if (read_pool) conduit_batch(requests, count, database);
         else conduit_handle(requests[0], database);
+
+        if (read_pool) {
+            pthread_mutex_lock(&pool->lock);
+            --pool->executing;
+            pthread_mutex_unlock(&pool->lock);
+        }
 
         pthread_mutex_lock(&server.done_lock);
         for (i = 0; i < count; ++i) {
@@ -692,7 +706,7 @@ main(void)
     pthread_attr_t attributes;
     uint64_t sweep, resume = 0;
     bool accepting = true;
-    int i, j, expected = 0, exit_code = 0, serial_gather, batch_stats;
+    int i, j, expected = 0, exit_code = 0, serial_gather, adaptive_gather, batch_stats;
     memset(&server, 0, sizeof(server));
     server.epoll_fd = server.listener_fd = server.completion_fd = server.reserve_fd = -1;
     server.database_url = getenv("DATABASE_URL");
@@ -704,9 +718,11 @@ main(void)
     server.pools[1].threads = nc_thread_count("DB_WRITE_THREADS", 8);
     server.pools[2].threads = nc_thread_count("DB_AUTH_THREADS", 8);
     serial_gather = nc_switch("READ_GATHER_SERIAL", 1);
+    adaptive_gather = nc_switch("READ_GATHER_ADAPTIVE", 1);
     batch_stats = nc_switch("READ_BATCH_STATS", 0);
-    if (serial_gather < 0 || batch_stats < 0) return 1;
+    if (serial_gather < 0 || adaptive_gather < 0 || batch_stats < 0) return 1;
     server.serial_read_gather = serial_gather != 0;
+    server.adaptive_read_gather = adaptive_gather != 0;
     server.read_batch_stats = batch_stats != 0;
     for (i = 0; i < 3; ++i) {
         if (server.pools[i].threads < 0) return 1;
@@ -826,9 +842,10 @@ shutdown:
     nc_stop_workers();
     if (server.read_batch_stats) {
         fprintf(stderr,
-            "read batches: serial=%d batches=%llu requests=%llu mean=%.2f max=%u "
+            "read batches: serial=%d adaptive=%d batches=%llu requests=%llu mean=%.2f max=%u "
             "solo=%llu mean_oldest_ms=%.2f max_oldest_ms=%llu\n",
             server.serial_read_gather ? 1 : 0,
+            server.adaptive_read_gather ? 1 : 0,
             (unsigned long long) server.read_batches,
             (unsigned long long) server.read_requests,
             server.read_batches ? (double) server.read_requests / server.read_batches : 0.0,

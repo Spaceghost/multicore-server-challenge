@@ -13,6 +13,7 @@ static pthread_mutex_t test_lock = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t test_changed = PTHREAD_COND_INITIALIZER;
 static unsigned seen[64], handled, executions, active, max_active;
 static bool release_first;
+static uint64_t second_enqueued;
 
 nc_db *nc_db_open(const char *url) { (void)url; return (nc_db *)1; }
 void nc_db_close(nc_db *db) { assert(db == (nc_db *)1); }
@@ -22,8 +23,19 @@ void conduit_handle(nc_request *req, nc_db *db)
 void conduit_batch(nc_request **requests, int count, nc_db *db)
 {
     assert(db == (nc_db *)1 && count > 0 && count <= NC_READ_BATCH_MAX);
+    pthread_mutex_lock(&server.pools[0].lock);
+    assert(server.pools[0].executing > 0 &&
+           server.pools[0].executing <= (unsigned)server.pools[0].threads);
+    pthread_mutex_unlock(&server.pools[0].lock);
     pthread_mutex_lock(&test_lock);
     unsigned ordinal = ++executions;
+    /* The first execution remains blocked: two workers have no spare slot,
+     * while four workers still have room to collect promptly. */
+    if (ordinal == 2) {
+        unsigned minimum = server.adaptive_read_gather && server.pools[0].threads == 4
+            ? NC_READ_IDLE_WINDOW_MS : NC_READ_WINDOW_MS;
+        assert(nc_now() >= second_enqueued + minimum - 1);
+    }
     ++active;
     if (active > max_active) max_active = active;
     for (int i = 0; i < count; ++i) {
@@ -68,13 +80,17 @@ static void enqueue(nc_connection *connections, unsigned first, unsigned count)
 
 int main(int argc, char **argv)
 {
-    assert(argc == 3);
+    assert(argc == 5);
+    unsigned workers = (unsigned)atoi(argv[4]);
+    assert(workers == 2 || workers == 4);
     bool shutdown_early = atoi(argv[2]) != 0;
     struct nc_request requests[64];
     nc_connection connections[64];
     memset(&server, 0, sizeof(server));
     memset(connections, 0, sizeof(connections));
     server.serial_read_gather = atoi(argv[1]) != 0;
+    server.adaptive_read_gather = atoi(argv[3]) != 0;
+    server.pools[0].threads = (int)workers;
     server.read_batch_stats = true;
     server.completion_fd = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
     assert(server.completion_fd >= 0);
@@ -90,12 +106,12 @@ int main(int argc, char **argv)
         requests[i].id = i;
         connections[i].request = &requests[i];
     }
-    for (unsigned i = 0; i < 4; ++i) {
+    for (unsigned i = 0; i < workers; ++i) {
         assert(pthread_create(&server.workers[i], NULL, nc_worker, &server.pools[0]) == 0);
         ++server.worker_count;
     }
     pthread_mutex_lock(&server.startup_lock);
-    while (server.ready_count < 4)
+    while ((unsigned)server.ready_count < workers)
         pthread_cond_wait(&server.startup_ready, &server.startup_lock);
     pthread_mutex_unlock(&server.startup_lock);
 
@@ -107,6 +123,7 @@ int main(int argc, char **argv)
     } else {
         enqueue(connections, 0, 32);
         wait_for(&executions, 1);
+        second_enqueued = nc_now();
         enqueue(connections, 32, 32);
         wait_for(&executions, 2);
         pthread_mutex_lock(&test_lock);
@@ -121,9 +138,10 @@ int main(int argc, char **argv)
         for (unsigned i = 0; i < 64; ++i) assert(seen[i] == 1);
         assert(server.read_max_batch <= 32);
     }
+    assert(server.pools[0].executing == 0);
     close(server.completion_fd);
-    printf("PASS: gather serial=%d early_stop=%d handled=%u batches=%llu concurrent=%u\n",
-           server.serial_read_gather, shutdown_early, handled,
+    printf("PASS: gather serial=%d adaptive=%d workers=%u early_stop=%d handled=%u batches=%llu concurrent=%u\n",
+           server.serial_read_gather, server.adaptive_read_gather, workers, shutdown_early, handled,
            (unsigned long long)server.read_batches, max_active);
     return 0;
 }

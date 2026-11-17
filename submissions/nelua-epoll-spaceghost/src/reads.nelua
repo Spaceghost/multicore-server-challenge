@@ -58,7 +58,9 @@ SELECT c.id, c.body, c.created_at, c.updated_at, u.username, u.bio, u.image,
 
 local q_list_all: cstring <comptime> = [[
 WITH page AS MATERIALIZED (
-    SELECT id FROM (SELECT a.id FROM public.articles a ORDER BY a.id DESC LIMIT 100 OFFSET $3::bigint) bounded LIMIT $2::bigint
+    SELECT id FROM (SELECT a.id FROM public.articles a ORDER BY a.id DESC LIMIT 100 OFFSET $3::bigint) bounded LIMIT CASE WHEN $3::bigint=0 OR $3::numeric <
+      (SELECT COALESCE(max(id)::numeric-min(id)::numeric+1,0) FROM public.articles)
+      THEN $2::bigint ELSE 0 END
 ), capped AS MATERIALIZED (
     SELECT count(*) AS n FROM (SELECT 1 FROM public.articles LIMIT 1000) counted
 )
@@ -80,7 +82,9 @@ local q_list_tag: cstring <comptime> = [[
 WITH page AS MATERIALIZED (
     SELECT id FROM (SELECT at.article_id AS id FROM public.article_tags at
        WHERE at.tag_id=(SELECT t.id FROM public.tags t WHERE t.name=$4::text)
-       ORDER BY at.article_id DESC LIMIT 100 OFFSET $3::bigint) bounded LIMIT $2::bigint
+       ORDER BY at.article_id DESC LIMIT 100 OFFSET $3::bigint) bounded LIMIT CASE WHEN $3::bigint=0 OR $3::numeric <
+      (SELECT COALESCE(max(id)::numeric-min(id)::numeric+1,0) FROM public.articles)
+      THEN $2::bigint ELSE 0 END
 ), capped AS MATERIALIZED (
     SELECT count(*) AS n FROM (SELECT 1 FROM public.article_tags at
        WHERE at.tag_id=(SELECT t.id FROM public.tags t WHERE t.name=$4::text) LIMIT 1000) counted
@@ -103,7 +107,9 @@ local q_list_author: cstring <comptime> = [[
 WITH page AS MATERIALIZED (
     SELECT id FROM (SELECT a.id FROM public.articles a
        WHERE a.author_id=(SELECT u.id FROM public.users u WHERE u.username=$4::text)
-       ORDER BY a.id DESC LIMIT 100 OFFSET $3::bigint) bounded LIMIT $2::bigint
+       ORDER BY a.id DESC LIMIT 100 OFFSET $3::bigint) bounded LIMIT CASE WHEN $3::bigint=0 OR $3::numeric <
+      (SELECT COALESCE(max(id)::numeric-min(id)::numeric+1,0) FROM public.articles)
+      THEN $2::bigint ELSE 0 END
 ), capped AS MATERIALIZED (
     SELECT count(*) AS n FROM (SELECT 1 FROM public.articles a
        WHERE a.author_id=(SELECT u.id FROM public.users u WHERE u.username=$4::text) LIMIT 1000) counted
@@ -126,7 +132,9 @@ local q_list_favorite: cstring <comptime> = [[
 WITH page AS MATERIALIZED (
     SELECT id FROM (SELECT f.article_id AS id FROM public.favorites f
        WHERE f.user_id=(SELECT u.id FROM public.users u WHERE u.username=$4::text)
-       ORDER BY f.article_id DESC LIMIT 100 OFFSET $3::bigint) bounded LIMIT $2::bigint
+       ORDER BY f.article_id DESC LIMIT 100 OFFSET $3::bigint) bounded LIMIT CASE WHEN $3::bigint=0 OR $3::numeric <
+      (SELECT COALESCE(max(id)::numeric-min(id)::numeric+1,0) FROM public.articles)
+      THEN $2::bigint ELSE 0 END
 ), capped AS MATERIALIZED (
     SELECT count(*) AS n FROM (SELECT 1 FROM public.favorites f
        WHERE f.user_id=(SELECT u.id FROM public.users u WHERE u.username=$4::text) LIMIT 1000) counted
@@ -152,7 +160,9 @@ WITH page AS MATERIALIZED (
             ORDER BY a2.id DESC
             LIMIT LEAST($2::numeric+$3::numeric,9223372036854775807)::bigint
        ) x WHERE fo.follower_id=$1::bigint
-       ORDER BY x.id DESC LIMIT 100 OFFSET $3::bigint) bounded LIMIT $2::bigint
+       ORDER BY x.id DESC LIMIT 100 OFFSET $3::bigint) bounded LIMIT CASE WHEN $3::bigint=0 OR $3::numeric <
+      (SELECT COALESCE(max(id)::numeric-min(id)::numeric+1,0) FROM public.articles)
+      THEN $2::bigint ELSE 0 END
 ), capped AS MATERIALIZED (
     SELECT count(*) AS n FROM (SELECT 1 FROM public.articles a
        WHERE a.author_id IN (SELECT fo.followee_id FROM public.follows fo WHERE fo.follower_id=$1::bigint) LIMIT 1000) counted

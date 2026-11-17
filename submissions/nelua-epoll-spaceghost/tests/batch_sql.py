@@ -271,6 +271,22 @@ def feed_overlap_checks(db, query):
     return sum(map(len,groups))
 
 
+
+def offset_bound_checks(db, query):
+    # The ID span bounds row count even with gaps and negative IDs. Cast before
+    # subtracting so the full signed-bigint domain cannot overflow the guard.
+    db.execute("INSERT INTO public.articles(id,slug,author_id,title,description,body) VALUES "
+               "(-9223372036854775808,'bound-min',1,'bound','bound','bound'),"
+               "(9223372036854775807,'bound-max',1,'bound','bound','bound')")
+    cases = [("",1,1,0),("",1,20,1000),("",1,1,MAX_OFFSET)]
+    try:
+        check_page_group(db,query,"global",cases)
+    finally:
+        db.execute("DELETE FROM public.articles WHERE slug IN ('bound-min','bound-max')")
+    print("PASS: ID-span guard preserves pages with gaps, negative IDs and signed-bigint extremes",flush=True)
+    return len(cases)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--generated-c", type=Path, default=ROOT/"build/app.c")
@@ -285,6 +301,7 @@ def main():
     lookup_checks(db,queries)
     page_checks(db,queries)
     extra_pages = feed_overlap_checks(db,queries["feed"])
+    extra_pages += offset_bound_checks(db,queries["global"])
     print(f"PASS: {CHECKS} assertions; 14 lookup/comment and {29 + extra_pages} page requests match SQL oracles",flush=True)
 
 

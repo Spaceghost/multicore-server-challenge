@@ -65,6 +65,7 @@ bool nc_db_pipeline_begin(nc_db *db);
 bool nc_db_pipeline_staging(nc_db *db);
 bool nc_db_pipeline_flush(nc_db *db);
 void nc_db_pipeline_end(nc_db *db);
+bool nc_db_read_coalesce(nc_db *db);
 bool nc_tx(nc_db *db, const char *command);
 bool nc_db_ok(nc_result *result);
 bool nc_db_unique(nc_result *result);
